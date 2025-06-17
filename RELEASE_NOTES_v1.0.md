@@ -63,19 +63,16 @@ aetherpost/
 git clone https://github.com/fununnn/aetherpost.git
 cd aetherpost
 
-# Install dependencies
-pip install -r requirements-oss.txt
-pip install -e .
-
-# Initialize configuration (super simple!)
+# One command does everything!
 aetherpost init
+# ↑ Installs dependencies + configures platforms automatically
 ```
 
 ### Platform Setup
 ```bash
-# Configure credentials
-cp .env.example .env
-# Edit .env with your API credentials
+# Configure credentials (already created by aetherpost init)
+cp .aetherpost/.env.template .env.aetherpost
+# Edit .env.aetherpost with your API credentials
 
 # Test configuration
 aetherpost doctor

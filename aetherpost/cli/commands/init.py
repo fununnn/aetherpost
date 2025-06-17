@@ -311,6 +311,19 @@ __pycache__/
     
     console.print(f"\n✅ [green]AetherPost workspace initialized successfully![/green]")
     console.print(f"📁 Configuration created in: [cyan].aetherpost/[/cyan]")
+    
+    # Auto-install dependencies if requirements file exists
+    if Path("requirements-oss.txt").exists():
+        console.print(f"\n📦 [yellow]Installing dependencies automatically...[/yellow]")
+        import subprocess
+        try:
+            subprocess.run(["pip", "install", "-r", "requirements-oss.txt"], check=True, capture_output=True)
+            subprocess.run(["pip", "install", "-e", "."], check=True, capture_output=True)
+            console.print(f"✅ [green]Dependencies installed successfully![/green]")
+        except subprocess.CalledProcessError:
+            console.print(f"⚠️ [yellow]Dependencies installation failed. Please run manually:[/yellow]")
+            console.print(f"   pip install -r requirements-oss.txt")
+            console.print(f"   pip install -e .")
 
 
 def get_backend_config(backend: str) -> dict:

@@ -33,9 +33,10 @@
 <p>``<code>bash
 <h1>Clone the repository</h1>
 git clone https://github.com/fununnn/aetherpost.git
-cd aetherpost</p>
-<h1>Install with pip</h1>
-pip install -e .
+cd aetherpost
+
+# One command setup!
+aetherpost init
 </code>`<code>
 <h2>System Requirements</h2>
 <ul><li><strong>Python</strong>: 3.8 or higher</li></ul>
@@ -49,13 +50,9 @@ pip install -e .
 <h1>1. Clone the repository</h1>
 git clone https://github.com/fununnn/aetherpost.git
 cd aetherpost
-<h1>2. Create virtual environment</h1>
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-<h1>3. Install dependencies</h1>
-pip install -r requirements-oss.txt
-<h1>4. Install AetherPost</h1>
-pip install -e .
+
+# One command setup - handles everything!
+aetherpost init
 <h1>5. Verify installation</h1>
 aetherpost --help
 </code>`<code>
