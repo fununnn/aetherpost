@@ -47,8 +47,8 @@ aetherpost setup wizard
 ### Usage
 
 ```bash
-# Create campaign
-aetherpost init myapp --quick
+# Create campaign (super simple!)
+aetherpost init
 
 # Preview content
 aetherpost plan

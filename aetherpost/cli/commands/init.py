@@ -19,32 +19,35 @@ init_app = typer.Typer()
 @init_app.command()
 def main(
     name: Optional[str] = typer.Argument(None, help="Project name"),
-    quick: bool = typer.Option(False, "--quick", "-q", help="Quick setup with defaults"),
-    template: str = typer.Option("production", "--template", "-t", 
+    quick: bool = typer.Option(True, "--quick/--interactive", "-q", help="Quick setup with defaults (default: True)"),
+    template: str = typer.Option("starter", "--template", "-t", 
                                 help="Template type (starter, production, enterprise)"),
     example: bool = typer.Option(False, "--example", help="Show configuration examples"),
     backend: str = typer.Option("local", "--backend", "-b", 
                                help="Backend type (local, aws, cloud)"),
     upgrade: bool = typer.Option(False, "--upgrade", help="Upgrade existing configuration"),
 ):
-    """Initialize AetherPost workspace (like 'terraform init')."""
+    """Initialize AetherPost workspace - Simple and quick by default."""
     
     if example:
         show_examples()
         return
     
     # Welcome banner
-    console.print(Panel(
-        "[bold blue]🚀 AetherPost Initialization[/bold blue]\n\n"
-        "[dim]Promotion as Code - Terraform for Social Media[/dim]\n\n"
-        "This will initialize your AetherPost workspace with:\n"
-        "• Configuration files (.aetherpost/)\n"
-        "• Platform connections\n"
-        "• State management\n"
-        "• Deployment backend",
-        title="AetherPost Init",
-        border_style="blue"
-    ))
+    if quick:
+        console.print("🚀 [bold blue]AetherPost Quick Setup[/bold blue] - Getting you started in 30 seconds!")
+    else:
+        console.print(Panel(
+            "[bold blue]🚀 AetherPost Initialization[/bold blue]\n\n"
+            "[dim]AI-powered social media automation[/dim]\n\n"
+            "This will initialize your AetherPost workspace with:\n"
+            "• Configuration files (.aetherpost/)\n"
+            "• Platform connections\n"
+            "• State management\n"
+            "• Deployment backend",
+            title="AetherPost Init",
+            border_style="blue"
+        ))
     
     # Check if already initialized
     autopromo_dir = Path(".aetherpost")
@@ -96,7 +99,7 @@ def main(
     selected_platforms = []
     
     if quick:
-        selected_platforms = ["twitter", "youtube"]  # Quick defaults
+        selected_platforms = ["twitter", "reddit"]  # Quick defaults - free platforms
     else:
         console.print("Select platforms to enable:")
         for platform, info in available_platforms.items():
@@ -604,17 +607,17 @@ def show_examples():
     console.print(Panel(
         """[bold]AetherPost Configuration Examples[/bold]
 
-[cyan]1. Quick Personal Project:[/cyan]
-   aetherpost init my-project --quick
+[cyan]1. Super Simple (Default):[/cyan]
+   aetherpost init
 
-[cyan]2. Production Multi-Platform:[/cyan]
-   aetherpost init company-blog --template production
+[cyan]2. Quick Personal Project:[/cyan]
+   aetherpost init my-project
 
-[cyan]3. Enterprise with AWS Backend:[/cyan]
-   aetherpost init enterprise-promo --template enterprise --backend aws
+[cyan]3. Custom Template:[/cyan]
+   aetherpost init --template production --interactive
 
-[cyan]4. Minimal Social Presence:[/cyan]
-   aetherpost init minimal-setup --template starter
+[cyan]4. With Custom Backend:[/cyan]
+   aetherpost init --backend aws --interactive
 
 [yellow]After initialization:[/yellow]
    • Edit .aetherpost/.env.template
@@ -645,9 +648,9 @@ def show_next_steps(name: str, platforms: List[str]):
     
     # Show helpful links
     console.print(f"\n[bold]📚 Helpful Resources:[/bold]")
-    console.print("• Setup Guide: [blue]https://docs.aetherpost.dev/setup[/blue]")
-    console.print("• API Keys Guide: [blue]https://docs.aetherpost.dev/api-keys[/blue]")
-    console.print("• Examples: [blue]https://docs.aetherpost.dev/examples[/blue]")
+    console.print("• Documentation: [blue]https://d3b75mcubdhimz.cloudfront.net[/blue]")
+    console.print("• GitHub: [blue]https://github.com/fununnn/aetherpost[/blue]")
+    console.print("• Examples: [blue]https://d3b75mcubdhimz.cloudfront.net/guides/[/blue]")
 
 
 if __name__ == "__main__":

@@ -67,8 +67,8 @@ cd aetherpost
 pip install -r requirements-oss.txt
 pip install -e .
 
-# Initialize configuration
-aetherpost init main --platforms twitter,reddit,youtube
+# Initialize configuration (super simple!)
+aetherpost init
 ```
 
 ### Platform Setup
