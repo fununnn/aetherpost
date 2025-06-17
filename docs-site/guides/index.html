@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides - AetherPost Documentation</title>
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../" style="text-decoration: none; color: inherit;">
+                    <h1><i class="fas fa-rocket"></i> AetherPost</h1>
+                </a>
+                <span class="beta-badge">OSS</span>
+            </div>
+            <div class="nav-links">
+                <a href="../#quick-start">Quick Start</a>
+                <a href="./" class="active">Guides</a>
+                <a href="../api/">API</a>
+                <a href="../examples/">Examples</a>
+                <a href="https://d3b75mcubdhimz.cloudfront.net" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="installation.html">Installation</a></li>
+                    <li><a href="quickstart.html">Quick Start</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                    <li><a href="first-campaign.html">Your First Campaign</a></li>
+                </ul>
+
+                <h3>Core Concepts</h3>
+                <ul>
+                    <li><a href="campaigns.html">Campaigns</a></li>
+                    <li><a href="platforms.html">Platform Integration</a></li>
+                    <li><a href="content-generation.html">Content Generation</a></li>
+                    <li><a href="scheduling.html">Scheduling & Automation</a></li>
+                </ul>
+
+                <h3>Platform Guides</h3>
+                <ul>
+                    <li><a href="twitter-setup.html">Twitter Setup</a></li>
+                    <li><a href="bluesky-setup.html">Bluesky Setup</a></li>
+                    <li><a href="mastodon-setup.html">Mastodon Setup</a></li>
+                </ul>
+
+                <h3>Advanced Features</h3>
+                <ul>
+                    <li><a href="ai-integration.html">AI Integration</a></li>
+                    <li><a href="templates.html">Templates & Themes</a></li>
+                    <li><a href="analytics.html">Analytics & Insights</a></li>
+                    <li><a href="automation.html">Advanced Automation</a></li>
+                </ul>
+
+                <h3>Development</h3>
+                <ul>
+                    <li><a href="plugin-development.html">Plugin Development</a></li>
+                    <li><a href="cli-reference.html">CLI Reference</a></li>
+                    <li><a href="contributing.html">Contributing</a></li>
+                    <li><a href="testing.html">Testing</a></li>
+                </ul>
+
+                <h3>Deployment</h3>
+                <ul>
+                    <li><a href="ci-cd.html">CI/CD Integration</a></li>
+                    <li><a href="docker.html">Docker Deployment</a></li>
+                    <li><a href="cloud-setup.html">Cloud Setup</a></li>
+                    <li><a href="monitoring.html">Monitoring</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-header">
+                <h1>📚 AetherPost Guides</h1>
+                <p>Comprehensive guides to help you master social media automation with AetherPost.</p>
+            </div>
+
+            <div class="guide-grid">
+                <div class="guide-category">
+                    <h2><i class="fas fa-play"></i> Getting Started</h2>
+                    <p>Everything you need to get up and running with AetherPost.</p>
+                    
+                    <div class="guide-cards">
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-download"></i>
+                            </div>
+                            <h3><a href="installation.html">Installation</a></h3>
+                            <p>Install AetherPost on your system using pip, Docker, or from source.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty easy">Easy</span>
+                                <span class="time">5 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-zap"></i>
+                            </div>
+                            <h3><a href="quickstart.html">Quick Start</a></h3>
+                            <p>Create and deploy your first social media campaign in under 5 minutes.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty easy">Easy</span>
+                                <span class="time">5 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-cog"></i>
+                            </div>
+                            <h3><a href="configuration.html">Configuration</a></h3>
+                            <p>Learn how to configure AetherPost for your specific needs.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">15 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3><a href="first-campaign.html">Your First Campaign</a></h3>
+                            <p>Step-by-step guide to creating and launching your first campaign.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty easy">Easy</span>
+                                <span class="time">10 minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guide-category">
+                    <h2><i class="fas fa-puzzle-piece"></i> Core Concepts</h2>
+                    <p>Understand the fundamental concepts behind AetherPost.</p>
+                    
+                    <div class="guide-cards">
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <h3><a href="campaigns.html">Campaigns</a></h3>
+                            <p>Learn how to design, configure, and manage social media campaigns.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">20 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <h3><a href="platforms.html">Platform Integration</a></h3>
+                            <p>Connect and optimize content for different social media platforms.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">25 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <h3><a href="content-generation.html">Content Generation</a></h3>
+                            <p>Master AI-powered content creation and optimization techniques.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">30 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h3><a href="scheduling.html">Scheduling & Automation</a></h3>
+                            <p>Set up automated posting schedules and recurring campaigns.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">20 minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guide-category">
+                    <h2><i class="fas fa-share"></i> Platform Setup</h2>
+                    <p>Detailed setup guides for each supported social media platform.</p>
+                    
+                    <div class="guide-cards">
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <h3><a href="twitter-setup.html">Twitter Setup</a></h3>
+                            <p>Configure Twitter API credentials and optimize for Twitter's features.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">15 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <h3><a href="bluesky-setup.html">Bluesky Setup</a></h3>
+                            <p>Connect to Bluesky and leverage its unique features.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty easy">Easy</span>
+                                <span class="time">10 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fab fa-mastodon"></i>
+                            </div>
+                            <h3><a href="mastodon-setup.html">Mastodon Setup</a></h3>
+                            <p>Set up Mastodon integration for the fediverse.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">15 minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guide-category">
+                    <h2><i class="fas fa-graduation-cap"></i> Advanced Features</h2>
+                    <p>Unlock the full power of AetherPost with advanced features.</p>
+                    
+                    <div class="guide-cards">
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3><a href="ai-integration.html">AI Integration</a></h3>
+                            <p>Set up and customize AI providers for intelligent content generation.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty hard">Advanced</span>
+                                <span class="time">30 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3><a href="templates.html">Templates & Themes</a></h3>
+                            <p>Create custom templates and themes for consistent branding.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">25 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3><a href="analytics.html">Analytics & Insights</a></h3>
+                            <p>Track performance and optimize your campaigns with detailed analytics.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">20 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <h3><a href="automation.html">Advanced Automation</a></h3>
+                            <p>Build complex automation workflows and triggers.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty hard">Advanced</span>
+                                <span class="time">45 minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guide-category">
+                    <h2><i class="fas fa-code"></i> Development</h2>
+                    <p>Extend AetherPost and contribute to the project.</p>
+                    
+                    <div class="guide-cards">
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-plug"></i>
+                            </div>
+                            <h3><a href="plugin-development.html">Plugin Development</a></h3>
+                            <p>Build custom plugins to extend AetherPost's functionality.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty hard">Advanced</span>
+                                <span class="time">60 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-terminal"></i>
+                            </div>
+                            <h3><a href="cli-reference.html">CLI Reference</a></h3>
+                            <p>Complete reference for all AetherPost CLI commands and options.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">Reference</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3><a href="contributing.html">Contributing</a></h3>
+                            <p>Learn how to contribute code, documentation, and ideas to AetherPost.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty medium">Medium</span>
+                                <span class="time">15 minutes</span>
+                            </div>
+                        </div>
+
+                        <div class="guide-card">
+                            <div class="guide-icon">
+                                <i class="fas fa-vial"></i>
+                            </div>
+                            <h3><a href="testing.html">Testing</a></h3>
+                            <p>Write and run tests for your AetherPost configurations and plugins.</p>
+                            <div class="guide-meta">
+                                <span class="difficulty hard">Advanced</span>
+                                <span class="time">30 minutes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="help-section">
+                <h2>Need Help?</h2>
+                <div class="help-cards">
+                    <div class="help-card">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub Issues</h3>
+                        <p>Report bugs or request features</p>
+                        <a href="https://d3b75mcubdhimz.cloudfront.net/issues">Open an Issue</a>
+                    </div>
+                    <div class="help-card">
+                        <i class="fas fa-comments"></i>
+                        <h3>Discussions</h3>
+                        <p>Ask questions and share ideas</p>
+                        <a href="https://d3b75mcubdhimz.cloudfront.net/discussions">Join Discussion</a>
+                    </div>
+                    <div class="help-card">
+                        <i class="fab fa-discord"></i>
+                        <h3>Discord</h3>
+                        <p>Real-time community support</p>
+                        <a href="https://discord.gg/aetherpost">Join Discord</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/main.js"></script>
+    <style>
+        .docs-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: calc(100vh - 4rem);
+            margin-top: 4rem;
+        }
+
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 0;
+            position: sticky;
+            top: 4rem;
+            height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+
+        .sidebar-content {
+            padding: 0 1.5rem;
+        }
+
+        .sidebar h3 {
+            color: var(--text-color);
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 2rem 0 0.5rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sidebar h3:first-child {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar li {
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 0.375rem;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .main-content {
+            padding: 2rem;
+            max-width: none;
+        }
+
+        .content-header {
+            margin-bottom: 3rem;
+        }
+
+        .content-header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .content-header p {
+            font-size: 1.125rem;
+            color: var(--text-light);
+        }
+
+        .guide-category {
+            margin-bottom: 4rem;
+        }
+
+        .guide-category h2 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .guide-category > p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .guide-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .guide-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .guide-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .guide-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .guide-card h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .guide-card h3 a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .guide-card h3 a:hover {
+            color: var(--primary-color);
+        }
+
+        .guide-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .guide-meta {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .difficulty {
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .difficulty.easy {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .difficulty.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .difficulty.hard {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .time {
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .help-section {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 0.75rem;
+        }
+
+        .help-section h2 {
+            text-align: center;
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .help-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .help-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .help-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .help-card h3 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .help-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .help-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .help-card a:hover {
+            color: var(--primary-dark);
+        }
+
+        @media (max-width: 768px) {
+            .docs-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .guide-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

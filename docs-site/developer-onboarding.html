@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Guide - AetherPost Documentation</title>
+    <meta name="description" content="Complete guide for developers contributing to AetherPost">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="../index.html">🚀 AetherPost</a></h1>
+                <span class="tagline">Promotion as Code</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="contributing.html">Contributing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="doc-page">
+                <h1>AetherPost Developer Onboarding Guide</h1>
+<h2>Welcome to AetherPost! 🚀</h2>
+<p>AetherPost is an enterprise-grade social media automation platform that helps businesses manage their content across multiple platforms efficiently.</p>
+<h2>Quick Start (5 minutes)</h2>
+<h3>1. Clone and Setup</h3>
+``<code>bash
+<h1>Clone repository</h1>
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+<h1>Create virtual environment</h1>
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+<h1>Install dependencies</h1>
+pip install -r requirements.txt
+pip install -e .
+</code>`<code>
+<h3>2. Run Your First Command</h3>
+</code>`<code>bash
+<h1>Initialize AetherPost</h1>
+aetherpost init
+<h1>Create a test post</h1>
+aetherpost post "Hello from AetherPost!" --platform twitter
+</code>`<code>
+<h2>Architecture Overview</h2>
+</code>`<code>
+aetherpost/
+├── aetherpost/
+│   ├── core/           # Core functionality
+│   ├── plugins/        # Platform connectors
+│   ├── cli/            # Command-line interface
+│   └── utils/          # Shared utilities
+├── tests/              # Test suite
+├── docs/               # Documentation
+└── examples/           # Usage examples
+</code>`<code>
+<h2>Core Concepts</h2>
+<h3>1. Campaigns</h3>
+Organize your content strategy:
+</code>`<code>yaml
+<h1>campaign.yaml</h1>
+name: "Product Launch"
+schedule:
+  start_date: "2025-01-20"
+  frequency: "daily"
+  
+posts:
+  - content: "Exciting news coming soon!"
+    platforms: ["twitter", "linkedin"]
+</code>`<code>
+<h3>2. Platform Connectors</h3>
+Each platform has its own connector:
+</code>`<code>python
+<h1>Example: Creating a custom connector</h1>
+from aetherpost.plugins.base import BaseConnector
+<p>class MyPlatformConnector(BaseConnector):
+    def post(self, content, media=None):
+        # Your implementation
+        pass
+</code>`<code></p>
+<h3>3. Content Generation</h3>
+AI-powered content creation:
+</code>`<code>python
+from aetherpost.core.content import ContentGenerator
+<p>generator = ContentGenerator()
+content = generator.create(
+    topic="Tech Innovation",
+    tone="professional",
+    length=280
+)
+</code>`<code></p>
+<h2>Development Workflow</h2>
+<h3>1. Feature Development</h3>
+</code>`<code>bash
+<h1>Create feature branch</h1>
+git checkout -b feature/new-platform
+<h1>Make changes</h1>
+<h1>Write tests</h1>
+<h1>Run tests</h1>
+pytest tests/
+<h1>Submit PR</h1>
+git push origin feature/new-platform
+</code>`<code>
+<h3>2. Testing</h3>
+</code>`<code>bash
+<h1>Run all tests</h1>
+pytest
+<h1>Run specific test</h1>
+pytest tests/test_connectors.py::test_twitter
+<h1>Check coverage</h1>
+pytest --cov=aetherpost
+</code>`<code>
+<h3>3. Code Style</h3>
+</code>`<code>bash
+<h1>Format code</h1>
+black aetherpost/
+<h1>Lint</h1>
+flake8 aetherpost/
+<h1>Type checking</h1>
+mypy aetherpost/
+</code>`<code>
+<h2>Adding a New Platform</h2>
+<h3>Step 1: Create Connector</h3>
+</code>`<code>python
+<h1>aetherpost/plugins/connectors/newplatform/connector.py</h1>
+from aetherpost.plugins.base import BaseConnector
+<p>class NewPlatformConnector(BaseConnector):
+    def __init__(self, config):
+        super().__init__(config)
+        self.api = self._setup_api()
+    
+    def post(self, content, media=None):
+        return self.api.create_post(content, media)
+    
+    def delete(self, post_id):
+        return self.api.delete_post(post_id)
+</code>`<code></p>
+<h3>Step 2: Add Configuration</h3>
+</code>`<code>python
+<h1>aetherpost/plugins/connectors/newplatform/config.py</h1>
+from pydantic import BaseModel
+<p>class NewPlatformConfig(BaseModel):
+    api_key: str
+    api_secret: str
+    base_url: str = "https://api.newplatform.com"
+</code>`<code></p>
+<h3>Step 3: Register Plugin</h3>
+</code>`<code>python
+<h1>aetherpost/plugins/registry.py</h1>
+AVAILABLE_PLUGINS = {
+    "twitter": "aetherpost.plugins.connectors.twitter",
+    "newplatform": "aetherpost.plugins.connectors.newplatform",
+}
+</code>`<code>
+<h2>Common Tasks</h2>
+<h3>Running Locally</h3>
+</code>`<code>bash
+<h1>Start development server</h1>
+aetherpost server --debug
+<h1>Watch for changes</h1>
+aetherpost dev --reload
+</code>`<code>
+<h3>Database Operations</h3>
+</code>`<code>bash
+<h1>Initialize database</h1>
+aetherpost db init
+<h1>Run migrations</h1>
+aetherpost db migrate
+<h1>Seed test data</h1>
+aetherpost db seed
+</code>`<code>
+<h3>Debugging</h3>
+</code>`<code>python
+<h1>Enable debug logging</h1>
+import logging
+logging.basicConfig(level=logging.DEBUG)
+<h1>Use built-in debugger</h1>
+import pdb; pdb.set_trace()
+</code>`<code>
+<h2>API Reference Quick Links</h2>
+<ul><li><a href="./api-reference/core.md">Core API</a></li></ul>
+<ul><li><a href="./api-reference/plugins.md">Plugin API</a></li></ul>
+<ul><li><a href="./api-reference/cli.md">CLI Commands</a></li></ul>
+<ul><li><a href="./api-reference/config.md">Configuration</a></li></ul>
+<h2>Troubleshooting</h2>
+<h3>Common Issues</h3>
+<p>1. <strong>Import Errors</strong>
+   </code>`<code>bash
+   # Ensure package is installed in development mode
+   pip install -e .
+   </code>`<code></p>
+<p>2. <strong>API Rate Limits</strong>
+   </code>`<code>python
+   # Use built-in rate limiting
+   from aetherpost.utils.rate_limit import RateLimiter
+   
+   limiter = RateLimiter(calls=100, period=3600)
+   </code>`<code></p>
+<p>3. <strong>Authentication Failures</strong>
+   </code>`<code>bash
+   # Re-authenticate
+   aetherpost auth refresh --platform twitter
+   </code>``</p>
+<h2>Getting Help</h2>
+<ul><li>📖 <a href="https://docs.aetherpost.dev">Full Documentation</a></li></ul>
+<ul><li>💬 <a href="https://discord.gg/aetherpost">Discord Community</a></li></ul>
+<ul><li>🐛 <a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issue Tracker</a></li></ul>
+<ul><li>📧 Email: dev@aetherpost.dev</li></ul>
+<h2>Next Steps</h2>
+<p>1. ✅ Complete the <a href="./tutorials/first-campaign.md">Tutorial</a>
+2. 📚 Read the <a href="./architecture.md">Architecture Guide</a>
+3. 🤝 Review <a href="./contributing.md">Contributing Guidelines</a>
+4. 🎯 Pick a <a href="https://d3b75mcubdhimz.cloudfront.net/labels/good%20first%20issue">Good First Issue</a></p>
+<p>Welcome aboard! We're excited to have you contributing to AetherPost! 🎉</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AetherPost</h3>
+                    <p>Making social media automation accessible to developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="api-reference.html">API Reference</a></li>
+                            <li><a href="configuration.html">Configuration</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="contributing.html">Contributing</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net">GitHub</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AetherPost. Licensed under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

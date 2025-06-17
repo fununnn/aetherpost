@@ -1,0 +1,29 @@
+# AetherPost OSS Edition - Core Dependencies Only
+# Lightweight dependencies for community version
+
+# Core CLI and Framework
+typer>=0.9.0
+rich>=13.0.0
+pydantic>=2.0.0
+PyYAML>=6.0
+python-dotenv>=1.0.0
+click>=8.0.0
+
+# Async and HTTP (basic)
+aiohttp>=3.8.0
+requests>=2.31.0
+
+# Security (essential)
+cryptography>=41.0.0
+
+# AI Providers (basic tiers)
+# Note: Users need to provide their own API keys
+anthropic>=0.25.0  # [AI Service] API
+openai>=1.0.0      # OpenAI API
+
+# Core Social Media APIs
+tweepy>=4.14.0        # Twitter/X
+atproto>=0.0.40       # Bluesky AT Protocol
+
+# Optional: Additional platforms (users can install as needed)
+# Mastodon.py>=1.8.0  # Uncomment for Mastodon support

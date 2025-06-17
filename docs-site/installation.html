@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation - AetherPost Documentation</title>
+    <meta name="description" content="Installation guide for AetherPost">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="../index.html">🚀 AetherPost</a></h1>
+                <span class="tagline">Promotion as Code</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="contributing.html">Contributing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="doc-page">
+                <h1>Installation Guide</h1>
+<p>This guide covers installing AetherPost OSS on different platforms.</p>
+<h2>Quick Install</h2>
+<p>``<code>bash
+<h1>Clone the repository</h1>
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost</p>
+<h1>Install with pip</h1>
+pip install -e .
+</code>`<code>
+<h2>System Requirements</h2>
+<ul><li><strong>Python</strong>: 3.8 or higher</li></ul>
+<ul><li><strong>Operating System</strong>: Linux, macOS, Windows</li></ul>
+<ul><li><strong>Memory</strong>: 512MB RAM minimum</li></ul>
+<ul><li><strong>Disk Space</strong>: 100MB for installation</li></ul>
+<ul><li><strong>Network</strong>: Internet connection for AI APIs and social media</li></ul>
+<h2>Installation Methods</h2>
+<h3>Method 1: From Source (Recommended)</h3>
+</code>`<code>bash
+<h1>1. Clone the repository</h1>
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+<h1>2. Create virtual environment</h1>
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+<h1>3. Install dependencies</h1>
+pip install -r requirements-oss.txt
+<h1>4. Install AetherPost</h1>
+pip install -e .
+<h1>5. Verify installation</h1>
+aetherpost --help
+</code>`<code>
+<h3>Method 2: Using pip (When Available)</h3>
+</code>`<code>bash
+<h1>Install from PyPI (when published)</h1>
+pip install aetherpost
+<h1>Verify installation</h1>
+aetherpost --help
+</code>`<code>
+<h3>Method 3: Using pipx (Isolated Installation)</h3>
+</code>`<code>bash
+<h1>Install pipx if not available</h1>
+pip install pipx
+<h1>Install AetherPost in isolated environment</h1>
+pipx install aetherpost
+<h1>Verify installation</h1>
+aetherpost --help
+</code>`<code>
+<h2>Platform-Specific Instructions</h2>
+<h3>Ubuntu/Debian</h3>
+</code>`<code>bash
+<h1>Update package list</h1>
+sudo apt update
+<h1>Install Python and pip</h1>
+sudo apt install python3 python3-pip python3-venv git
+<h1>Follow standard installation</h1>
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements-oss.txt
+pip install -e .
+</code>`<code>
+<h3>CentOS/RHEL/Fedora</h3>
+</code>`<code>bash
+<h1>Install Python and git</h1>
+sudo dnf install python3 python3-pip git  # Fedora
+<h1>sudo yum install python3 python3-pip git  # CentOS/RHEL</h1>
+<h1>Follow standard installation</h1>
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements-oss.txt
+pip install -e .
+</code>`<code>
+<h3>macOS</h3>
+</code>`<code>bash
+<h1>Install Homebrew if not available</h1>
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+<h1>Install Python</h1>
+brew install python git
+<h1>Follow standard installation</h1>
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements-oss.txt
+pip install -e .
+</code>`<code>
+<h3>Windows</h3>
+</code>`<code>powershell
+<h1>Install Python from https://python.org</h1>
+<h1>Make sure to check "Add Python to PATH"</h1>
+<h1>Install Git from https://git-scm.com</h1>
+<h1>Clone and install</h1>
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements-oss.txt
+pip install -e .
+</code>`<code>
+<h2>Docker Installation</h2>
+</code>`<code>bash
+<h1>Build Docker image</h1>
+docker build -t aetherpost .
+<h1>Run with volume mount for configuration</h1>
+docker run -it --rm \
+  -v $(pwd):/workspace \
+  -v ~/.aetherpost:/root/.aetherpost \
+  aetherpost
+</code>`<code>
+<h2>Post-Installation Setup</h2>
+<h3>1. Verify Installation</h3>
+</code>`<code>bash
+aetherpost --help
+aetherpost version  # Should show version info
+</code>`<code>
+<h3>2. Initial Configuration</h3>
+</code>`<code>bash
+<h1>Run setup wizard</h1>
+aetherpost setup wizard
+<h1>Or manual setup</h1>
+aetherpost init
+</code>`<code>
+<h3>3. Configure API Keys</h3>
+</code>`<code>bash
+<h1>Interactive setup</h1>
+aetherpost auth setup
+<h1>Manual setup</h1>
+export OPENAI_API_KEY="your-openai-key"
+export AI_API_KEY="your-[AI Service]-key"
+</code>`<code>
+<h2>Troubleshooting</h2>
+<h3>Common Issues</h3>
+<h4>1. Permission Errors</h4>
+</code>`<code>bash
+<h1>Use --user flag for pip</h1>
+pip install --user -r requirements-oss.txt
+<h1>Or fix permissions</h1>
+sudo chown -R $USER ~/.local
+</code>`<code>
+<h4>2. Python Version Issues</h4>
+</code>`<code>bash
+<h1>Check Python version</h1>
+python --version
+<h1>Use python3 explicitly if needed</h1>
+python3 -m pip install -r requirements-oss.txt
+</code>`<code>
+<h4>3. Missing System Dependencies</h4>
+</code>`<code>bash
+<h1>Ubuntu/Debian</h1>
+sudo apt install build-essential python3-dev
+<h1>CentOS/RHEL</h1>
+sudo yum groupinstall "Development Tools"
+sudo yum install python3-devel
+<h1>macOS</h1>
+xcode-select --install
+</code>`<code>
+<h4>4. Virtual Environment Issues</h4>
+</code>`<code>bash
+<h1>Remove and recreate venv</h1>
+rm -rf venv
+python3 -m venv venv
+source venv/bin/activate
+pip install --upgrade pip
+pip install -r requirements-oss.txt
+</code>`<code>
+<h3>Getting Help</h3>
+<ul><li><strong>Documentation</strong>: https://docs.aetherpost.dev</li></ul>
+<ul><li><strong>Issues</strong>: https://d3b75mcubdhimz.cloudfront.net/issues</li></ul>
+<ul><li><strong>Discussions</strong>: https://d3b75mcubdhimz.cloudfront.net/discussions</li></ul>
+<h2>Upgrading</h2>
+<h3>From Git</h3>
+</code>`<code>bash
+cd aetherpost
+git pull origin main
+pip install -r requirements-oss.txt
+pip install -e .
+</code>`<code>
+<h3>From PyPI</h3>
+</code>`<code>bash
+pip install --upgrade aetherpost
+</code>`<code>
+<h2>Uninstallation</h2>
+</code>`<code>bash
+<h1>Remove package</h1>
+pip uninstall aetherpost
+<h1>Remove configuration (optional)</h1>
+rm -rf ~/.aetherpost
+<h1>Remove virtual environment</h1>
+rm -rf venv
+</code>``
+<h2>Next Steps</h2>
+<p>After installation:</p>
+<p>1. <a href="platforms.md">Platform Setup</a> - Configure social media platforms
+2. <a href="ai-providers.md">AI Provider Setup</a> - Configure AI services
+3. <a href="examples.md#first-campaign">First Campaign</a> - Create your first campaign
+4. <a href="configuration.md">Configuration Reference</a> - Learn about advanced options</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AetherPost</h3>
+                    <p>Making social media automation accessible to developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="api-reference.html">API Reference</a></li>
+                            <li><a href="configuration.html">Configuration</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="contributing.html">Contributing</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net">GitHub</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AetherPost. Licensed under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

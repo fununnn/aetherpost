@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Installation Guide - AetherPost</title>
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../" style="text-decoration: none; color: inherit;">
+                    <h1><i class="fas fa-rocket"></i> AetherPost</h1>
+                </a>
+                <span class="beta-badge">OSS</span>
+            </div>
+            <div class="nav-links">
+                <a href="../#quick-start">Quick Start</a>
+                <a href="./">Guides</a>
+                <a href="../api/">API</a>
+                <a href="../examples/">Examples</a>
+                <a href="https://d3b75mcubdhimz.cloudfront.net" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>Getting Started</h3>
+                <ul>
+                    <li><a href="installation.html" class="active">Installation</a></li>
+                    <li><a href="quickstart.html">Quick Start</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                    <li><a href="first-campaign.html">Your First Campaign</a></li>
+                </ul>
+
+                <h3>Platform Setup</h3>
+                <ul>
+                    <li><a href="twitter-setup.html">Twitter Setup</a></li>
+                    <li><a href="bluesky-setup.html">Bluesky Setup</a></li>
+                    <li><a href="mastodon-setup.html">Mastodon Setup</a></li>
+                </ul>
+
+                <h3>Advanced</h3>
+                <ul>
+                    <li><a href="ai-integration.html">AI Integration</a></li>
+                    <li><a href="plugin-development.html">Plugin Development</a></li>
+                    <li><a href="cli-reference.html">CLI Reference</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-header">
+                <h1><i class="fas fa-download"></i> Installation Guide</h1>
+                <p>Get AetherPost installed on your system with multiple installation methods.</p>
+            </div>
+
+            <div class="installation-content">
+                <div class="method-selector">
+                    <button class="method-btn active" data-method="pip">pip (Recommended)</button>
+                    <button class="method-btn" data-method="git">Git Clone</button>
+                    <button class="method-btn" data-method="docker">Docker</button>
+                    <button class="method-btn" data-method="source">From Source</button>
+                </div>
+
+                <!-- pip Installation -->
+                <div class="installation-method active" id="pip">
+                    <h2>Install with pip</h2>
+                    <p>The easiest way to install AetherPost is using pip. This method works on Windows, macOS, and Linux.</p>
+
+                    <div class="requirements-box">
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Python 3.8 or later</li>
+                            <li>pip (Python package manager)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Step 1: Check Python Version</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('python-version')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="python-version">python --version
+# Should show Python 3.8 or later</code></pre>
+                    </div>
+
+                    <h3>Step 2: Install AetherPost</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('pip-install-command')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="pip-install-command"># Install AetherPost
+pip install aetherpost
+
+# Or install with specific extras
+pip install aetherpost[all]  # All optional dependencies</code></pre>
+                    </div>
+
+                    <h3>Step 3: Verify Installation</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('verify-install')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="verify-install">aetherpost --version
+aetherpost --help</code></pre>
+                    </div>
+
+                    <div class="tip-box">
+                        <i class="fas fa-lightbulb"></i>
+                        <strong>Tip:</strong> Use a virtual environment to avoid conflicts with other Python packages:
+                        <div class="code-block small">
+                            <pre><code>python -m venv aetherpost-env
+source aetherpost-env/bin/activate  # On Windows: aetherpost-env\Scripts\activate
+pip install aetherpost</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Git Clone Installation -->
+                <div class="installation-method" id="git">
+                    <h2>Install from Git</h2>
+                    <p>Install the latest development version directly from GitHub.</p>
+
+                    <div class="requirements-box">
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Git</li>
+                            <li>Python 3.8 or later</li>
+                            <li>pip</li>
+                        </ul>
+                    </div>
+
+                    <h3>Step 1: Clone Repository</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('git-clone')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="git-clone">git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost</code></pre>
+                    </div>
+
+                    <h3>Step 2: Install Dependencies</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('install-deps')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="install-deps"># Install in development mode
+pip install -e .
+
+# Or install with development dependencies
+pip install -e ".[dev]"</code></pre>
+                    </div>
+
+                    <h3>Step 3: Verify Installation</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('verify-git')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="verify-git">python -m aetherpost --version</code></pre>
+                    </div>
+                </div>
+
+                <!-- Docker Installation -->
+                <div class="installation-method" id="docker">
+                    <h2>Install with Docker</h2>
+                    <p>Run AetherPost in a containerized environment with Docker.</p>
+
+                    <div class="requirements-box">
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Docker</li>
+                            <li>Docker Compose (optional)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Option 1: Docker Run</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('docker-run')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="docker-run"># Run AetherPost interactively
+docker run -it --rm aetherpost/aetherpost:latest
+
+# Run with volume for persistent data
+docker run -it --rm \
+  -v $(pwd):/workspace \
+  -w /workspace \
+  aetherpost/aetherpost:latest</code></pre>
+                    </div>
+
+                    <h3>Option 2: Docker Compose</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('docker-compose-yml')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="docker-compose-yml"># Download docker-compose.yml
+curl -O https://raw.githubusercontent.com/your-org/aetherpost/main/docker-compose.yml
+
+# Start AetherPost
+docker-compose up -d</code></pre>
+                    </div>
+
+                    <h3>Custom Docker Build</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('docker-build')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="docker-build"># Clone and build
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+docker build -t my-aetherpost .
+docker run -it my-aetherpost</code></pre>
+                    </div>
+                </div>
+
+                <!-- Source Installation -->
+                <div class="installation-method" id="source">
+                    <h2>Install from Source</h2>
+                    <p>Build and install AetherPost from source code for maximum customization.</p>
+
+                    <div class="requirements-box">
+                        <h3>Requirements</h3>
+                        <ul>
+                            <li>Python 3.8 or later</li>
+                            <li>Git</li>
+                            <li>Build tools (gcc, make, etc.)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Step 1: Clone and Setup</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('source-clone')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="source-clone">git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate</code></pre>
+                    </div>
+
+                    <h3>Step 2: Install Build Dependencies</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('build-deps')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="build-deps"># Install build requirements
+pip install build wheel setuptools
+
+# Install development dependencies
+pip install -r requirements-dev.txt</code></pre>
+                    </div>
+
+                    <h3>Step 3: Build and Install</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyCode('build-install')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                        <pre><code id="build-install"># Build package
+python -m build
+
+# Install built package
+pip install dist/aetherpost-*.whl</code></pre>
+                    </div>
+                </div>
+
+                <!-- Platform-Specific Instructions -->
+                <div class="platform-section">
+                    <h2>Platform-Specific Instructions</h2>
+                    
+                    <div class="platform-tabs">
+                        <button class="platform-tab active" data-platform="windows">Windows</button>
+                        <button class="platform-tab" data-platform="macos">macOS</button>
+                        <button class="platform-tab" data-platform="linux">Linux</button>
+                    </div>
+
+                    <div class="platform-content active" id="windows">
+                        <h3>Windows Installation</h3>
+                        <ol>
+                            <li>Install Python from <a href="https://python.org">python.org</a></li>
+                            <li>Open Command Prompt or PowerShell</li>
+                            <li>Run: <code>pip install aetherpost</code></li>
+                        </ol>
+                        
+                        <div class="warning-box">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <strong>Windows Note:</strong> If you encounter permission errors, try running Command Prompt as Administrator or use <code>pip install --user aetherpost</code>
+                        </div>
+                    </div>
+
+                    <div class="platform-content" id="macos">
+                        <h3>macOS Installation</h3>
+                        <ol>
+                            <li>Install Python via Homebrew: <code>brew install python</code></li>
+                            <li>Or download from <a href="https://python.org">python.org</a></li>
+                            <li>Run: <code>pip3 install aetherpost</code></li>
+                        </ol>
+                        
+                        <div class="tip-box">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>macOS Tip:</strong> You might need to use <code>pip3</code> instead of <code>pip</code> if you have multiple Python versions installed.
+                        </div>
+                    </div>
+
+                    <div class="platform-content" id="linux">
+                        <h3>Linux Installation</h3>
+                        
+                        <h4>Ubuntu/Debian:</h4>
+                        <div class="code-block">
+                            <pre><code>sudo apt update
+sudo apt install python3 python3-pip
+pip3 install aetherpost</code></pre>
+                        </div>
+
+                        <h4>CentOS/RHEL:</h4>
+                        <div class="code-block">
+                            <pre><code>sudo yum install python3 python3-pip
+pip3 install aetherpost</code></pre>
+                        </div>
+
+                        <h4>Arch Linux:</h4>
+                        <div class="code-block">
+                            <pre><code>sudo pacman -S python python-pip
+pip install aetherpost</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting -->
+                <div class="troubleshooting-section">
+                    <h2>Troubleshooting</h2>
+                    
+                    <div class="issue">
+                        <h3>Command not found: aetherpost</h3>
+                        <p>If you get "command not found" after installation:</p>
+                        <ol>
+                            <li>Check if pip installed to user directory: <code>pip show -f aetherpost</code></li>
+                            <li>Add user bin directory to PATH:
+                                <div class="code-block small">
+                                    <pre><code># Linux/macOS
+export PATH="$PATH:$(python -m site --user-base)/bin"
+
+# Windows
+set PATH=%PATH%;%APPDATA%\Python\Python3X\Scripts</code></pre>
+                                </div>
+                            </li>
+                            <li>Or use: <code>python -m aetherpost</code></li>
+                        </ol>
+                    </div>
+
+                    <div class="issue">
+                        <h3>Permission denied errors</h3>
+                        <ul>
+                            <li>Use virtual environment (recommended)</li>
+                            <li>Install to user directory: <code>pip install --user aetherpost</code></li>
+                            <li>On Windows: Run Command Prompt as Administrator</li>
+                        </ul>
+                    </div>
+
+                    <div class="issue">
+                        <h3>Python version conflicts</h3>
+                        <ul>
+                            <li>Use specific Python version: <code>python3.9 -m pip install aetherpost</code></li>
+                            <li>Create virtual environment with specific version: <code>python3.9 -m venv venv</code></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Next Steps -->
+                <div class="next-steps">
+                    <h2>Next Steps</h2>
+                    <div class="step-cards">
+                        <div class="step-card">
+                            <i class="fas fa-zap"></i>
+                            <h3>Quick Start</h3>
+                            <p>Create your first campaign in 5 minutes</p>
+                            <a href="quickstart.html">Get Started →</a>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-cog"></i>
+                            <h3>Configuration</h3>
+                            <p>Configure AetherPost for your needs</p>
+                            <a href="configuration.html">Configure →</a>
+                        </div>
+                        <div class="step-card">
+                            <i class="fas fa-share-alt"></i>
+                            <h3>Platform Setup</h3>
+                            <p>Connect your social media accounts</p>
+                            <a href="twitter-setup.html">Setup Platforms →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        // Installation method selector
+        document.querySelectorAll('.method-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const method = btn.dataset.method;
+                
+                // Update buttons
+                document.querySelectorAll('.method-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.installation-method').forEach(m => m.classList.remove('active'));
+                document.getElementById(method).classList.add('active');
+            });
+        });
+
+        // Platform tabs
+        document.querySelectorAll('.platform-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const platform = tab.dataset.platform;
+                
+                // Update tabs
+                document.querySelectorAll('.platform-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.platform-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(platform).classList.add('active');
+            });
+        });
+    </script>
+
+    <style>
+        .installation-content {
+            max-width: 800px;
+        }
+
+        .method-selector {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .method-btn {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-weight: 500;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .method-btn.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .installation-method {
+            display: none;
+        }
+
+        .installation-method.active {
+            display: block;
+        }
+
+        .requirements-box {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-light);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .requirements-box h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .requirements-box ul {
+            margin: 0;
+            padding-left: 1.5rem;
+        }
+
+        .requirements-box li {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .tip-box, .warning-box {
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 1.5rem 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .tip-box {
+            background: #f0f9f3;
+            border: 1px solid #10b981;
+            color: #065f46;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            color: #92400e;
+        }
+
+        .tip-box i, .warning-box i {
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        .platform-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .platform-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .platform-tab {
+            padding: 0.5rem 1rem;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 0.375rem;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .platform-tab.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .platform-content {
+            display: none;
+        }
+
+        .platform-content.active {
+            display: block;
+        }
+
+        .troubleshooting-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .issue {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+        }
+
+        .issue h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .issue h3::before {
+            content: "⚠️";
+        }
+
+        .next-steps {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .step-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .step-card {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .step-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .step-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .step-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .step-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .step-card a:hover {
+            color: var(--primary-dark);
+        }
+    </style>
+</body>
+</html>

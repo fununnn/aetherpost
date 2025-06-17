@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - AetherPost Documentation</title>
+    <meta name="description" content="Complete API reference for AetherPost">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="../index.html">🚀 AetherPost</a></h1>
+                <span class="tagline">Promotion as Code</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="contributing.html">Contributing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="doc-page">
+                <h1>AetherPost API Reference</h1>
+<h2>Core API</h2>
+<h3>ContentGenerator</h3>
+<p>AI-powered content generation for social media posts.</p>
+<p>``<code>python
+from aetherpost.core.content import ContentGenerator</p>
+<p>generator = ContentGenerator(model="gpt-4")
+</code>`<code></p>
+<h4>Methods</h4>
+<p>##### </code>create(topic, tone, length, platform=None)<code>
+Generate content based on parameters.</p>
+<strong>Parameters:</strong>
+<ul><li></code>topic<code> (str): Main topic or theme</li></ul>
+<ul><li></code>tone<code> (str): Writing style - "professional", "casual", "humorous", "formal"</li></ul>
+<ul><li></code>length<code> (int): Maximum character count</li></ul>
+<ul><li></code>platform<code> (str, optional): Target platform for optimization</li></ul>
+<strong>Returns:</strong>
+<ul><li></code>dict<code>: Generated content with metadata</li></ul>
+<strong>Example:</strong>
+</code>`<code>python
+content = generator.create(
+    topic="AI Technology",
+    tone="professional",
+    length=280,
+    platform="twitter"
+)
+<h1>Returns: {</h1>
+<h1>  "text": "AI is revolutionizing...",</h1>
+<h1>  "hashtags": ["#AI", "#Technology"],</h1>
+<h1>  "metadata": {"sentiment": 0.8, "readability": 9.2}</h1>
+<h1>}</h1>
+</code>`<code>
+<h3>CampaignManager</h3>
+<p>Manage content campaigns across platforms.</p>
+</code>`<code>python
+from aetherpost.core.campaigns import CampaignManager
+<p>manager = CampaignManager()
+</code>`<code></p>
+<h4>Methods</h4>
+<p>##### </code>create_campaign(config)<code>
+Create a new campaign from configuration.</p>
+<strong>Parameters:</strong>
+<ul><li></code>config<code> (dict): Campaign configuration</li></ul>
+<strong>Example:</strong>
+</code>`<code>python
+campaign = manager.create_campaign({
+    "name": "Product Launch",
+    "schedule": {
+        "start_date": "2025-01-20",
+        "frequency": "daily",
+        "times": ["09:00", "15:00"]
+    },
+    "platforms": ["twitter", "linkedin"],
+    "content_strategy": {
+        "topics": ["innovation", "product features"],
+        "tone": "exciting"
+    }
+})
+</code>`<code>
+<p>##### </code>execute(campaign_id, dry_run=False)<code>
+Execute a campaign.</p>
+<strong>Parameters:</strong>
+<ul><li></code>campaign_id<code> (str): Campaign identifier</li></ul>
+<ul><li></code>dry_run<code> (bool): Preview without posting</li></ul>
+<strong>Returns:</strong>
+<ul><li></code>CampaignResult<code>: Execution results</li></ul>
+<h3>SecurityManager</h3>
+<p>Handle authentication and encryption.</p>
+</code>`<code>python
+from aetherpost.core.security import SecurityManager
+<p>security = SecurityManager()
+</code>`<code></p>
+<h4>Methods</h4>
+<p>##### </code>encrypt_credentials(platform, credentials)<code>
+Securely store platform credentials.</p>
+<strong>Parameters:</strong>
+<ul><li></code>platform<code> (str): Platform name</li></ul>
+<ul><li></code>credentials<code> (dict): API keys and tokens</li></ul>
+<strong>Example:</strong>
+</code>`<code>python
+security.encrypt_credentials("twitter", {
+    "api_key": "xxx",
+    "api_secret": "yyy",
+    "access_token": "zzz"
+})
+</code>`<code>
+<h2>Plugin API</h2>
+<h3>BaseConnector</h3>
+<p>Abstract base class for platform connectors.</p>
+</code>`<code>python
+from aetherpost.plugins.base import BaseConnector
+<p>class CustomConnector(BaseConnector):
+    def post(self, content, media=None):
+        # Implementation
+        pass
+</code>`<code></p>
+<h4>Required Methods</h4>
+<p>##### </code>post(content, media=None, **kwargs)<code>
+Post content to platform.</p>
+<strong>Parameters:</strong>
+<ul><li></code>content<code> (str): Text content</li></ul>
+<ul><li></code>media<code> (list, optional): Media file paths</li></ul>
+<ul><li></code>**kwargs<code>: Platform-specific options</li></ul>
+<strong>Returns:</strong>
+<ul><li></code>PostResult<code>: Post ID and metadata</li></ul>
+<p>##### </code>delete(post_id)<code>
+Delete a post.</p>
+<strong>Parameters:</strong>
+<ul><li></code>post_id<code> (str): Platform post identifier</li></ul>
+<strong>Returns:</strong>
+<ul><li></code>bool<code>: Success status</li></ul>
+<p>##### </code>get_analytics(post_id)<code>
+Retrieve post analytics.</p>
+<strong>Parameters:</strong>
+<ul><li></code>post_id<code> (str): Platform post identifier</li></ul>
+<strong>Returns:</strong>
+<ul><li></code>dict<code>: Engagement metrics</li></ul>
+<h3>PluginRegistry</h3>
+<p>Dynamic plugin loading system.</p>
+</code>`<code>python
+from aetherpost.plugins import PluginRegistry
+<p>registry = PluginRegistry()
+</code>`<code></p>
+<h4>Methods</h4>
+<p>##### </code>register(name, module_path)<code>
+Register a new plugin.</p>
+<strong>Parameters:</strong>
+<ul><li></code>name<code> (str): Plugin identifier</li></ul>
+<ul><li></code>module_path<code> (str): Import path</li></ul>
+<p>##### </code>get_connector(platform, config)<code>
+Get configured connector instance.</p>
+<strong>Parameters:</strong>
+<ul><li></code>platform<code> (str): Platform name</li></ul>
+<ul><li></code>config<code> (dict): Platform configuration</li></ul>
+<strong>Returns:</strong>
+<ul><li></code>BaseConnector<code>: Configured connector</li></ul>
+<h2>CLI API</h2>
+<h3>Command Structure</h3>
+</code>`<code>bash
+aetherpost [OPTIONS] COMMAND [ARGS]...
+</code>`<code>
+<h3>Global Options</h3>
+<ul><li></code>--config PATH<code>: Configuration file path</li></ul>
+<ul><li></code>--verbose<code>: Enable debug logging</li></ul>
+<ul><li></code>--quiet<code>: Suppress output</li></ul>
+<h3>Commands</h3>
+<h4></code>init<code></h4>
+Initialize AetherPost in current directory.
+</code>`<code>bash
+aetherpost init [--template TEMPLATE]
+</code>`<code>
+<p>Options:
+<ul><li></code>--template<code>: Starter template ("basic", "enterprise", "agency")</li></ul></p>
+<h4></code>post<code></h4>
+Create a post across platforms.
+</code>`<code>bash
+aetherpost post "Content" [OPTIONS]
+</code>`<code>
+<p>Options:
+<ul><li></code>--platform PLATFORM<code>: Target platform(s)</li></ul>
+<ul><li></code>--media PATH<code>: Attach media files</li></ul>
+<ul><li></code>--schedule TIME<code>: Schedule for later</li></ul>
+<ul><li></code>--campaign NAME<code>: Add to campaign</li></ul></p>
+<p>Example:
+</code>`<code>bash
+aetherpost post "Check out our new feature!" \
+  --platform twitter,linkedin \
+  --media image.png \
+  --schedule "2025-01-20 14:00"
+</code>`<code></p>
+<h4></code>campaign<code></h4>
+Manage campaigns.
+</code>`<code>bash
+aetherpost campaign [create|list|run|delete] [OPTIONS]
+</code>`<code>
+<p>Subcommands:
+<ul><li></code>create<code>: Create from YAML file</li></ul>
+<ul><li></code>list<code>: Show all campaigns</li></ul>
+<ul><li></code>run<code>: Execute campaign</li></ul>
+<ul><li></code>delete<code>: Remove campaign</li></ul></p>
+<h4></code>auth<code></h4>
+Manage platform authentication.
+</code>`<code>bash
+aetherpost auth [login|logout|status] PLATFORM
+</code>`<code>
+<p>Example:
+</code>`<code>bash
+aetherpost auth login twitter
+<h1>Opens browser for OAuth flow</h1>
+</code>`<code></p>
+<h4></code>analytics<code></h4>
+View post and campaign analytics.
+</code>`<code>bash
+aetherpost analytics [post|campaign] ID
+</code>`<code>
+<p>Options:
+<ul><li></code>--format<code>: Output format (json, csv, table)</li></ul>
+<ul><li></code>--metric<code>: Specific metric to display</li></ul></p>
+<h2>Configuration API</h2>
+<h3>Config Schema</h3>
+</code>`<code>python
+from aetherpost.core.config import AetherPostConfig
+<p>config = AetherPostConfig(
+    platforms={
+        "twitter": {
+            "api_key": "xxx",
+            "rate_limit": 300
+        }
+    },
+    content={
+        "default_tone": "professional",
+        "hashtag_limit": 5
+    },
+    security={
+        "encryption_key": "xxx",
+        "token_expiry": 3600
+    }
+)
+</code>`<code></p>
+<h3>Environment Variables</h3>
+<ul><li></code>AETHERPOST_CONFIG<code>: Config file path</li></ul>
+<ul><li></code>AETHERPOST_LOG_LEVEL<code>: Logging level</li></ul>
+<ul><li></code>AETHERPOST_CACHE_DIR<code>: Cache directory</li></ul>
+<ul><li></code>AETHERPOST_PLUGIN_DIR<code>: Custom plugins</li></ul>
+<h2>Data Models</h2>
+<h3>Post</h3>
+</code>`<code>python
+class Post(BaseModel):
+    id: str
+    content: str
+    platform: str
+    media: List[str] = []
+    scheduled_time: Optional[datetime]
+    metadata: Dict[str, Any] = {}
+</code>`<code>
+<h3>Campaign</h3>
+</code>`<code>python
+class Campaign(BaseModel):
+    id: str
+    name: str
+    schedule: Schedule
+    platforms: List[str]
+    posts: List[Post]
+    status: str = "draft"
+</code>`<code>
+<h3>Analytics</h3>
+</code>`<code>python
+class Analytics(BaseModel):
+    post_id: str
+    views: int
+    likes: int
+    shares: int
+    comments: int
+    engagement_rate: float
+    timestamp: datetime
+</code>`<code>
+<h2>Error Handling</h2>
+<h3>Custom Exceptions</h3>
+</code>`<code>python
+from aetherpost.exceptions import (
+    AetherPostError,
+    AuthenticationError,
+    RateLimitError,
+    ConfigurationError
+)
+<p>try:
+    connector.post(content)
+except RateLimitError as e:
+    print(f"Rate limit hit: {e.retry_after} seconds")
+except AuthenticationError:
+    print("Please re-authenticate")
+</code>`<code></p>
+<h2>Rate Limiting</h2>
+<p>Built-in rate limiter for API calls:</p>
+</code>`<code>python
+from aetherpost.utils.rate_limit import RateLimiter
+<p>limiter = RateLimiter(
+    calls=100,
+    period=3600,
+    burst=10
+)</p>
+<p>@limiter.limit
+def api_call():
+    # Your API call
+    pass
+</code>`<code></p>
+<h2>Webhooks</h2>
+<h3>Webhook Events</h3>
+<ul><li></code>post.created<code></li></ul>
+<ul><li></code>post.deleted<code></li></ul>
+<ul><li></code>campaign.started<code></li></ul>
+<ul><li></code>campaign.completed<code></li></ul>
+<ul><li></code>error.occurred<code></li></ul>
+<h3>Setup</h3>
+</code>`<code>python
+from aetherpost.webhooks import WebhookManager
+<p>webhooks = WebhookManager()
+webhooks.register(
+    "https://your-endpoint.com/webhook",
+    events=["post.created", "campaign.completed"]
+)
+</code>`<code></p>
+<h2>Testing Utilities</h2>
+<h3>Mock Connectors</h3>
+</code>`<code>python
+from aetherpost.testing import MockConnector
+<p>mock = MockConnector()
+mock.set_response("post", {"id": "123", "url": "https://..."})
+</code>`<code></p>
+<h3>Test Fixtures</h3>
+</code>`<code>python
+from aetherpost.testing.fixtures import (
+    sample_post,
+    sample_campaign,
+    sample_config
+)
+</code>`<code>
+<h2>Performance Tips</h2>
+<p>1. <strong>Batch Operations</strong>
+   </code>`<code>python
+   # Good
+   connector.post_batch(posts)
+   
+   # Avoid
+   for post in posts:
+       connector.post(post)
+   </code>`<code></p>
+<p>2. <strong>Async Operations</strong>
+   </code>`<code>python
+   import asyncio
+   from aetherpost.async_api import AsyncConnector
+   
+   async def post_async():
+       connector = AsyncConnector()
+       await connector.post(content)
+   </code>`<code></p>
+<p>3. <strong>Caching</strong>
+   </code>`<code>python
+   from aetherpost.cache import cache
+   
+   @cache.memoize(timeout=300)
+   def expensive_operation():
+       # Cached for 5 minutes
+       pass
+   </code>`<code></p>
+<h2>Version Compatibility</h2>
+<p>| AetherPost Version | Python | API Version |
+|-------------------|---------|-------------|
+| 2.0.x | 3.8+ | v2 |
+| 1.x.x | 3.7+ | v1 |</p>
+<h2>Migration Guide</h2>
+<h3>From v1 to v2</h3>
+</code>`<code>python
+<h1>v1</h1>
+from aetherpost import PostManager
+manager = PostManager()
+<h1>v2</h1>
+from aetherpost.core import ContentManager
+manager = ContentManager()
+</code>``
+<p>See <a href="./migration-v1-to-v2.md">Migration Guide</a> for complete details.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AetherPost</h3>
+                    <p>Making social media automation accessible to developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="api-reference.html">API Reference</a></li>
+                            <li><a href="configuration.html">Configuration</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="contributing.html">Contributing</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net">GitHub</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AetherPost. Licensed under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

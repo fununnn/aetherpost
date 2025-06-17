@@ -1,0 +1,97 @@
+# AetherPost Self-Promotion Campaign
+# Using AetherPost to promote AetherPost itself
+
+name: "aetherpost-self-promotion"
+concept: "AetherPost - Developer-friendly social media automation that actually works"
+url: "https://github.com/your-org/aetherpost"
+
+# Use the platforms that AetherPost actually supports well
+platforms: 
+  - twitter
+  - bluesky  
+  - mastodon
+  - reddit
+
+content:
+  style: casual
+  action: "Try it free!"
+  hashtags:
+    - "#OpenSource"
+    - "#SocialMediaAutomation" 
+    - "#Developer"
+    - "#Python"
+    - "#CLI"
+
+# Promotion themes to rotate through
+promotion_themes:
+  - "🚀 Open source social media automation for developers"
+  - "🤖 AI-powered content generation with OpenAI integration"
+  - "📱 Multi-platform posting: Twitter, Bluesky, Mastodon, Reddit"
+  - "⚡ Simple CLI interface - no complex dashboards needed"
+  - "🔒 Privacy-first - run entirely on your own infrastructure"
+  - "💻 Built by developers, for developers"
+  - "🆓 Free and open source - no vendor lock-in"
+  - "🎯 Reddit optimization: finds relevant subreddits automatically"
+  - "🧠 Smart content generation: AI creates platform-specific posts"
+  - "📊 Built-in analytics: track performance without external tools"
+
+# Reddit-specific optimization
+reddit_strategy:
+  target_subreddits:
+    - "programming"
+    - "Python" 
+    - "opensource"
+    - "SideProject"
+    - "DevTools"
+    - "CLI"
+    - "automation"
+    - "socialmedia"
+  
+  content_approach:
+    - Focus on technical implementation details
+    - Share code examples and configuration
+    - Emphasize open source and privacy benefits
+    - Position as developer tool, not marketing tool
+    - Include GitHub repo link naturally
+    - Respond to comments and questions helpfully
+
+# Twitter-specific strategy  
+twitter_strategy:
+  focus_areas:
+    - Developer productivity
+    - Open source announcements
+    - Feature highlights with screenshots
+    - Community building and feedback
+    - Technical tutorials and tips
+  
+  engagement_tactics:
+    - Reply to relevant automation/dev tool tweets
+    - Share success stories and use cases
+    - Participate in #OpenSource and #DevTools conversations
+    - Cross-promote with other developer tools
+
+# Content calendar suggestions
+content_calendar:
+  monday: "Feature Monday - highlight a specific AetherPost capability"
+  tuesday: "Technical Tuesday - share code examples or configuration tips"
+  wednesday: "Community Wednesday - user feedback, feature requests, success stories"
+  thursday: "Tutorial Thursday - step-by-step guides and how-tos"
+  friday: "Feedback Friday - ask for community input and suggestions"
+
+# Success metrics to track
+success_metrics:
+  - GitHub stars and forks
+  - Documentation site visits
+  - Community engagement (replies, mentions)
+  - New user signups/downloads
+  - Issue reports and feature requests
+  - Contributing developers
+
+# Authentic messaging principles
+messaging_principles:
+  - Always be genuine about current capabilities
+  - Acknowledge limitations and areas for improvement  
+  - Focus on solving real developer problems
+  - Share the development journey honestly
+  - Encourage community contributions
+  - Respond to all feedback thoughtfully

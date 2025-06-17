@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Documentation - AetherPost</title>
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="../" style="text-decoration: none; color: inherit;">
+                    <h1><i class="fas fa-rocket"></i> AetherPost</h1>
+                </a>
+                <span class="beta-badge">OSS</span>
+            </div>
+            <div class="nav-links">
+                <a href="../#quick-start">Quick Start</a>
+                <a href="../guides/">Guides</a>
+                <a href="./" class="active">API</a>
+                <a href="../examples/">Examples</a>
+                <a href="https://d3b75mcubdhimz.cloudfront.net" target="_blank">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="docs-layout">
+        <aside class="sidebar">
+            <div class="sidebar-content">
+                <h3>CLI Reference</h3>
+                <ul>
+                    <li><a href="#core-commands">Core Commands</a></li>
+                    <li><a href="#campaign-management">Campaign Management</a></li>
+                    <li><a href="#platform-commands">Platform Commands</a></li>
+                    <li><a href="#ai-commands">AI Commands</a></li>
+                </ul>
+
+                <h3>Configuration</h3>
+                <ul>
+                    <li><a href="#campaign-config">Campaign Config</a></li>
+                    <li><a href="#platform-config">Platform Config</a></li>
+                    <li><a href="#content-config">Content Config</a></li>
+                    <li><a href="#schedule-config">Schedule Config</a></li>
+                </ul>
+
+                <h3>Plugin API</h3>
+                <ul>
+                    <li><a href="#connector-api">Connector API</a></li>
+                    <li><a href="#ai-provider-api">AI Provider API</a></li>
+                    <li><a href="#analytics-api">Analytics API</a></li>
+                </ul>
+
+                <h3>Python API</h3>
+                <ul>
+                    <li><a href="#python-sdk">Python SDK</a></li>
+                    <li><a href="#core-classes">Core Classes</a></li>
+                    <li><a href="#utilities">Utilities</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-header">
+                <h1><i class="fas fa-code"></i> API Documentation</h1>
+                <p>Complete reference for AetherPost CLI commands, configuration, and Python API.</p>
+            </div>
+
+            <!-- CLI Reference -->
+            <section id="core-commands" class="api-section">
+                <h2>Core Commands</h2>
+                
+                <div class="command-group">
+                    <div class="command">
+                        <div class="command-header">
+                            <h3><code>aetherpost init</code></h3>
+                            <span class="command-category">Setup</span>
+                        </div>
+                        <p>Initialize a new AetherPost workspace with configuration files and project structure.</p>
+                        
+                        <div class="command-usage">
+                            <h4>Usage</h4>
+                            <div class="code-block">
+                                <pre><code>aetherpost init [OPTIONS] COMMAND [ARGS]...
+
+Commands:
+  main    Initialize workspace (like 'terraform init')
+
+Options:
+  --quick     Skip interactive prompts, use defaults
+  --backend   Specify backend type [local|aws|cloud]
+  --help      Show help message</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="command-examples">
+                            <h4>Examples</h4>
+                            <div class="code-block">
+                                <pre><code># Interactive initialization
+aetherpost init main
+
+# Quick setup with defaults
+aetherpost init main --quick
+
+# Initialize with AWS backend
+aetherpost init main --backend aws</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <h3><code>aetherpost plan</code></h3>
+                            <span class="command-category">Planning</span>
+                        </div>
+                        <p>Preview campaign content before deployment. Shows generated content for each platform.</p>
+                        
+                        <div class="command-usage">
+                            <h4>Usage</h4>
+                            <div class="code-block">
+                                <pre><code>aetherpost plan [OPTIONS]
+
+Options:
+  -c, --config PATH    Configuration file [default: campaign.yaml]
+  -v, --verbose        Show detailed information
+  --output FORMAT      Output format [table|json|yaml]
+  --help              Show help message</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="command-examples">
+                            <h4>Examples</h4>
+                            <div class="code-block">
+                                <pre><code># Preview default campaign
+aetherpost plan
+
+# Preview specific config file
+aetherpost plan -c my-campaign.yaml
+
+# Verbose output with details
+aetherpost plan --verbose
+
+# JSON output for automation
+aetherpost plan --output json</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <h3><code>aetherpost apply</code></h3>
+                            <span class="command-category">Deployment</span>
+                        </div>
+                        <p>Execute campaign and post content to configured platforms.</p>
+                        
+                        <div class="command-usage">
+                            <h4>Usage</h4>
+                            <div class="code-block">
+                                <pre><code>aetherpost apply [OPTIONS]
+
+Options:
+  -c, --config PATH      Configuration file [default: campaign.yaml]
+  --dry-run             Show what would be posted without posting
+  --auto-approve        Skip confirmation prompts
+  --platform TEXT       Only post to specific platform
+  --help               Show help message</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="command-examples">
+                            <h4>Examples</h4>
+                            <div class="code-block">
+                                <pre><code># Deploy campaign with confirmation
+aetherpost apply
+
+# Dry run to test without posting
+aetherpost apply --dry-run
+
+# Auto-approve for CI/CD
+aetherpost apply --auto-approve
+
+# Deploy to specific platform only
+aetherpost apply --platform twitter</code></pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <h3><code>aetherpost now</code></h3>
+                            <span class="command-category">Quick Post</span>
+                        </div>
+                        <p>Quick post without configuration file. Perfect for immediate announcements.</p>
+                        
+                        <div class="command-usage">
+                            <h4>Usage</h4>
+                            <div class="code-block">
+                                <pre><code>aetherpost now [OPTIONS] MESSAGE
+
+Arguments:
+  MESSAGE              Text to post [required]
+
+Options:
+  --to TEXT            Platforms (comma-separated) [default: twitter]
+  --hashtags TEXT      Hashtags (comma-separated)
+  --style TEXT         Posting style [default: casual]
+  -y, --yes           Skip confirmation
+  --skip-review       Skip content review
+  --help              Show help message</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="command-examples">
+                            <h4>Examples</h4>
+                            <div class="code-block">
+                                <pre><code># Quick tweet
+aetherpost now "Just launched our new feature! 🚀"
+
+# Multi-platform post
+aetherpost now "Product update available" --to twitter,bluesky
+
+# With hashtags and style
+aetherpost now "New tutorial published" \
+  --hashtags tutorial,learning \
+  --style professional</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Campaign Configuration -->
+            <section id="campaign-config" class="api-section">
+                <h2>Campaign Configuration</h2>
+                <p>YAML configuration schema for defining campaigns.</p>
+
+                <div class="config-schema">
+                    <h3>Basic Campaign Structure</h3>
+                    <div class="code-block">
+                        <pre><code class="language-yaml">name: "My Campaign"                    # Campaign name
+concept: "What you're promoting"       # Brief description
+platforms: [twitter, bluesky]         # Target platforms
+
+content:                               # Content configuration
+  style: "professional"               # Content style
+  action: "Learn more!"               # Call to action
+  hashtags: ["tech", "innovation"]    # Default hashtags
+
+schedule:                              # Posting schedule
+  type: "immediate"                    # immediate|delayed|recurring
+  timezone: "UTC"                      # Timezone for scheduling
+
+analytics: true                        # Enable analytics tracking</code></pre>
+                    </div>
+                </div>
+
+                <div class="config-reference">
+                    <h3>Configuration Reference</h3>
+                    
+                    <div class="config-item">
+                        <h4><code>name</code> <span class="type">string</span> <span class="required">required</span></h4>
+                        <p>Display name for the campaign. Used in logs and analytics.</p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>concept</code> <span class="type">string</span> <span class="required">required</span></h4>
+                        <p>Brief description of what you're promoting. Used by AI for content generation.</p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>platforms</code> <span class="type">array</span> <span class="required">required</span></h4>
+                        <p>List of platforms to post to. Available: <code>twitter</code>, <code>bluesky</code>, <code>mastodon</code></p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>content</code> <span class="type">object</span> <span class="optional">optional</span></h4>
+                        <p>Content generation settings. See <a href="#content-config">Content Configuration</a> for details.</p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>schedule</code> <span class="type">object</span> <span class="optional">optional</span></h4>
+                        <p>Posting schedule configuration. See <a href="#schedule-config">Schedule Configuration</a> for details.</p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>analytics</code> <span class="type">boolean</span> <span class="optional">optional</span></h4>
+                        <p>Enable analytics tracking for this campaign. Default: <code>false</code></p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Configuration -->
+            <section id="content-config" class="api-section">
+                <h2>Content Configuration</h2>
+                <p>Configure how content is generated and optimized for each platform.</p>
+
+                <div class="code-block">
+                    <pre><code class="language-yaml">content:
+  style: "professional"              # Content style/tone
+  action: "Try it now!"             # Call to action
+  hashtags: ["tech", "ai"]          # Default hashtags
+  
+  # AI-specific settings
+  ai_prompt: "Custom generation prompt"
+  temperature: 0.7                   # AI creativity (0.0-1.0)
+  
+  # Platform-specific content
+  platform_specific:
+    twitter:
+      max_length: 280
+      include_media: true
+    bluesky:
+      max_length: 300
+      style: "casual"</code></pre>
+                </div>
+
+                <div class="config-reference">
+                    <h3>Content Options</h3>
+                    
+                    <div class="config-item">
+                        <h4><code>style</code> <span class="type">string</span></h4>
+                        <p>Content tone and style. Options: <code>casual</code>, <code>professional</code>, <code>technical</code>, <code>friendly</code></p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>action</code> <span class="type">string</span></h4>
+                        <p>Call-to-action text to include in posts.</p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>hashtags</code> <span class="type">array</span></h4>
+                        <p>Default hashtags to include. Platform-specific limits apply.</p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>ai_prompt</code> <span class="type">string</span></h4>
+                        <p>Custom prompt for AI content generation. Overrides default prompts.</p>
+                    </div>
+
+                    <div class="config-item">
+                        <h4><code>temperature</code> <span class="type">number</span></h4>
+                        <p>AI creativity level (0.0-1.0). Higher values = more creative, lower = more focused.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Plugin Development -->
+            <section id="connector-api" class="api-section">
+                <h2>Plugin Development</h2>
+                <p>Build custom connectors, AI providers, and analytics plugins.</p>
+
+                <div class="plugin-example">
+                    <h3>Custom Platform Connector</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python">from aetherpost.plugins.base import BaseConnector
+from aetherpost.core.config.models import CredentialsConfig
+
+class MyPlatformConnector(BaseConnector):
+    """Custom connector for MyPlatform social network."""
+    
+    def __init__(self, credentials: dict):
+        super().__init__()
+        self.api_key = credentials.get('api_key')
+        self.api_secret = credentials.get('api_secret')
+    
+    async def post_content(self, content: str, 
+                          media_urls: list = None,
+                          **kwargs) -> dict:
+        """Post content to MyPlatform."""
+        # Implement platform-specific posting logic
+        response = await self._api_call('POST', '/posts', {
+            'text': content,
+            'media': media_urls,
+        })
+        
+        return {
+            'success': True,
+            'post_id': response['id'],
+            'url': response['url'],
+        }
+    
+    async def validate_credentials(self) -> bool:
+        """Validate API credentials."""
+        try:
+            await self._api_call('GET', '/account/verify')
+            return True
+        except Exception:
+            return False
+    
+    def get_character_limit(self) -> int:
+        """Return platform character limit."""
+        return 500</code></pre>
+                    </div>
+                </div>
+
+                <div class="plugin-example">
+                    <h3>Custom AI Provider</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python">from aetherpost.plugins.base import BaseAIProvider
+
+class MyAIProvider(BaseAIProvider):
+    """Custom AI provider for content generation."""
+    
+    def __init__(self, credentials: dict):
+        super().__init__()
+        self.api_key = credentials.get('api_key')
+    
+    async def generate_content(self, 
+                              prompt: str,
+                              platform: str,
+                              max_length: int = None,
+                              **kwargs) -> str:
+        """Generate content using custom AI service."""
+        
+        # Platform-specific optimization
+        if platform == 'twitter':
+            prompt += " Keep it under 280 characters."
+        elif platform == 'bluesky':
+            prompt += " Make it engaging and conversational."
+        
+        # Call your AI service
+        response = await self._ai_api_call(prompt, {
+            'max_tokens': max_length,
+            'temperature': kwargs.get('temperature', 0.7),
+        })
+        
+        return response['generated_text']
+    
+    async def improve_content(self, content: str, 
+                            feedback: str) -> str:
+        """Improve content based on feedback."""
+        prompt = f"Improve this content: {content}\nFeedback: {feedback}"
+        return await self.generate_content(prompt)
+    
+    def get_supported_features(self) -> list:
+        """Return list of supported features."""
+        return ['text_generation', 'content_improvement', 'hashtag_generation']</code></pre>
+                    </div>
+                </div>
+
+                <div class="plugin-registration">
+                    <h3>Plugin Registration</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python"># In your plugin's __init__.py
+from aetherpost.plugins.manager import plugin_manager
+from .connector import MyPlatformConnector
+from .ai_provider import MyAIProvider
+
+# Register plugins
+plugin_manager.register_connector('myplatform', MyPlatformConnector)
+plugin_manager.register_ai_provider('myai', MyAIProvider)
+
+# Plugin metadata
+PLUGIN_INFO = {
+    'name': 'MyPlatform Plugin',
+    'version': '1.0.0',
+    'description': 'Connector for MyPlatform social network',
+    'author': 'Your Name',
+    'requires': ['aetherpost>=1.0.0'],
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Python SDK -->
+            <section id="python-sdk" class="api-section">
+                <h2>Python SDK</h2>
+                <p>Use AetherPost programmatically in your Python applications.</p>
+
+                <div class="sdk-example">
+                    <h3>Basic Usage</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python">from aetherpost import AetherPost
+from aetherpost.core.config.models import CampaignConfig, ContentConfig
+
+# Initialize AetherPost
+ap = AetherPost()
+
+# Create campaign configuration
+campaign = CampaignConfig(
+    name="API Demo",
+    concept="Demonstrating AetherPost Python SDK",
+    platforms=["twitter", "bluesky"],
+    content=ContentConfig(
+        style="professional",
+        action="Check it out!",
+        hashtags=["demo", "api"]
+    )
+)
+
+# Generate content preview
+preview = await ap.plan(campaign)
+print(f"Generated content: {preview}")
+
+# Deploy campaign
+result = await ap.apply(campaign, auto_approve=True)
+print(f"Deployment result: {result}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="sdk-example">
+                    <h3>Advanced Usage</h3>
+                    <div class="code-block">
+                        <pre><code class="language-python">import asyncio
+from aetherpost import AetherPost
+from aetherpost.core.analytics.dashboard import AnalyticsDashboard
+
+async def automated_campaign():
+    """Example of automated campaign management."""
+    
+    ap = AetherPost()
+    
+    # Load configuration from file
+    campaign = ap.load_config('campaign.yaml')
+    
+    # Generate and review content
+    content = await ap.generate_content(campaign)
+    
+    # Customize content if needed
+    if 'twitter' in campaign.platforms:
+        content['twitter'] = await ap.optimize_for_platform(
+            content['twitter'], 'twitter'
+        )
+    
+    # Schedule for optimal timing
+    optimal_times = await ap.get_optimal_posting_times(campaign.platforms)
+    campaign.schedule.datetime = optimal_times[0]
+    
+    # Deploy campaign
+    result = await ap.apply(campaign)
+    
+    # Track analytics
+    analytics = AnalyticsDashboard()
+    await analytics.track_campaign(campaign.name, result)
+    
+    return result
+
+# Run automated campaign
+result = asyncio.run(automated_campaign())</code></pre>
+                    </div>
+                </div>
+
+                <div class="sdk-classes">
+                    <h3>Core Classes</h3>
+                    
+                    <div class="class-doc">
+                        <h4><code>AetherPost</code></h4>
+                        <p>Main SDK class for campaign management and content generation.</p>
+                        
+                        <div class="method">
+                            <h5><code>plan(campaign: CampaignConfig) → dict</code></h5>
+                            <p>Generate content preview without posting.</p>
+                        </div>
+                        
+                        <div class="method">
+                            <h5><code>apply(campaign: CampaignConfig, **options) → dict</code></h5>
+                            <p>Execute campaign and post to platforms.</p>
+                        </div>
+                        
+                        <div class="method">
+                            <h5><code>load_config(path: str) → CampaignConfig</code></h5>
+                            <p>Load campaign configuration from YAML file.</p>
+                        </div>
+                    </div>
+
+                    <div class="class-doc">
+                        <h4><code>ContentGenerator</code></h4>
+                        <p>AI-powered content generation and optimization.</p>
+                        
+                        <div class="method">
+                            <h5><code>generate_for_platform(platform: str, **options) → str</code></h5>
+                            <p>Generate optimized content for specific platform.</p>
+                        </div>
+                        
+                        <div class="method">
+                            <h5><code>improve_content(content: str, feedback: str) → str</code></h5>
+                            <p>Improve content based on feedback.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Support Section -->
+            <div class="support-section">
+                <h2>Need Help?</h2>
+                <div class="support-cards">
+                    <div class="support-card">
+                        <i class="fas fa-book"></i>
+                        <h3>Guides</h3>
+                        <p>Step-by-step tutorials and guides</p>
+                        <a href="../guides/">Browse Guides</a>
+                    </div>
+                    <div class="support-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Examples</h3>
+                        <p>Real-world code examples</p>
+                        <a href="../examples/">View Examples</a>
+                    </div>
+                    <div class="support-card">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub</h3>
+                        <p>Source code and issue tracking</p>
+                        <a href="https://d3b75mcubdhimz.cloudfront.net">Visit GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="../js/main.js"></script>
+
+    <style>
+        .api-section {
+            margin-bottom: 4rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .command-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .command {
+            background: white;
+            border: 1px solid var(--border-light);
+            border-radius: 0.75rem;
+            padding: 2rem;
+        }
+
+        .command-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .command-header h3 {
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .command-category {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .command-usage,
+        .command-examples {
+            margin-top: 1.5rem;
+        }
+
+        .command-usage h4,
+        .command-examples h4 {
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .config-schema,
+        .plugin-example,
+        .sdk-example {
+            margin: 2rem 0;
+        }
+
+        .config-reference {
+            margin-top: 2rem;
+        }
+
+        .config-item {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+        }
+
+        .config-item h4 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .type {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .required {
+            background: var(--error-color);
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .optional {
+            background: var(--text-light);
+            color: white;
+            padding: 0.125rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .config-item p {
+            margin: 0;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .plugin-registration {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .sdk-classes {
+            margin-top: 2rem;
+        }
+
+        .class-doc {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-secondary);
+            border-radius: 0.5rem;
+        }
+
+        .class-doc h4 {
+            color: var(--text-color);
+            margin-bottom: 0.75rem;
+        }
+
+        .class-doc > p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .method {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 0.375rem;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .method h5 {
+            margin: 0 0 0.5rem 0;
+            color: var(--text-color);
+            font-family: monospace;
+            font-size: 0.875rem;
+        }
+
+        .method p {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .support-section {
+            margin-top: 4rem;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 0.75rem;
+        }
+
+        .support-section h2 {
+            text-align: center;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .support-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .support-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            border: 1px solid var(--border-light);
+        }
+
+        .support-card i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .support-card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+
+        .support-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 0.875rem;
+        }
+
+        .support-card a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .support-card a:hover {
+            color: var(--primary-dark);
+        }
+    </style>
+</body>
+</html>

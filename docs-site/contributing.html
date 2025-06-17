@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributing - AetherPost Documentation</title>
+    <meta name="description" content="How to contribute to AetherPost development">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="../index.html">🚀 AetherPost</a></h1>
+                <span class="tagline">Promotion as Code</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="contributing.html">Contributing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="doc-page">
+                <h1>Contributing to AetherPost</h1>
+<p>Thank you for your interest in contributing to AetherPost! We welcome contributions from developers of all skill levels.</p>
+<h2>Table of Contents</h2>
+<ul><li><a href="#getting-started">Getting Started</a></li></ul>
+<ul><li><a href="#development-setup">Development Setup</a></li></ul>
+<ul><li><a href="#how-to-contribute">How to Contribute</a></li></ul>
+<ul><li><a href="#code-standards">Code Standards</a></li></ul>
+<ul><li><a href="#testing-guidelines">Testing Guidelines</a></li></ul>
+<ul><li><a href="#pull-request-process">Pull Request Process</a></li></ul>
+<ul><li><a href="#community-guidelines">Community Guidelines</a></li></ul>
+<h2>Getting Started</h2>
+<h3>Prerequisites</h3>
+<ul><li>Python 3.8 or higher</li></ul>
+<ul><li>Git</li></ul>
+<ul><li>Virtual environment tool (venv, conda, etc.)</li></ul>
+<ul><li>Basic understanding of social media APIs</li></ul>
+<h3>First-Time Contributors</h3>
+1. Look for issues labeled <code>good first issue</code> or <code>help wanted</code>
+2. Comment on the issue to claim it
+3. Fork the repository
+4. Create your feature branch
+5. Submit a pull request
+<h2>Development Setup</h2>
+<h3>1. Fork and Clone</h3>
+``<code>bash
+<h1>Fork via GitHub UI, then:</h1>
+git clone https://github.com/YOUR_USERNAME/aetherpost.git
+cd aetherpost
+git remote add upstream https://github.com/original/aetherpost.git
+</code>`<code>
+<h3>2. Environment Setup</h3>
+</code>`<code>bash
+<h1>Create virtual environment</h1>
+python -m venv venv
+source venv/bin/activate  # Windows: venv\Scripts\activate
+<h1>Install development dependencies</h1>
+pip install -r requirements-dev.txt
+pip install -e .
+<h1>Install pre-commit hooks</h1>
+pre-commit install
+</code>`<code>
+<h3>3. Configuration</h3>
+</code>`<code>bash
+<h1>Copy example configuration</h1>
+cp .env.example .env
+<h1>Run initial setup</h1>
+aetherpost dev setup
+</code>`<code>
+<h2>How to Contribute</h2>
+<h3>Reporting Bugs</h3>
+1. Check existing issues first
+2. Use the bug report template
+3. Include:
+   - Clear description
+   - Steps to reproduce
+   - Expected vs actual behavior
+   - System information
+   - Error logs/screenshots
+<h3>Suggesting Features</h3>
+1. Check the roadmap and existing issues
+2. Use the feature request template
+3. Explain:
+   - Use case
+   - Proposed solution
+   - Alternative approaches
+   - Potential impact
+<h3>Code Contributions</h3>
+<h4>1. Find or Create an Issue</h4>
+</code>`<code>bash
+<h1>Good issue titles:</h1>
+"Add Instagram Reels support"
+"Fix rate limiting in Twitter connector"
+"Improve error messages for auth failures"
+</code>`<code>
+<h4>2. Create Feature Branch</h4>
+</code>`<code>bash
+<h1>Branch naming convention</h1>
+git checkout -b feature/instagram-reels
+git checkout -b fix/twitter-rate-limit
+git checkout -b docs/api-examples
+</code>`<code>
+<h4>3. Make Changes</h4>
+<ul><li>Write clean, readable code</li></ul>
+<ul><li>Follow existing patterns</li></ul>
+<ul><li>Add/update tests</li></ul>
+<ul><li>Update documentation</li></ul>
+<h4>4. Commit Messages</h4>
+</code>`<code>bash
+<h1>Format: <type>(<scope>): <subject></h1>
+<h1>Types: feat, fix, docs, style, refactor, test, chore</h1>
+<h1>Examples:</h1>
+git commit -m "feat(instagram): add Reels posting support"
+git commit -m "fix(twitter): handle rate limit errors gracefully"
+git commit -m "docs(api): add webhook examples"
+</code>`<code>
+<h2>Code Standards</h2>
+<h3>Python Style Guide</h3>
+<ul><li>Follow PEP 8</li></ul>
+<ul><li>Use type hints</li></ul>
+<ul><li>Maximum line length: 88 (Black default)</li></ul>
+<ul><li>Use descriptive variable names</li></ul>
+</code>`<code>python
+<h1>Good</h1>
+def post_content(
+    content: str,
+    platforms: List[str],
+    schedule_time: Optional[datetime] = None
+) -> Dict[str, PostResult]:
+    """Post content to specified platforms."""
+    results = {}
+    for platform in platforms:
+        connector = get_connector(platform)
+        results[platform] = connector.post(content, schedule_time)
+    return results
+<h1>Avoid</h1>
+def post(c, p, t=None):
+    r = {}
+    for x in p:
+        conn = get_conn(x)
+        r[x] = conn.post(c, t)
+    return r
+</code>`<code>
+<h3>Documentation</h3>
+<ul><li>All public functions need docstrings</li></ul>
+<ul><li>Use Google-style docstrings</li></ul>
+<ul><li>Include examples for complex functions</li></ul>
+</code>`<code>python
+def create_campaign(config: Dict[str, Any]) -> Campaign:
+    """Create a new campaign from configuration.
+    
+    Args:
+        config: Campaign configuration dictionary containing:
+            - name: Campaign name
+            - schedule: Scheduling information
+            - platforms: List of target platforms
+    
+    Returns:
+        Campaign: Created campaign instance
+    
+    Raises:
+        ValidationError: If configuration is invalid
+    
+    Example:
+        >>> campaign = create_campaign({
+        ...     "name": "Product Launch",
+        ...     "schedule": {"frequency": "daily"},
+        ...     "platforms": ["twitter", "linkedin"]
+        ... })
+    """
+</code>`<code>
+<h3>Error Handling</h3>
+</code>`<code>python
+<h1>Good: Specific error handling</h1>
+try:
+    result = api_call()
+except RateLimitError as e:
+    logger.warning(f"Rate limit hit: {e}")
+    return retry_with_backoff(api_call, e.retry_after)
+except AuthenticationError:
+    logger.error("Authentication failed")
+    raise
+except Exception as e:
+    logger.exception("Unexpected error")
+    raise AetherPostError(f"Operation failed: {e}")
+<h1>Avoid: Bare except</h1>
+try:
+    result = api_call()
+except:
+    pass
+</code>`<code>
+<h2>Testing Guidelines</h2>
+<h3>Test Structure</h3>
+</code>`<code>python
+<h1>tests/test_<module>.py</h1>
+import pytest
+from aetherpost.core import ContentGenerator
+<p>class TestContentGenerator:
+    def test_create_basic_content(self):
+        """Test basic content generation."""
+        generator = ContentGenerator()
+        content = generator.create(
+            topic="Technology",
+            tone="professional",
+            length=280
+        )
+        assert len(content["text"]) <= 280
+        assert content["metadata"]["tone"] == "professional"
+    
+    def test_platform_optimization(self):
+        """Test platform-specific optimization."""
+        # Test implementation
+</code>`<code></p>
+<h3>Running Tests</h3>
+</code>`<code>bash
+<h1>Run all tests</h1>
+pytest
+<h1>Run specific test file</h1>
+pytest tests/test_connectors.py
+<h1>Run with coverage</h1>
+pytest --cov=aetherpost --cov-report=html
+<h1>Run specific test</h1>
+pytest tests/test_connectors.py::TestTwitter::test_post
+</code>`<code>
+<h3>Test Requirements</h3>
+<ul><li>Minimum 80% code coverage</li></ul>
+<ul><li>All new features must have tests</li></ul>
+<ul><li>Bug fixes should include regression tests</li></ul>
+<ul><li>Use mocks for external API calls</li></ul>
+<h2>Pull Request Process</h2>
+<h3>1. Before Submitting</h3>
+<ul><li>[ ] Tests pass locally</li></ul>
+<ul><li>[ ] Code follows style guidelines</li></ul>
+<ul><li>[ ] Documentation is updated</li></ul>
+<ul><li>[ ] Commit messages follow convention</li></ul>
+<ul><li>[ ] Branch is up to date with main</li></ul>
+<h3>2. PR Template</h3>
+</code>`<code>markdown
+<h2>Description</h2>
+Brief description of changes
+<h2>Type of Change</h2>
+<ul><li>[ ] Bug fix</li></ul>
+<ul><li>[ ] New feature</li></ul>
+<ul><li>[ ] Breaking change</li></ul>
+<ul><li>[ ] Documentation update</li></ul>
+<h2>Testing</h2>
+<ul><li>[ ] Unit tests pass</li></ul>
+<ul><li>[ ] Integration tests pass</li></ul>
+<ul><li>[ ] Manual testing completed</li></ul>
+<h2>Checklist</h2>
+<ul><li>[ ] Code follows project style</li></ul>
+<ul><li>[ ] Self-review completed</li></ul>
+<ul><li>[ ] Documentation updated</li></ul>
+<ul><li>[ ] No new warnings</li></ul>
+</code>``
+<h3>3. Review Process</h3>
+1. Automated checks run
+2. Code review by maintainer
+3. Address feedback
+4. Approval and merge
+<h3>4. After Merge</h3>
+<ul><li>Delete your feature branch</li></ul>
+<ul><li>Pull latest main</li></ul>
+<ul><li>Celebrate! 🎉</li></ul>
+<h2>Community Guidelines</h2>
+<h3>Code of Conduct</h3>
+<ul><li>Be respectful and inclusive</li></ul>
+<ul><li>Welcome newcomers</li></ul>
+<ul><li>Provide constructive feedback</li></ul>
+<ul><li>Focus on what's best for the community</li></ul>
+<h3>Communication Channels</h3>
+<ul><li><strong>GitHub Issues</strong>: Bug reports, features</li></ul>
+<ul><li><strong>Discord</strong>: Real-time discussion</li></ul>
+<ul><li><strong>Email</strong>: security@aetherpost.dev (security issues only)</li></ul>
+<h3>Getting Help</h3>
+<ul><li>Check documentation first</li></ul>
+<ul><li>Search existing issues</li></ul>
+<ul><li>Ask in Discord #help channel</li></ul>
+<ul><li>Be patient and respectful</li></ul>
+<h2>Recognition</h2>
+<h3>Contributors</h3>
+All contributors are recognized in:
+<ul><li>README.md contributors section</li></ul>
+<ul><li>GitHub contributors page</li></ul>
+<ul><li>Release notes</li></ul>
+<h3>Special Recognitions</h3>
+<ul><li>🌟 Core Contributor: 10+ merged PRs</li></ul>
+<ul><li>🐛 Bug Hunter: 5+ bug fixes</li></ul>
+<ul><li>📚 Documentation Hero: Significant docs improvements</li></ul>
+<ul><li>🚀 Feature Champion: Major feature implementation</li></ul>
+<h2>License</h2>
+<p>By contributing, you agree that your contributions will be licensed under the same license as the project (MIT License).</p>
+<h2>Questions?</h2>
+<p>Feel free to:
+<ul><li>Open a discussion on GitHub</li></ul>
+<ul><li>Ask in Discord</li></ul>
+<ul><li>Email maintainers@aetherpost.dev</li></ul></p>
+<p>Thank you for contributing to AetherPost! Your efforts help make social media automation accessible to everyone. 🙏</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AetherPost</h3>
+                    <p>Making social media automation accessible to developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="api-reference.html">API Reference</a></li>
+                            <li><a href="configuration.html">Configuration</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="contributing.html">Contributing</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net">GitHub</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AetherPost. Licensed under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

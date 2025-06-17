@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting Started - AetherPost Documentation</title>
+    <meta name="description" content="Quick start guide for AetherPost">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="../index.html">🚀 AetherPost</a></h1>
+                <span class="tagline">Promotion as Code</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="contributing.html">Contributing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="doc-page">
+                <h1>AetherPost - Promotion as Code</h1>
+<p>🚀 <strong>AI-powered social media automation for developers</strong></p>
+<p>AetherPost automates your app promotion across social media platforms using AI-generated content and Infrastructure-as-Code principles.</p>
+<a href="https://img.shields.io/badge/License-MIT-yellow.svg">![License: MIT</a>](https://opensource.org/licenses/MIT)
+<a href="https://img.shields.io/badge/python-3.8+-blue.svg">![Python 3.8+</a>](https://www.python.org/downloads/)
+<h2>✨ Features</h2>
+<h3>OSS Edition (Free)</h3>
+<ul><li>🎯 <strong>Declarative configuration</strong> - Define campaigns in YAML</li></ul>
+<ul><li>🤖 <strong>AI-generated content</strong> - [AI Service]/OpenAI powered posts</li></ul>
+<ul><li>📱 <strong>Multi-platform support</strong> - Twitter, Bluesky, Mastodon (up to 3 platforms)</li></ul>
+<ul><li>🔒 <strong>Secure</strong> - Encrypted credential storage</li></ul>
+<ul><li>⚡ <strong>Idempotent</strong> - Safe to run multiple times</li></ul>
+<ul><li>📊 <strong>Basic analytics</strong> - Track post performance</li></ul>
+<ul><li>🎨 <strong>Style options</strong> - Casual, professional, technical, humorous</li></ul>
+<ul><li>📝 <strong>Usage limits</strong> - 50 posts/day, 5 campaigns</li></ul>
+<h3>Enterprise Edition</h3>
+<ul><li>🚀 <strong>Unlimited usage</strong> - No limits on posts or platforms</li></ul>
+<ul><li>🤖 <strong>AI Autopilot</strong> - Fully automated content generation</li></ul>
+<ul><li>📈 <strong>Advanced analytics</strong> - Real-time dashboards and insights</li></ul>
+<ul><li>👥 <strong>Team management</strong> - Collaboration and approval workflows</li></ul>
+<ul><li>🔍 <strong>Monitoring</strong> - Comprehensive system monitoring</li></ul>
+<ul><li>🎯 <strong>Priority support</strong> - Dedicated support team</li></ul>
+<h2>🚀 Quick Start</h2>
+<h3>Installation</h3>
+<p>``<code>bash
+git clone https://d3b75mcubdhimz.cloudfront.net.git
+cd aetherpost
+pip install -r requirements.txt
+pip install -e .
+</code>`<code></p>
+<h3>Setup</h3>
+</code>`<code>bash
+aetherpost setup wizard
+</code>`<code>
+<h3>Usage</h3>
+</code>`<code>bash
+<h1>Create campaign</h1>
+aetherpost init myapp --quick
+<h1>Preview content</h1>
+aetherpost plan
+<h1>Execute posts</h1>
+aetherpost apply
+<h1>Quick post</h1>
+aetherpost now "New feature released! 🚀" --to twitter
+</code>`<code>
+<h2>📋 Configuration Example</h2>
+</code>`<code>yaml
+name: "my-awesome-app"
+concept: "AI-powered task manager that learns your habits"
+url: "https://myapp.com"
+platforms: [twitter, bluesky]
+content:
+  style: casual
+  action: "Try it free!"
+</code>`<code>
+<h2>🔧 Commands</h2>
+<p>| Command | Description |
+|---------|-------------|
+| </code>aetherpost init<code> | Initialize new campaign |
+| </code>aetherpost plan<code> | Preview generated content |
+| </code>aetherpost apply<code> | Execute posts |
+| </code>aetherpost now <message><code> | Quick post |
+| </code>aetherpost stats` | View analytics |</p>
+<h2>📖 Documentation</h2>
+<ul><li><a href="docs/installation.md">Installation Guide</a></li></ul>
+<ul><li><a href="docs/configuration.md">Configuration Reference</a></li></ul>
+<ul><li><a href="docs/platforms.md">Platform Setup</a></li></ul>
+<ul><li><a href="docs/ai-providers.md">AI Provider Setup</a></li></ul>
+<ul><li><a href="docs/examples.md">Examples</a></li></ul>
+<h2>🤝 Contributing</h2>
+<p>We welcome contributions! See <a href="CONTRIBUTING.md">CONTRIBUTING.md</a> for guidelines.</p>
+<h2>📄 License</h2>
+<p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details.</p>
+<h2>🙏 Acknowledgments</h2>
+<ul><li>Inspired by Terraform's Infrastructure-as-Code approach</li></ul>
+<ul><li>Built with <a href="https://typer.tiangolo.com/">Typer</a> and <a href="https://rich.readthedocs.io/">Rich</a></li></ul>
+<ul><li>AI content generation powered by <a href="https://www.anthropic.com/">AI Provider</a> and <a href="https://openai.com/">OpenAI</a></li></ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AetherPost</h3>
+                    <p>Making social media automation accessible to developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="api-reference.html">API Reference</a></li>
+                            <li><a href="configuration.html">Configuration</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="contributing.html">Contributing</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net">GitHub</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AetherPost. Licensed under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+"""AetherPost CLI commands."""

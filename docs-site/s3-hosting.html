@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 Hosting - AetherPost Documentation</title>
+    <meta name="description" content="Deploy documentation on AWS S3 free tier">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="../index.html">🚀 AetherPost</a></h1>
+                <span class="tagline">Promotion as Code</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="contributing.html">Contributing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="doc-page">
+                <h1>S3 Free Tier Documentation Hosting Guide</h1>
+<h2>Overview</h2>
+This guide helps developers host AetherPost documentation on AWS S3 using the free tier, enabling easy access for new contributors.
+<h2>AWS Free Tier Limits</h2>
+<ul><li><strong>Storage</strong>: 5GB for 12 months</li></ul>
+<ul><li><strong>Requests</strong>: 20,000 GET / 2,000 PUT requests per month</li></ul>
+<ul><li><strong>Data Transfer</strong>: 15GB outbound per month</li></ul>
+<h2>Setup Instructions</h2>
+<h3>1. Create S3 Bucket</h3>
+``<code>bash
+<h1>Install AWS CLI</h1>
+pip install awscli
+<h1>Configure AWS credentials</h1>
+aws configure
+<h1>Create bucket for documentation</h1>
+aws s3 mb s3://aetherpost-docs --region ap-northeast-1
+</code>`<code>
+<h3>2. Enable Static Website Hosting</h3>
+</code>`<code>bash
+<h1>Enable website hosting</h1>
+aws s3 website s3://aetherpost-docs \
+  --index-document index.html \
+  --error-document error.html
+</code>`<code>
+<h3>3. Set Bucket Policy for Public Access</h3>
+Create </code>bucket-policy.json<code>:
+</code>`<code>json
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "PublicReadGetObject",
+      "Effect": "Allow",
+      "Principal": "*",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::aetherpost-docs/*"
+    }
+  ]
+}
+</code>`<code>
+<p>Apply policy:
+</code>`<code>bash
+aws s3api put-bucket-policy \
+  --bucket aetherpost-docs \
+  --policy file://bucket-policy.json
+</code>`<code></p>
+<h3>4. Upload Documentation</h3>
+</code>`<code>bash
+<h1>Sync documentation files</h1>
+aws s3 sync ./docs-site/ s3://aetherpost-docs/ \
+  --delete \
+  --exclude "<em>.git</em>" \
+  --content-type "text/html"
+</code>`<code>
+<h2>Documentation Structure</h2>
+</code>`<code>
+docs-site/
+├── index.html          # Landing page
+├── getting-started/    # Quick start guides
+├── api-reference/      # API documentation
+├── tutorials/          # Step-by-step tutorials
+├── contributing/       # Contribution guidelines
+└── assets/            # Images, CSS, JS
+</code>`<code>
+<h2>Cost Optimization Tips</h2>
+<p>1. <strong>Use CloudFlare CDN</strong> (Free)
+   - Reduces S3 requests
+   - Improves global performance
+   - Provides SSL certificate</p>
+<p>2. <strong>Compress Assets</strong>
+   </code>`<code>bash
+   # Gzip HTML/CSS/JS files
+   find docs-site -name "<em>.html" -o -name "</em>.css" -o -name "*.js" | \
+     xargs gzip -9 -k
+   </code>`<code></p>
+<p>3. <strong>Set Cache Headers</strong>
+   </code>`<code>bash
+   aws s3 cp docs-site/ s3://aetherpost-docs/ \
+     --recursive \
+     --cache-control "max-age=3600"
+   </code>`<code></p>
+<h2>Monitoring Usage</h2>
+</code>`<code>bash
+<h1>Check bucket size</h1>
+aws s3 ls s3://aetherpost-docs --recursive --summarize | grep "Total Size"
+<h1>Monitor requests (CloudWatch)</h1>
+aws cloudwatch get-metric-statistics \
+  --namespace AWS/S3 \
+  --metric-name NumberOfObjects \
+  --dimensions Name=BucketName,Value=aetherpost-docs \
+  --start-time 2025-01-01T00:00:00Z \
+  --end-time 2025-01-31T23:59:59Z \
+  --period 86400 \
+  --statistics Average
+</code>`<code>
+<h2>Alternative Free Hosting Options</h2>
+<h3>GitHub Pages</h3>
+<ul><li>Completely free</li></ul>
+<ul><li>Automatic deployment from repository</li></ul>
+<ul><li>Custom domain support</li></ul>
+</code>`<code>yaml
+<h1>.github/workflows/deploy-docs.yml</h1>
+name: Deploy Documentation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs-site/**'
+<p>jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs-site
+</code>`<code></p>
+<h3>Netlify</h3>
+<ul><li>100GB bandwidth/month free</li></ul>
+<ul><li>Automatic HTTPS</li></ul>
+<ul><li>Deploy previews</li></ul>
+</code>`<code>toml
+<h1>netlify.toml</h1>
+[build]
+  publish = "docs-site/"
+<p>[[redirects]]
+  from = "/api/*"
+  to = "/api-reference/:splat"
+  status = 200
+</code>`<code></p>
+<h2>Access URL</h2>
+Once deployed, documentation will be available at:
+<ul><li>S3: </code>http://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com<code></li></ul>
+<ul><li>CloudFlare: </code>https://docs.aetherpost.dev<code> (after setup)</li></ul>
+<ul><li>GitHub Pages: </code>https://[username].github.io/aetherpost`</li></ul>
+<h2>Security Considerations</h2>
+<ul><li>Never commit AWS credentials</li></ul>
+<ul><li>Use IAM roles with minimal permissions</li></ul>
+<ul><li>Enable S3 access logging</li></ul>
+<ul><li>Regular security audits</li></ul>
+<h2>Support</h2>
+For questions about documentation hosting:
+<ul><li>Create issue in GitHub repository</li></ul>
+<ul><li>Join community Discord</li></ul>
+<ul><li>Email: support@aetherpost.dev</li></ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AetherPost</h3>
+                    <p>Making social media automation accessible to developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="api-reference.html">API Reference</a></li>
+                            <li><a href="configuration.html">Configuration</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="contributing.html">Contributing</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net">GitHub</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AetherPost. Licensed under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>

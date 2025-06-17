@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration - AetherPost Documentation</title>
+    <meta name="description" content="Complete configuration reference for AetherPost">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-brand">
+                <h1><a href="../index.html">🚀 AetherPost</a></h1>
+                <span class="tagline">Promotion as Code</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="api-reference.html">API Reference</a></li>
+                <li><a href="contributing.html">Contributing</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="doc-page">
+                <h1>Configuration Reference</h1>
+<p>This guide covers all configuration options for AetherPost OSS.</p>
+<h2>Configuration Files</h2>
+<p>AetherPost uses several configuration files:</p>
+<p>``<code>
+~/.aetherpost/           # User configuration directory
+├── config.yaml          # Main configuration
+├── credentials.json     # Encrypted API keys
+├── usage.json          # Usage tracking (OSS limits)
+└── logs/               # Application logs</p>
+<p>./campaign.yaml         # Project-specific campaign
+./.env.aetherpost      # Environment variables
+</code>`<code></p>
+<h2>Campaign Configuration</h2>
+<h3>Basic Structure</h3>
+</code>`<code>yaml
+<h1>campaign.yaml - Minimal example</h1>
+name: "my-awesome-app"
+concept: "AI-powered task manager"
+platforms: [twitter, bluesky]
+content:
+  style: casual
+  action: "Try it free!"
+</code>`<code>
+<h3>Complete Example</h3>
+</code>`<code>yaml
+<h1>campaign.yaml - Complete example</h1>
+name: "taskmaster"
+concept: "AI-powered task manager that learns your work patterns"
+url: "https://taskmaster.app"
+version: "2.1.0"
+<h1>Target platforms</h1>
+platforms:
+  - twitter
+  - bluesky
+  - mastodon
+<h1>Content configuration</h1>
+content:
+  style: casual              # casual, professional, technical, humorous
+  action: "Try it free!"     # Call-to-action
+  hashtags:                  # Optional hashtags
+    - "productivity"
+    - "AI"
+    - "opensource"
+  
+  # Platform-specific overrides
+  twitter:
+    style: professional
+    max_length: 280
+  
+  bluesky:
+    style: casual
+    include_url: true
+<h1>Scheduling</h1>
+schedule:
+  timezone: "UTC"
+  times:
+    - "09:00"  # 9 AM
+    - "15:00"  # 3 PM
+  frequency: daily  # daily, weekly, manual
+<h1>Media (OSS: basic only)</h1>
+media:
+  generate: false    # Auto-generate images
+  path: "./images"   # Custom image directory
+<h1>Analytics (OSS: basic only)</h1>
+analytics:
+  enabled: true
+  track_engagement: true
+  export_format: json
+<h1>Advanced options</h1>
+advanced:
+  dry_run: false
+  backup_posts: true
+  review_required: true
+</code>`<code>
+<h2>Environment Variables</h2>
+<h3>Required API Keys</h3>
+</code>`<code>bash
+<h1>AI Providers (choose one or both)</h1>
+OPENAI_API_KEY="sk-..."              # OpenAI GPT models
+AI_API_KEY="sk-ant-..."       # AI Provider
+<h1>Social Media Platforms</h1>
+TWITTER_API_KEY="..."
+TWITTER_API_SECRET="..."
+TWITTER_ACCESS_TOKEN="..."
+TWITTER_ACCESS_TOKEN_SECRET="..."
+<p>BLUESKY_HANDLE="user.bsky.social"
+BLUESKY_PASSWORD="..."</p>
+<p>MASTODON_ACCESS_TOKEN="..."
+MASTODON_API_BASE_URL="https://mastodon.social"
+</code>`<code></p>
+<h3>Optional Configuration</h3>
+</code>`<code>bash
+<h1>AetherPost Configuration</h1>
+AETHERPOST_EDITION="oss"             # oss or enterprise
+AETHERPOST_CONFIG_DIR="~/.aetherpost"
+AETHERPOST_LOG_LEVEL="INFO"          # DEBUG, INFO, WARNING, ERROR
+AETHERPOST_CACHE_DIR="~/.aetherpost/cache"
+<h1>Security</h1>
+AETHERPOST_ENCRYPT_CREDENTIALS="true"
+AETHERPOST_MASTER_KEY="..."          # For credential encryption
+</code>`<code>
+<h2>User Configuration</h2>
+<h3>~/.aetherpost/config.yaml</h3>
+</code>`<code>yaml
+<h1>Global user configuration</h1>
+user:
+  name: "Your Name"
+  email: "your@email.com"
+  timezone: "UTC"
+<h1>Default preferences</h1>
+defaults:
+  platforms: [twitter]
+  style: casual
+  ai_provider: openai
+  review_required: true
+<h1>AI Configuration</h1>
+ai:
+  provider: openai        # openai, anthropic, both
+  model: gpt-4           # Model to use
+  temperature: 0.7       # Creativity (0.0-1.0)
+  max_tokens: 500        # Response length
+  
+  # Provider-specific settings
+  openai:
+    model: "gpt-4"
+    temperature: 0.7
+  
+  anthropic:
+    model: "ai-model-v3-20240229"
+    max_tokens: 1000
+<h1>Platform defaults</h1>
+platforms:
+  twitter:
+    style: professional
+    include_hashtags: true
+    max_length: 280
+  
+  bluesky:
+    style: casual
+    include_url: true
+  
+  mastodon:
+    style: technical
+    include_hashtags: true
+<h1>OSS Edition Limits (read-only)</h1>
+limits:
+  max_platforms: 3
+  max_posts_per_day: 50
+  max_campaigns: 5
+  features:
+    advanced_analytics: false
+    autopilot: false
+    team_management: false
+<h1>Logging</h1>
+logging:
+  level: INFO
+  file: "~/.aetherpost/logs/aetherpost.log"
+  max_size: "10MB"
+  backup_count: 5
+</code>`<code>
+<h2>Platform-Specific Configuration</h2>
+<h3>Twitter/X</h3>
+</code>`<code>yaml
+twitter:
+  style: professional
+  max_length: 280
+  include_hashtags: true
+  thread_support: false     # Enterprise only
+  auto_reply: false         # Enterprise only
+  
+  # Rate limiting
+  rate_limit:
+    posts_per_hour: 10
+    posts_per_day: 50
+</code>`<code>
+<h3>Bluesky</h3>
+</code>`<code>yaml
+bluesky:
+  style: casual
+  include_url: true
+  include_preview: true
+  max_length: 300
+  
+  # Moderation
+  content_filter: moderate
+</code>`<code>
+<h3>Mastodon</h3>
+</code>`<code>yaml
+mastodon:
+  instance: "mastodon.social"
+  style: technical
+  visibility: public       # public, unlisted, private
+  sensitive: false
+  spoiler_text: ""
+</code>`<code>
+<h2>Content Templates</h2>
+<h3>Style Configuration</h3>
+</code>`<code>yaml
+content:
+  styles:
+    casual:
+      tone: friendly
+      emoji_usage: moderate
+      formality: low
+      
+    professional:
+      tone: authoritative
+      emoji_usage: minimal
+      formality: high
+      
+    technical:
+      tone: informative
+      emoji_usage: rare
+      formality: medium
+      technical_terms: encouraged
+      
+    humorous:
+      tone: playful
+      emoji_usage: high
+      formality: low
+      humor_type: light
+</code>`<code>
+<h3>Content Types</h3>
+</code>`<code>yaml
+content:
+  types:
+    announcement:
+      template: "Exciting news! {concept}. {action}"
+      platforms: [twitter, bluesky]
+      
+    feature_update:
+      template: "New in v{version}: {description}. {action}"
+      hashtags: ["update", "features"]
+      
+    maintenance:
+      template: "Scheduled maintenance for {name}. {details}"
+      style: professional
+</code>`<code>
+<h2>Command-Line Configuration</h2>
+<h3>Global Options</h3>
+</code>`<code>bash
+<h1>Configuration file location</h1>
+aetherpost --config=/path/to/config.yaml
+<h1>Verbose output</h1>
+aetherpost --verbose plan
+<h1>Dry run mode</h1>
+aetherpost --dry-run apply
+<h1>Specific platform</h1>
+aetherpost --platform=twitter now "Hello world"
+</code>`<code>
+<h3>Environment Override</h3>
+</code>`<code>bash
+<h1>Override AI provider</h1>
+AETHERPOST_AI_PROVIDER=anthropic aetherpost plan
+<h1>Override log level</h1>
+AETHERPOST_LOG_LEVEL=DEBUG aetherpost apply
+</code>`<code>
+<h2>Security Configuration</h2>
+<h3>Credential Encryption</h3>
+</code>`<code>yaml
+security:
+  encrypt_credentials: true
+  master_key_file: "~/.aetherpost/master.key"
+  key_rotation_days: 90
+  
+  # Backup
+  backup_encrypted: true
+  backup_location: "~/.aetherpost/backups"
+</code>`<code>
+<h3>Rate Limiting</h3>
+</code>`<code>yaml
+rate_limiting:
+  enabled: true
+  
+  # Global limits (OSS)
+  daily_posts: 50
+  hourly_posts: 10
+  
+  # Per-platform limits
+  twitter:
+    posts_per_hour: 5
+    posts_per_day: 20
+  
+  bluesky:
+    posts_per_hour: 10
+    posts_per_day: 30
+</code>`<code>
+<h2>Validation</h2>
+<h3>Configuration Validation</h3>
+</code>`<code>bash
+<h1>Validate campaign configuration</h1>
+aetherpost validate campaign.yaml
+<h1>Validate user configuration</h1>
+aetherpost validate --config
+<h1>Check API key setup</h1>
+aetherpost auth test
+</code>`<code>
+<h3>Schema</h3>
+<p>AetherPost validates configuration against JSON schemas:</p>
+</code>`<code>bash
+<h1>Check schema compliance</h1>
+aetherpost validate --schema campaign.yaml
+<h1>Generate sample configuration</h1>
+aetherpost init --sample > sample-campaign.yaml
+</code>`<code>
+<h2>Migration</h2>
+<h3>From v1.x to v2.x</h3>
+</code>`<code>bash
+<h1>Backup current configuration</h1>
+cp -r ~/.aetherpost ~/.aetherpost.backup
+<h1>Run migration</h1>
+aetherpost migrate --from=1.x --to=2.x
+<h1>Verify migration</h1>
+aetherpost validate --config
+</code>`<code>
+<h2>Troubleshooting</h2>
+<h3>Common Issues</h3>
+<p>1. <strong>Invalid Configuration</strong>
+   </code>`<code>bash
+   aetherpost validate campaign.yaml
+   </code>`<code></p>
+<p>2. <strong>Missing API Keys</strong>
+   </code>`<code>bash
+   aetherpost auth setup
+   </code>`<code></p>
+<p>3. <strong>Permission Issues</strong>
+   </code>`<code>bash
+   chmod 600 ~/.aetherpost/credentials.json
+   </code>`<code></p>
+<p>4. <strong>Platform Limits</strong>
+   </code>`<code>bash
+   aetherpost stats --usage
+   </code>`<code></p>
+<h3>Debug Mode</h3>
+</code>`<code>bash
+<h1>Enable debug logging</h1>
+export AETHERPOST_LOG_LEVEL=DEBUG
+aetherpost plan
+<h1>Check configuration loading</h1>
+aetherpost debug config
+<h1>Test platform connections</h1>
+aetherpost debug platforms
+</code>``
+<h2>See Also</h2>
+<ul><li><a href="installation.md">Installation Guide</a></li></ul>
+<ul><li><a href="platforms.md">Platform Setup</a></li></ul>
+<ul><li><a href="ai-providers.md">AI Provider Setup</a></li></ul>
+<ul><li><a href="examples.md">Examples</a></li></ul>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>AetherPost</h3>
+                    <p>Making social media automation accessible to developers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Documentation</h4>
+                        <ul>
+                            <li><a href="getting-started.html">Getting Started</a></li>
+                            <li><a href="api-reference.html">API Reference</a></li>
+                            <li><a href="configuration.html">Configuration</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h4>Community</h4>
+                        <ul>
+                            <li><a href="contributing.html">Contributing</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net">GitHub</a></li>
+                            <li><a href="https://d3b75mcubdhimz.cloudfront.net/issues">Issues</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 AetherPost. Licensed under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
