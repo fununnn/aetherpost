@@ -1,0 +1,19 @@
+include README.md
+include LICENSE
+include requirements-oss.txt
+include RELEASE_NOTES_v*.md
+recursive-include aetherpost *.py
+recursive-include aetherpost *.yaml
+recursive-include aetherpost *.yml
+recursive-include docs-site *.html
+recursive-include docs-site *.css
+recursive-include docs-site *.js
+recursive-include docs-site *.svg
+prune tests
+prune backup_before_cleanup
+prune aetherpost-release
+global-exclude *.pyc
+global-exclude __pycache__
+global-exclude .DS_Store
+global-exclude *.log
+global-exclude .env*
