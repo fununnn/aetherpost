@@ -51,12 +51,13 @@ aetherpost plan
 # Execute posts
 aetherpost apply
 
-# Quick post
-aetherpost now "New feature released! 🚀" --to twitter
+# Check status
+aetherpost status
 ```
 
 ## 📋 Configuration Example
 
+### Basic Configuration
 ```yaml
 name: "my-awesome-app"
 concept: "AI-powered task manager that learns your habits"
@@ -65,27 +66,50 @@ platforms: [twitter, bluesky]
 content:
   style: casual
   action: "Try it free!"
+  language: en  # Default: English
 ```
 
-## 🔧 Commands
+### Multi-Language Support
+```yaml
+# Japanese Campaign
+content:
+  style: casual
+  action: "今すぐ試してみてください！"
+  language: ja  # Japanese content generation
+  hashtags: ["#AI", "#生産性", "#ツール"]
+
+# Spanish Campaign  
+content:
+  style: professional
+  action: "Pruébalo ahora"
+  language: es  # Spanish content generation
+  hashtags: ["#IA", "#Productividad"]
+```
+
+**Supported Languages**: English (en), Japanese (ja), Spanish (es), French (fr), German (de), Korean (ko), Chinese (zh), Portuguese (pt), Russian (ru), Arabic (ar), and 10+ more.
+
+See [multilang-campaign.yaml](examples/multilang-campaign.yaml) for complete examples.
+
+## 🔧 Commands (Terraform-style)
 
 | Command | Description |
 |---------|-------------|
 | `aetherpost init` | Initialize new campaign |
 | `aetherpost plan` | Preview generated content |
 | `aetherpost apply` | Execute posts |
-| `aetherpost now <message>` | Quick post |
-| `aetherpost stats` | View analytics |
+| `aetherpost destroy` | Delete posted content |
+| `aetherpost auth` | Manage authentication |
+| `aetherpost doctor` | Check configuration |
 
 ## 📖 Documentation
 
-**🌐 [Complete Documentation Site](https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com)**
+**🌐 [Complete Documentation Site](https://d3b75mcubdhimz.cloudfront.net)**
 
 Quick links:
-- [Getting Started](https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com/getting-started.html)
-- [API Reference](https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com/api-reference.html)
-- [Developer Guide](https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com/developer-onboarding.html)
-- [Contributing](https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com/contributing.html)
+- [Getting Started](https://d3b75mcubdhimz.cloudfront.net/getting-started.html)
+- [API Reference](https://d3b75mcubdhimz.cloudfront.net/api-reference.html)
+- [Developer Guide](https://d3b75mcubdhimz.cloudfront.net/developer-onboarding.html)
+- [Contributing](https://d3b75mcubdhimz.cloudfront.net/contributing.html)
 
 ## 🤝 Contributing
 

@@ -20,6 +20,19 @@ class ContentConfig(BaseModel):
     max_length: int = 280
     hashtags: List[str] = Field(default_factory=list)
     ai_prompt: Optional[str] = None
+    language: str = "en"  # ISO 639-1 language code (en, ja, es, fr, de, etc.)
+    
+    @validator('language')
+    def validate_language(cls, v):
+        """Validate language code."""
+        # Common language codes
+        valid_languages = {
+            'en', 'ja', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'ko', 'zh', 
+            'ar', 'hi', 'th', 'vi', 'tr', 'nl', 'sv', 'da', 'no', 'fi'
+        }
+        if v not in valid_languages:
+            raise ValueError(f"Unsupported language code: {v}. Supported: {', '.join(sorted(valid_languages))}")
+        return v
 
 
 class ScheduleConfig(BaseModel):

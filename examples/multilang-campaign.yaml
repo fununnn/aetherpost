@@ -1,0 +1,65 @@
+# Multi-language campaign examples for AetherPost
+
+# Japanese Campaign Example
+name: "ai-productivity-app"
+concept: "Revolutionary AI-powered productivity tool for developers"
+url: "https://myapp.dev"
+platforms: [twitter, reddit, youtube]
+
+content:
+  style: casual
+  action: "今すぐ試してみてください！"
+  language: ja  # Japanese content generation
+  hashtags: ["#AI", "#生産性", "#開発者", "#ツール"]
+
+# Spanish Campaign Example  
+---
+name: "app-productividad"
+concept: "Herramienta revolucionaria de productividad impulsada por IA"
+url: "https://miapp.es"
+platforms: [twitter, linkedin]
+
+content:
+  style: professional
+  action: "Pruébalo ahora"
+  language: es  # Spanish content generation
+  hashtags: ["#IA", "#Productividad", "#Tecnología"]
+
+# German Campaign Example
+---
+name: "ki-produktivitaet-tool"
+concept: "Revolutionäres KI-gestütztes Produktivitätstool für Entwickler"
+url: "https://meinapp.de"
+platforms: [twitter, linkedin, mastodon]
+
+content:
+  style: technical
+  action: "Jetzt testen"
+  language: de  # German content generation
+  hashtags: ["#KI", "#Produktivität", "#Entwicklung"]
+
+# Korean Campaign Example
+---
+name: "ai-productivity-korean"
+concept: "개발자를 위한 혁신적인 AI 기반 생산성 도구"
+url: "https://myapp.kr"
+platforms: [twitter, reddit]
+
+content:
+  style: casual
+  action: "지금 체험해보세요"
+  language: ko  # Korean content generation
+  hashtags: ["#AI", "#생산성", "#개발자도구"]
+
+# French Campaign Example
+---
+name: "outil-productivite-ia"
+concept: "Outil de productivité révolutionnaire alimenté par l'IA"
+url: "https://monapp.fr"
+platforms: [twitter, linkedin]
+
+content:
+  style: professional
+  action: "Essayez maintenant"
+  language: fr  # French content generation
+  hashtags: ["#IA", "#Productivité", "#Innovation"]

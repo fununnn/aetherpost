@@ -100,6 +100,7 @@ class ContentGenerator:
         # Use variant settings or defaults
         style = variant_config.get("style") if variant_config else config.content.style
         action = variant_config.get("action") if variant_config else config.content.action
+        language = config.content.language
         
         # Platform-specific constraints
         char_limit = self._get_platform_char_limit(platform)
@@ -107,6 +108,9 @@ class ContentGenerator:
         
         # Build style-specific instructions
         style_instructions = self._get_style_instructions(style)
+        
+        # Language-specific instructions
+        language_instructions = self._get_language_instructions(language)
         
         prompt = f"""Create an engaging social media post for {platform} about the following:
 
@@ -119,16 +123,21 @@ Style Guidelines:
 - Call to action: {action}
 - Character limit: {char_limit}
 - Platform: {platform}
+- Language: Write ENTIRELY in {self._get_language_name(language)} ({language})
+
+{language_instructions}
 
 {style_instructions}
 
 {platform_features}
 
 Requirements:
+- Write the ENTIRE post in {self._get_language_name(language)}
 - Make it engaging and shareable
 - Include the call to action naturally
 - {'Use appropriate hashtags' if platform != 'twitter' else 'Limit hashtags (Twitter style)'}
 - Keep it authentic and not overly promotional
+- Use culturally appropriate expressions for {self._get_language_name(language)} speakers
 
 Generate only the post text, no explanations or additional commentary."""
         
@@ -196,6 +205,98 @@ Generate only the post text, no explanations or additional commentary."""
         }
         
         return style_guides.get(style, style_guides["casual"])
+    
+    def _get_language_name(self, language_code: str) -> str:
+        """Get full language name from ISO code."""
+        language_names = {
+            'en': 'English',
+            'ja': 'Japanese (日本語)',
+            'es': 'Spanish (Español)',
+            'fr': 'French (Français)',
+            'de': 'German (Deutsch)',
+            'it': 'Italian (Italiano)',
+            'pt': 'Portuguese (Português)',
+            'ru': 'Russian (Русский)',
+            'ko': 'Korean (한국어)',
+            'zh': 'Chinese (中文)',
+            'ar': 'Arabic (العربية)',
+            'hi': 'Hindi (हिन्दी)',
+            'th': 'Thai (ไทย)',
+            'vi': 'Vietnamese (Tiếng Việt)',
+            'tr': 'Turkish (Türkçe)',
+            'nl': 'Dutch (Nederlands)',
+            'sv': 'Swedish (Svenska)',
+            'da': 'Danish (Dansk)',
+            'no': 'Norwegian (Norsk)',
+            'fi': 'Finnish (Suomi)'
+        }
+        return language_names.get(language_code, language_code.upper())
+    
+    def _get_language_instructions(self, language_code: str) -> str:
+        """Get language-specific writing instructions."""
+        instructions = {
+            'en': """Language Instructions for ENGLISH:
+- Use natural, native English expressions
+- Follow standard English grammar and punctuation
+- Use appropriate English idioms and phrases""",
+            
+            'ja': """Language Instructions for JAPANESE (日本語):
+- 自然な日本語表現を使用してください
+- 適切な敬語・丁寧語を使用してください
+- カタカナ、ひらがな、漢字を適切に混在させてください
+- 日本の文化に適した表現を使用してください
+- ハッシュタグは英語でも日本語でも適切な方を選択してください""",
+            
+            'es': """Language Instructions for SPANISH (Español):
+- Use natural Spanish expressions and idioms
+- Follow proper Spanish grammar and accent marks
+- Use appropriate formal/informal register
+- Consider regional variations if applicable""",
+            
+            'fr': """Language Instructions for FRENCH (Français):
+- Use natural French expressions and idioms
+- Follow proper French grammar and accent marks
+- Use appropriate formal/informal register
+- Consider cultural nuances in French-speaking regions""",
+            
+            'de': """Language Instructions for GERMAN (Deutsch):
+- Use natural German expressions and compound words
+- Follow proper German grammar and capitalization
+- Use appropriate formal/informal register (Sie/du)
+- Consider Austrian/Swiss variations if applicable""",
+            
+            'ko': """Language Instructions for KOREAN (한국어):
+- 자연스러운 한국어 표현을 사용해주세요
+- 적절한 존댓말/반말을 사용해주세요
+- 한국 문화에 맞는 표현을 사용해주세요
+- 한글과 영어를 적절히 혼용해주세요""",
+            
+            'zh': """Language Instructions for CHINESE (中文):
+- 使用自然的中文表达方式
+- 遵循正确的中文语法和标点符号
+- 使用适当的正式/非正式语调
+- 考虑简体中文的使用习惯""",
+            
+            'pt': """Language Instructions for PORTUGUESE (Português):
+- Use natural Portuguese expressions and idioms
+- Follow proper Portuguese grammar and accent marks
+- Consider Brazilian vs European Portuguese variations
+- Use appropriate formal/informal register""",
+            
+            'ru': """Language Instructions for RUSSIAN (Русский):
+- Используйте естественные русские выражения
+- Следуйте правильной русской грамматике
+- Используйте соответствующий формальный/неформальный регистр
+- Учитывайте культурные особенности""",
+            
+            'ar': """Language Instructions for ARABIC (العربية):
+- استخدم التعبيرات العربية الطبيعية
+- اتبع القواعد النحوية العربية الصحيحة
+- استخدم الأسلوب الرسمي/غير الرسمي المناسب
+- راع الاختلافات الثقافية في المنطقة العربية"""
+        }
+        
+        return instructions.get(language_code, instructions['en'])
     
     async def _generate_text(self, 
                            prompt: str, 
@@ -377,7 +478,8 @@ Generate only the post text, no explanations or additional commentary."""
             "style": config.content.style,
             "action": config.content.action,
             "hashtags": config.content.hashtags,
-            "max_length": config.content.max_length
+            "max_length": config.content.max_length,
+            "language": config.content.language
         }
         
         # Convert to JSON string and hash for consistent key
