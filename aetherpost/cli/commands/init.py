@@ -108,6 +108,35 @@ def main(
             if Confirm.ask(f"Enable {info['name']}? ({info['cost']})", default=default):
                 selected_platforms.append(platform)
     
+    # Language configuration
+    console.print(f"\n[bold]🌍 Language Configuration:[/bold]")
+    
+    available_languages = {
+        "en": "English",
+        "ja": "Japanese (日本語)",
+        "es": "Spanish (Español)", 
+        "fr": "French (Français)",
+        "de": "German (Deutsch)",
+        "ko": "Korean (한국어)",
+        "zh": "Chinese (中文)",
+        "pt": "Portuguese (Português)",
+        "ru": "Russian (Русский)",
+        "ar": "Arabic (العربية)"
+    }
+    
+    if quick:
+        content_language = "en"  # Default to English
+    else:
+        console.print("Available languages for content generation:")
+        for code, name in available_languages.items():
+            console.print(f"  {code}: {name}")
+        
+        content_language = Prompt.ask(
+            "Choose content language", 
+            choices=list(available_languages.keys()), 
+            default="en"
+        )
+    
     # AI Services configuration
     console.print(f"\n[bold]🤖 AI Services Configuration:[/bold]")
     
@@ -165,6 +194,7 @@ def main(
         summary_table.add_row("Project Name", name)
         summary_table.add_row("Template", template)
         summary_table.add_row("Platforms", ", ".join(selected_platforms))
+        summary_table.add_row("Content Language", f"{available_languages.get(content_language, content_language)} ({content_language})")
         summary_table.add_row("AI Services", ", ".join(selected_ai))
         summary_table.add_row("Backend", backend)
         summary_table.add_row("Est. Monthly Cost", estimated_cost.get("total", "$0-50"))
@@ -176,7 +206,7 @@ def main(
             return
     
     # Create workspace
-    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir)
+    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language)
     
     # Next steps
     show_next_steps(name, selected_platforms)
@@ -230,7 +260,7 @@ def calculate_cost_estimate(template: str, platforms: List[str], ai_services: Li
 
 
 def create_workspace(name: str, template: str, platforms: List[str], ai_services: List[str], 
-                    backend: str, autopromo_dir: Path):
+                    backend: str, autopromo_dir: Path, content_language: str = "en"):
     """Create AetherPost workspace files."""
     
     # Create directory structure
@@ -253,7 +283,8 @@ def create_workspace(name: str, template: str, platforms: List[str], ai_services
         "content": {
             "default_style": "professional" if template == "enterprise" else "casual",
             "max_length": 280,
-            "hashtags": ["#AetherPost"]
+            "hashtags": ["#AetherPost"],
+            "language": content_language
         },
         "scheduling": {
             "timezone": "UTC",
@@ -659,11 +690,26 @@ def show_next_steps(name: str, platforms: List[str]):
     
     console.print(f"\n[dim]💡 Quick start: aetherpost promote \"Hello World!\" --platforms {','.join(platforms[:2])}[/dim]")
     
+    # Show example campaign configuration
+    console.print(f"\n[bold]📝 Example campaign.yaml:[/bold]")
+    example_yaml = f"""[dim]name: "{name}-campaign"
+concept: "Awesome AI-powered productivity tool"
+url: "https://myapp.com"
+platforms: [{', '.join(f'"{p}"' for p in platforms[:3])}]
+content:
+  style: casual
+  action: "Try it now!"
+  language: en  # Change to ja, es, fr, de, ko, etc.
+  hashtags: ["#AI", "#productivity"]
+[/dim]"""
+    console.print(example_yaml)
+    
     # Show helpful links
     console.print(f"\n[bold]📚 Helpful Resources:[/bold]")
     console.print("• Documentation: [blue]https://d3b75mcubdhimz.cloudfront.net[/blue]")
-    console.print("• GitHub: [blue]https://github.com/fununnn/aetherpost[/blue]")
-    console.print("• Examples: [blue]https://d3b75mcubdhimz.cloudfront.net/guides/[/blue]")
+    console.print("• GitHub: [blue]https://github.com/fununnn/aetherpost[/blue]") 
+    console.print("• Multi-Language Examples: [blue]examples/multilang-campaign.yaml[/blue]")
+    console.print("• Language Support: [blue]20+ languages including Japanese, Spanish, French, German, Korean[/blue]")
 
 
 if __name__ == "__main__":
