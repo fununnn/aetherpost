@@ -44,8 +44,8 @@ aetherpost init
 </code>`<code>bash
 <h1>Initialize AetherPost</h1>
 aetherpost init
-<h1>Create a test post</h1>
-aetherpost post "Hello from AetherPost!" --platform twitter
+<h1>Check status</h1>
+aetherpost status
 </code>`<code>
 <h2>Architecture Overview</h2>
 </code>`<code>
@@ -71,7 +71,7 @@ schedule:
   
 posts:
   - content: "Exciting news coming soon!"
-    platforms: ["twitter", "linkedin"]
+    platforms: ["twitter", "reddit", "youtube"]
 </code>`<code>
 <h3>2. Platform Connectors</h3>
 Each platform has its own connector:
@@ -160,19 +160,19 @@ AVAILABLE_PLUGINS = {
 <h2>Common Tasks</h2>
 <h3>Running Locally</h3>
 </code>`<code>bash
-<h1>Start development server</h1>
-aetherpost server --debug
-<h1>Watch for changes</h1>
-aetherpost dev --reload
+<h1>Check configuration</h1>
+aetherpost doctor
+<h1>Test authentication</h1>
+aetherpost auth status
 </code>`<code>
-<h3>Database Operations</h3>
+<h3>Campaign Operations</h3>
 </code>`<code>bash
-<h1>Initialize database</h1>
-aetherpost db init
-<h1>Run migrations</h1>
-aetherpost db migrate
-<h1>Seed test data</h1>
-aetherpost db seed
+<h1>Initialize new campaign</h1>
+aetherpost init
+<h1>Preview content</h1>
+aetherpost plan
+<h1>Execute campaign</h1>
+aetherpost apply
 </code>`<code>
 <h3>Debugging</h3>
 </code>`<code>python
@@ -204,10 +204,10 @@ import pdb; pdb.set_trace()
 <p>3. <strong>Authentication Failures</strong>
    </code>`<code>bash
    # Re-authenticate
-   aetherpost auth refresh --platform twitter
+   aetherpost auth login
    </code>``</p>
 <h2>Getting Help</h2>
-<ul><li>📖 <a href="https://docs.aetherpost.dev">Full Documentation</a></li></ul>
+<ul><li>📖 <a href="https://d3b75mcubdhimz.cloudfront.net">Full Documentation</a></li></ul>
 <ul><li>💬 <a href="https://discord.gg/aetherpost">Discord Community</a></li></ul>
 <ul><li>🐛 <a href="https://github.com/fununnn/aetherpost/issues">Issue Tracker</a></li></ul>
 <ul><li>📧 Email: dev@aetherpost.dev</li></ul>

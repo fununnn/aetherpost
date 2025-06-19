@@ -20,10 +20,7 @@ apply_app = typer.Typer()
 @apply_app.command()
 def main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
-    dry_run: bool = typer.Option(False, "--dry-run", help="Preview without posting"),
     yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation"),
-    platform: str = typer.Option(None, "--platform", help="Post to specific platform only"),
-    skip_review: bool = typer.Option(False, "--skip-review", help="Skip content review phase"),
 ):
     """Execute the campaign and post to social media platforms."""
     
@@ -45,8 +42,7 @@ def main(
                 console.print(f"  • {issue}")
             return
         
-        # Filter platforms if specified
-        platforms = [platform] if platform else config.platforms
+        platforms = config.platforms
         
         # Load credentials
         credentials = config_loader.load_credentials()

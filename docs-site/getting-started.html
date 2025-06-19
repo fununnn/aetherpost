@@ -36,7 +36,7 @@
 <h3>OSS Edition (Free)</h3>
 <ul><li>🎯 <strong>Declarative configuration</strong> - Define campaigns in YAML</li></ul>
 <ul><li>🤖 <strong>AI-generated content</strong> - [AI Service]/OpenAI powered posts</li></ul>
-<ul><li>📱 <strong>Multi-platform support</strong> - Twitter, Bluesky, Mastodon (up to 3 platforms)</li></ul>
+<ul><li>📱 <strong>Multi-platform support</strong> - Twitter, Reddit, YouTube (production tested)</li></ul>
 <ul><li>🔒 <strong>Secure</strong> - Encrypted credential storage</li></ul>
 <ul><li>⚡ <strong>Idempotent</strong> - Safe to run multiple times</li></ul>
 <ul><li>📊 <strong>Basic analytics</strong> - Track post performance</li></ul>
@@ -65,32 +65,42 @@ aetherpost init
 <h3>Usage</h3>
 </code>`<code>bash
 <h1>Create campaign</h1>
-aetherpost init myapp --quick
+aetherpost init myapp
 <h1>Preview content</h1>
 aetherpost plan
 <h1>Execute posts</h1>
 aetherpost apply
-<h1>Quick post</h1>
-aetherpost now "New feature released! 🚀" --to twitter
+<h1>Check status</h1>
+aetherpost status
 </code>`<code>
+
+<div style="margin: 30px 0; text-align: center;">
+    <h3>🎬 Visual Workflow</h3>
+    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; padding: 20px; margin: 20px 0;">
+        <object data="animations/circular-flow.svg" type="image/svg+xml" 
+                style="width: 100%; height: 400px; border-radius: 10px; pointer-events: none;"></object>
+    </div>
+    <p style="color: #666; font-style: italic;">Interactive visualization of the AetherPost workflow</p>
+</div>
 <h2>📋 Configuration Example</h2>
 </code>`<code>yaml
 name: "my-awesome-app"
 concept: "AI-powered task manager that learns your habits"
 url: "https://myapp.com"
-platforms: [twitter, bluesky]
+platforms: [twitter, reddit, youtube]
 content:
   style: casual
   action: "Try it free!"
 </code>`<code>
-<h2>🔧 Commands</h2>
+<h2>🔧 Commands (Terraform-style)</h2>
 <p>| Command | Description |
 |---------|-------------|
 | </code>aetherpost init<code> | Initialize new campaign |
 | </code>aetherpost plan<code> | Preview generated content |
 | </code>aetherpost apply<code> | Execute posts |
-| </code>aetherpost now <message><code> | Quick post |
-| </code>aetherpost stats` | View analytics |</p>
+| </code>aetherpost destroy<code> | Delete posted content |
+| </code>aetherpost auth<code> | Manage authentication |
+| </code>aetherpost doctor<code> | Check configuration |</p>
 <h2>📖 Documentation</h2>
 <ul><li><a href="docs/installation.md">Installation Guide</a></li></ul>
 <ul><li><a href="docs/configuration.md">Configuration Reference</a></li></ul>

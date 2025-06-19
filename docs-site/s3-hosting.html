@@ -27,152 +27,133 @@
     <main class="main">
         <div class="container">
             <div class="doc-page">
-                <h1>S3 Free Tier Documentation Hosting Guide</h1>
-<h2>Overview</h2>
-This guide helps developers host AetherPost documentation on AWS S3 using the free tier, enabling easy access for new contributors.
-<h2>AWS Free Tier Limits</h2>
-<ul><li><strong>Storage</strong>: 5GB for 12 months</li></ul>
-<ul><li><strong>Requests</strong>: 20,000 GET / 2,000 PUT requests per month</li></ul>
-<ul><li><strong>Data Transfer</strong>: 15GB outbound per month</li></ul>
-<h2>Setup Instructions</h2>
-<h3>1. Create S3 Bucket</h3>
-``<code>bash
-<h1>Install AWS CLI</h1>
-pip install awscli
-<h1>Configure AWS credentials</h1>
-aws configure
-<h1>Create bucket for documentation</h1>
-aws s3 mb s3://aetherpost-docs --region ap-northeast-1
-</code>`<code>
-<h3>2. Enable Static Website Hosting</h3>
-</code>`<code>bash
-<h1>Enable website hosting</h1>
-aws s3 website s3://aetherpost-docs \
-  --index-document index.html \
-  --error-document error.html
-</code>`<code>
-<h3>3. Set Bucket Policy for Public Access</h3>
-Create </code>bucket-policy.json<code>:
-</code>`<code>json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "PublicReadGetObject",
-      "Effect": "Allow",
-      "Principal": "*",
-      "Action": "s3:GetObject",
-      "Resource": "arn:aws:s3:::aetherpost-docs/*"
-    }
-  ]
-}
-</code>`<code>
-<p>Apply policy:
-</code>`<code>bash
-aws s3api put-bucket-policy \
-  --bucket aetherpost-docs \
-  --policy file://bucket-policy.json
-</code>`<code></p>
-<h3>4. Upload Documentation</h3>
-</code>`<code>bash
-<h1>Sync documentation files</h1>
-aws s3 sync ./docs-site/ s3://aetherpost-docs/ \
-  --delete \
-  --exclude "<em>.git</em>" \
-  --content-type "text/html"
-</code>`<code>
-<h2>Documentation Structure</h2>
-</code>`<code>
-docs-site/
-├── index.html          # Landing page
-├── getting-started/    # Quick start guides
-├── api-reference/      # API documentation
-├── tutorials/          # Step-by-step tutorials
-├── contributing/       # Contribution guidelines
-└── assets/            # Images, CSS, JS
-</code>`<code>
-<h2>Cost Optimization Tips</h2>
-<p>1. <strong>Use CloudFlare CDN</strong> (Free)
-   - Reduces S3 requests
-   - Improves global performance
-   - Provides SSL certificate</p>
-<p>2. <strong>Compress Assets</strong>
-   </code>`<code>bash
-   # Gzip HTML/CSS/JS files
-   find docs-site -name "<em>.html" -o -name "</em>.css" -o -name "*.js" | \
-     xargs gzip -9 -k
-   </code>`<code></p>
-<p>3. <strong>Set Cache Headers</strong>
-   </code>`<code>bash
-   aws s3 cp docs-site/ s3://aetherpost-docs/ \
-     --recursive \
-     --cache-control "max-age=3600"
-   </code>`<code></p>
-<h2>Monitoring Usage</h2>
-</code>`<code>bash
-<h1>Check bucket size</h1>
-aws s3 ls s3://aetherpost-docs --recursive --summarize | grep "Total Size"
-<h1>Monitor requests (CloudWatch)</h1>
-aws cloudwatch get-metric-statistics \
-  --namespace AWS/S3 \
-  --metric-name NumberOfObjects \
-  --dimensions Name=BucketName,Value=aetherpost-docs \
-  --start-time 2025-01-01T00:00:00Z \
-  --end-time 2025-01-31T23:59:59Z \
-  --period 86400 \
-  --statistics Average
-</code>`<code>
-<h2>Alternative Free Hosting Options</h2>
-<h3>GitHub Pages</h3>
-<ul><li>Completely free</li></ul>
-<ul><li>Automatic deployment from repository</li></ul>
-<ul><li>Custom domain support</li></ul>
-</code>`<code>yaml
-<h1>.github/workflows/deploy-docs.yml</h1>
-name: Deploy Documentation
-on:
-  push:
-    branches: [main]
-    paths:
-      - 'docs-site/**'
-<p>jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs-site
-</code>`<code></p>
-<h3>Netlify</h3>
-<ul><li>100GB bandwidth/month free</li></ul>
-<ul><li>Automatic HTTPS</li></ul>
-<ul><li>Deploy previews</li></ul>
-</code>`<code>toml
-<h1>netlify.toml</h1>
-[build]
-  publish = "docs-site/"
-<p>[[redirects]]
-  from = "/api/*"
-  to = "/api-reference/:splat"
-  status = 200
-</code>`<code></p>
-<h2>Access URL</h2>
-Once deployed, documentation will be available at:
-<ul><li>S3: </code>http://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com<code></li></ul>
-<ul><li>CloudFlare: </code>https://docs.aetherpost.dev<code> (after setup)</li></ul>
-<ul><li>GitHub Pages: </code>https://[username].github.io/aetherpost`</li></ul>
-<h2>Security Considerations</h2>
-<ul><li>Never commit AWS credentials</li></ul>
-<ul><li>Use IAM roles with minimal permissions</li></ul>
-<ul><li>Enable S3 access logging</li></ul>
-<ul><li>Regular security audits</li></ul>
-<h2>Support</h2>
-For questions about documentation hosting:
-<ul><li>Create issue in GitHub repository</li></ul>
-<ul><li>Join community Discord</li></ul>
-<ul><li>Email: support@aetherpost.dev</li></ul>
+                <h1>AetherPost Documentation</h1>
+                
+<h2>What is AetherPost?</h2>
+<p>AetherPost is a <strong>Terraform-style</strong> automation tool that brings Infrastructure as Code principles to social media promotion. Perfect for developers who want to systematically promote their projects without manual social media management.</p>
+
+<h2>Core Workflow</h2>
+<p>AetherPost follows a simple 3-step process:</p>
+<ol>
+<li><strong>Init</strong> - Set up your project and configure platforms</li>
+<li><strong>Plan</strong> - Preview AI-generated content before posting</li>
+<li><strong>Apply</strong> - Deploy your promotion campaign to multiple platforms</li>
+</ol>
+
+<h2>Supported Platforms</h2>
+<ul>
+<li><strong>Twitter</strong> - Automated tweets with engagement optimization</li>
+<li><strong>Reddit</strong> - Strategic subreddit posting with community guidelines</li>
+<li><strong>YouTube</strong> - Video content and community posts</li>
+</ul>
+
+<h2>Key Features</h2>
+<ul>
+<li>🤖 <strong>AI Content Generation</strong> - Contextual posts tailored to each platform</li>
+<li>🌍 <strong>Multi-Language Support</strong> - Generate content in 20+ languages (Japanese, Spanish, French, German, Korean, Chinese, etc.)</li>
+<li>📋 <strong>Preview Before Deploy</strong> - See exactly what will be posted</li>
+<li>🎯 <strong>Configuration as Code</strong> - YAML-based campaign definitions</li>
+<li>🔄 <strong>Terraform Workflow</strong> - Familiar init, plan, apply, destroy commands</li>
+<li>⚡ <strong>One-Command Setup</strong> - Automatic dependency installation with language selection</li>
+</ul>
+
+<!-- AetherPost Workflow Animation -->
+<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 16px; margin: 30px 0;">
+    <h3 style="color: white; text-align: center; margin-bottom: 15px; font-size: 20px;">🚀 AetherPost: From Init to First Apply</h3>
+    <object data="animations/aetherpost-flow.svg" type="image/svg+xml" style="width: 100%; height: 600px; border-radius: 8px; pointer-events: none;"></object>
+</div>
+<h2>Getting Started</h2>
+<p>Ready to automate your project promotion? Here's how to get started:</p>
+
+<h3>Installation</h3>
+<pre><code>git clone https://github.com/fununnn/aetherpost.git
+cd aetherpost
+aetherpost init myproject</code></pre>
+
+<h3>Language Selection</h3>
+<p>Choose your content language during setup:</p>
+<pre><code># Quick setup (defaults to English)
+aetherpost init
+
+# Interactive setup with language selection
+aetherpost init --interactive
+# → Choose from: English, Japanese, Spanish, French, German, Korean, Chinese, etc.
+
+# Or specify in campaign.yaml
+content:
+  language: ja  # For Japanese content
+  action: "今すぐ試してみてください！"</code></pre>
+
+<h3>Multi-Language Campaign Examples</h3>
+<pre><code># Japanese Campaign
+name: "ai-app-jp"
+content:
+  language: ja
+  style: casual
+  action: "今すぐ試してみてください！"
+  hashtags: ["#AI", "#生産性", "#ツール"]
+
+# Spanish Campaign  
+name: "ai-app-es"
+content:
+  language: es
+  style: professional
+  action: "Pruébalo ahora"
+  hashtags: ["#IA", "#Productividad"]</code></pre>
+
+<h3>Basic Usage</h3>
+<pre><code># Preview your campaign (in selected language)
+aetherpost plan
+
+# Deploy to platforms
+aetherpost apply
+
+# Clean up posts if needed
+aetherpost destroy</code></pre>
+
+<h2>Documentation Access</h2>
+<p>This documentation is available at: <strong>https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com</strong></p>
+
+<h2>Supported Languages</h2>
+<div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
+<p><strong>🌍 20+ Languages Supported:</strong></p>
+<ul style="columns: 2; column-gap: 30px;">
+<li><strong>en</strong> - English</li>
+<li><strong>ja</strong> - Japanese (日本語)</li>
+<li><strong>es</strong> - Spanish (Español)</li>
+<li><strong>fr</strong> - French (Français)</li>
+<li><strong>de</strong> - German (Deutsch)</li>
+<li><strong>ko</strong> - Korean (한국어)</li>
+<li><strong>zh</strong> - Chinese (中文)</li>
+<li><strong>pt</strong> - Portuguese (Português)</li>
+<li><strong>ru</strong> - Russian (Русский)</li>
+<li><strong>ar</strong> - Arabic (العربية)</li>
+<li><strong>hi</strong> - Hindi (हिन्दी)</li>
+<li><strong>th</strong> - Thai (ไทย)</li>
+<li><strong>vi</strong> - Vietnamese (Tiếng Việt)</li>
+<li><strong>tr</strong> - Turkish (Türkçe)</li>
+<li><strong>nl</strong> - Dutch (Nederlands)</li>
+<li><strong>sv</strong> - Swedish (Svenska)</li>
+<li><strong>da</strong> - Danish (Dansk)</li>
+<li><strong>no</strong> - Norwegian (Norsk)</li>
+<li><strong>fi</strong> - Finnish (Suomi)</li>
+<li><strong>it</strong> - Italian (Italiano)</li>
+</ul>
+</div>
+
+<h2>Next Steps</h2>
+<ul>
+<li><a href="getting-started.html">📚 Getting Started Guide</a> - Complete setup instructions</li>
+<li><a href="api-reference.html">🔧 API Reference</a> - Detailed command documentation</li>
+<li><a href="configuration.html">⚙️ Configuration</a> - Customize your campaigns</li>
+<li><strong>🌍 Multi-Language Examples</strong> - Check <code>examples/multilang-campaign.yaml</code></li>
+</ul>
+<h2>Community & Support</h2>
+<ul>
+<li><strong>GitHub</strong>: <a href="https://github.com/fununnn/aetherpost">View source code and report issues</a></li>
+<li><strong>Issues</strong>: <a href="https://github.com/fununnn/aetherpost/issues">Bug reports and feature requests</a></li>
+<li><strong>Discussions</strong>: <a href="https://github.com/fununnn/aetherpost/discussions">Community Q&A</a></li>
+</ul>
             </div>
         </div>
     </main>

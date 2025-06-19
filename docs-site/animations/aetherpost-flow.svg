@@ -1,0 +1,258 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+  <defs>
+    <!-- Gradient definitions -->
+    <linearGradient id="terminalGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d2d2d;stop-opacity:1" />
+    </linearGradient>
+    
+    <linearGradient id="buttonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#45a049;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Animations -->
+    <style>
+      .typing-text {
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        fill: #00ff00;
+      }
+      
+      .terminal {
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      }
+      
+      .platform-icon {
+        transition: all 0.3s ease;
+      }
+      
+      .success-check {
+        fill: #4CAF50;
+        stroke: #4CAF50;
+        stroke-width: 3;
+        opacity: 0;
+      }
+      
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+      
+      @keyframes pulse {
+        0% { opacity: 0.6; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.05); }
+        100% { opacity: 0.6; transform: scale(1); }
+      }
+      
+      @keyframes typewriter {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+      
+      @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+      }
+      
+      .typewriter {
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typewriter 2s steps(40) 1s forwards;
+        width: 0;
+      }
+      
+      .cursor {
+        animation: blink 1s infinite;
+      }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="600" y="50" text-anchor="middle" fill="white" font-size="32" font-weight="bold" font-family="Arial, sans-serif">
+    🚀 AetherPost - From Init to Launch
+  </text>
+
+  <!-- Step 1: Terminal - Init -->
+  <g id="step1" class="terminal">
+    <rect x="50" y="100" width="500" height="300" rx="10" fill="url(#terminalGradient)" stroke="#555" stroke-width="2"/>
+    
+    <!-- Terminal header -->
+    <rect x="50" y="100" width="500" height="40" rx="10" fill="#333"/>
+    <circle cx="70" cy="120" r="6" fill="#ff5f56"/>
+    <circle cx="90" cy="120" r="6" fill="#ffbd2e"/>
+    <circle cx="110" cy="120" r="6" fill="#27ca3f"/>
+    <text x="130" y="125" fill="#ccc" font-size="12" font-family="Arial">Terminal</text>
+    
+    <!-- Terminal content -->
+    <text x="70" y="170" class="typing-text">
+      <tspan x="70" dy="0">$ git clone https://github.com/fununnn/aetherpost.git</tspan>
+      <tspan x="70" dy="20">Cloning into 'aetherpost'...</tspan>
+      <tspan x="70" dy="20">✅ Complete!</tspan>
+      <tspan x="70" dy="30">$ cd aetherpost</tspan>
+      <tspan x="70" dy="30">$ aetherpost init</tspan>
+      <tspan x="70" dy="20">🎯 Initializing AetherPost...</tspan>
+      <tspan x="70" dy="20">📦 Installing dependencies...</tspan>
+      <tspan x="70" dy="20">🔧 Setting up configuration...</tspan>
+      <tspan x="70" dy="20">✅ Ready to go!</tspan>
+      
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="0s" fill="freeze"/>
+    </text>
+    
+    <!-- Blinking cursor -->
+    <text x="200" y="350" class="typing-text cursor">|</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <path d="M 570 250 Q 620 250 650 200" stroke="#fff" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="3s" fill="freeze"/>
+  </path>
+
+  <!-- Step 2: Configuration -->
+  <g id="step2">
+    <rect x="700" y="120" width="450" height="160" rx="10" fill="rgba(255,255,255,0.1)" stroke="#fff" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="3.5s" fill="freeze"/>
+    </rect>
+    
+    <text x="720" y="145" fill="white" font-size="16" font-weight="bold">📋 campaign.yaml</text>
+    
+    <text x="720" y="170" fill="#e0e0e0" font-size="12" font-family="Courier New">
+      <tspan x="720" dy="0">name: "my-awesome-app"</tspan>
+      <tspan x="720" dy="15">concept: "AI productivity tool"</tspan>
+      <tspan x="720" dy="15">platforms: [twitter, reddit, youtube]</tspan>
+      <tspan x="720" dy="15">content:</tspan>
+      <tspan x="740" dy="15">style: professional</tspan>
+      <tspan x="740" dy="15">action: "Try it now!"</tspan>
+      
+      <animate attributeName="opacity" values="0;1" dur="1s" begin="4s" fill="freeze"/>
+    </text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <path d="M 925 290 Q 925 340 875 380" stroke="#fff" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="5s" fill="freeze"/>
+  </path>
+
+  <!-- Step 3: Plan Command -->
+  <g id="step3" class="terminal">
+    <rect x="650" y="420" width="500" height="200" rx="10" fill="url(#terminalGradient)" stroke="#555" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="5.5s" fill="freeze"/>
+    </rect>
+    
+    <!-- Terminal header -->
+    <rect x="650" y="420" width="500" height="40" rx="10" fill="#333"/>
+    <circle cx="670" cy="440" r="6" fill="#ff5f56"/>
+    <circle cx="690" cy="440" r="6" fill="#ffbd2e"/>
+    <circle cx="710" cy="440" r="6" fill="#27ca3f"/>
+    <text x="730" y="445" fill="#ccc" font-size="12" font-family="Arial">Terminal</text>
+    
+    <!-- Plan output -->
+    <text x="670" y="480" class="typing-text">
+      <tspan x="670" dy="0">$ aetherpost plan</tspan>
+      <tspan x="670" dy="20">📋 Campaign Preview</tspan>
+      <tspan x="670" dy="20">🤖 Generating AI content...</tspan>
+      <tspan x="670" dy="20">✅ Twitter: "🚀 Introducing AI productivity..."</tspan>
+      <tspan x="670" dy="20">✅ Reddit: "Deep dive: AI transforms..."</tspan>
+      <tspan x="670" dy="20">✅ YouTube: "Video: AI demo"</tspan>
+      <tspan x="670" dy="20">💡 Run 'aetherpost apply' to execute</tspan>
+      
+      <animate attributeName="opacity" values="0;1" dur="1.5s" begin="6s" fill="freeze"/>
+    </text>
+  </g>
+
+  <!-- Arrow 3 -->
+  <path d="M 650 520 Q 600 520 550 480" stroke="#fff" stroke-width="3" fill="none" marker-end="url(#arrowhead)" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="7.5s" fill="freeze"/>
+  </path>
+
+  <!-- Step 4: Apply & Deploy -->
+  <g id="step4" class="terminal">
+    <rect x="50" y="450" width="500" height="300" rx="10" fill="url(#terminalGradient)" stroke="#555" stroke-width="2" opacity="0">
+      <animate attributeName="opacity" values="0;1" dur="0.5s" begin="8s" fill="freeze"/>
+    </rect>
+    
+    <!-- Terminal header -->
+    <rect x="50" y="450" width="500" height="40" rx="10" fill="#333"/>
+    <circle cx="70" cy="470" r="6" fill="#ff5f56"/>
+    <circle cx="90" cy="470" r="6" fill="#ffbd2e"/>
+    <circle cx="110" cy="470" r="6" fill="#27ca3f"/>
+    <text x="130" y="475" fill="#ccc" font-size="12" font-family="Arial">Terminal</text>
+    
+    <!-- Apply output -->
+    <text x="70" y="510" class="typing-text">
+      <tspan x="70" dy="0">$ aetherpost apply</tspan>
+      <tspan x="70" dy="20">🚀 Campaign Execution</tspan>
+      <tspan x="70" dy="20">🔄 Posting to Twitter...</tspan>
+      <tspan x="70" dy="20">✅ Posted to Twitter: https://twitter.com/...</tspan>
+      <tspan x="70" dy="20">🔄 Posting to Reddit...</tspan>
+      <tspan x="70" dy="20">✅ Posted to Reddit: r/programming</tspan>
+      <tspan x="70" dy="20">🔄 Posting to YouTube...</tspan>
+      <tspan x="70" dy="20">✅ Posted to YouTube: Video uploaded</tspan>
+      <tspan x="70" dy="20">🎉 Successfully posted to 3/3 platforms!</tspan>
+      
+      <animate attributeName="opacity" values="0;1" dur="2s" begin="8.5s" fill="freeze"/>
+    </text>
+  </g>
+
+  <!-- Platform Icons with Success Animation -->
+  <g id="platforms" opacity="0">
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="10s" fill="freeze"/>
+    
+    <!-- Twitter -->
+    <g transform="translate(600, 600)">
+      <circle cx="0" cy="0" r="30" fill="#1DA1F2" class="pulse"/>
+      <text x="0" y="5" text-anchor="middle" fill="white" font-size="20">🐦</text>
+      <text x="0" y="50" text-anchor="middle" fill="white" font-size="12">Twitter</text>
+      
+      <!-- Success check -->
+      <circle cx="25" cy="-25" r="12" fill="#4CAF50" class="success-check">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="11s" fill="freeze"/>
+      </circle>
+      <path d="M 20 -25 L 25 -20 L 32 -28" stroke="white" stroke-width="2" fill="none" class="success-check">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="11s" fill="freeze"/>
+      </path>
+    </g>
+    
+    <!-- Reddit -->
+    <g transform="translate(750, 600)">
+      <circle cx="0" cy="0" r="30" fill="#FF4500" class="pulse"/>
+      <text x="0" y="5" text-anchor="middle" fill="white" font-size="20">🤖</text>
+      <text x="0" y="50" text-anchor="middle" fill="white" font-size="12">Reddit</text>
+      
+      <!-- Success check -->
+      <circle cx="25" cy="-25" r="12" fill="#4CAF50" class="success-check">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="11.5s" fill="freeze"/>
+      </circle>
+      <path d="M 20 -25 L 25 -20 L 32 -28" stroke="white" stroke-width="2" fill="none" class="success-check">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="11.5s" fill="freeze"/>
+      </path>
+    </g>
+    
+    <!-- YouTube -->
+    <g transform="translate(900, 600)">
+      <circle cx="0" cy="0" r="30" fill="#FF0000" class="pulse"/>
+      <text x="0" y="5" text-anchor="middle" fill="white" font-size="20">📺</text>
+      <text x="0" y="50" text-anchor="middle" fill="white" font-size="12">YouTube</text>
+      
+      <!-- Success check -->
+      <circle cx="25" cy="-25" r="12" fill="#4CAF50" class="success-check">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="12s" fill="freeze"/>
+      </circle>
+      <path d="M 20 -25 L 25 -20 L 32 -28" stroke="white" stroke-width="2" fill="none" class="success-check">
+        <animate attributeName="opacity" values="0;1" dur="0.3s" begin="12s" fill="freeze"/>
+      </path>
+    </g>
+  </g>
+
+  <!-- Final Success Message -->
+  <text x="600" y="750" text-anchor="middle" fill="#4CAF50" font-size="24" font-weight="bold" opacity="0">
+    🎉 Campaign Successfully Deployed!
+    <animate attributeName="opacity" values="0;1" dur="0.5s" begin="12.5s" fill="freeze"/>
+  </text>
+
+  <!-- Arrow marker definition -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#fff"/>
+    </marker>
+  </defs>
+</svg>

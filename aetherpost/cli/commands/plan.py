@@ -18,7 +18,6 @@ plan_app = typer.Typer()
 @plan_app.command()
 def main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="Show detailed information"),
 ):
     """Preview campaign content before posting."""
     
@@ -41,7 +40,7 @@ def main(
             console.print()
         
         # Run content generation
-        asyncio.run(generate_preview(config, verbose))
+        asyncio.run(generate_preview(config))
         
     except FileNotFoundError:
         console.print(f"❌ [red]Configuration file not found: {config_file}[/red]")
@@ -50,7 +49,7 @@ def main(
         console.print(f"❌ [red]Error: {e}[/red]")
 
 
-async def generate_preview(config, verbose: bool):
+async def generate_preview(config):
     """Generate and display content preview."""
     
     # Load credentials for AI providers
@@ -90,11 +89,7 @@ async def generate_preview(config, verbose: bool):
             
             platform_previews.append(platform_panel)
             
-            if verbose:
-                console.print(f"✓ Generated content for {platform}")
-                console.print(f"  Character count: {len(content.get('text', ''))}")
-                if content.get("media"):
-                    console.print(f"  Media files: {len(content['media'])}")
+            console.print(f"✓ Generated content for {platform}")
         
         except Exception as e:
             error_panel = Panel(
@@ -111,8 +106,7 @@ async def generate_preview(config, verbose: bool):
         console.print(Columns(platform_previews, equal=True))
     
     # Show campaign details
-    if verbose:
-        show_campaign_details(config)
+    show_campaign_details(config)
     
     # Show execution plan
     console.print("\n[bold]Execution Plan:[/bold]")

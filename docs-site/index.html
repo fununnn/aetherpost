@@ -18,7 +18,7 @@
             <div class="nav-links">
                 <a href="#quick-start">Quick Start</a>
                 <a href="#features">Features</a>
-                <a href="#self-promotion">Self-Promotion</a>
+                <a href="#demo">Live Demo</a>
                 <a href="guides/">Guides</a>
                 <a href="api/">API</a>
                 <a href="https://github.com/fununnn/aetherpost" target="_blank">
@@ -33,12 +33,12 @@
             <h1>AI-Powered Social Media Automation</h1>
             <p class="hero-subtitle">
                 Professional multi-platform social media management with OpenAI integration. 
-                Deploy campaigns across 5+ platforms with YAML configuration and intelligent content generation.
+                Deploy campaigns across multiple platforms with YAML configuration and intelligent content generation.
             </p>
             
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number">5+</span>
+                    <span class="stat-number">3</span>
                     <span class="stat-label">Platforms</span>
                 </div>
                 <div class="stat">
@@ -59,11 +59,11 @@
                 <button class="btn btn-primary" onclick="copyInstallCommand()">
                     <i class="fas fa-download"></i> Quick Install
                 </button>
-                <a href="#features" class="btn btn-secondary">
-                    <i class="fas fa-play"></i> See Features
+                <a href="#demo" class="btn btn-secondary">
+                    <i class="fas fa-play"></i> Watch Demo
                 </a>
-                <a href="#self-promotion" class="btn btn-accent">
-                    <i class="fas fa-magic"></i> Self-Promotion Demo
+                <a href="#features" class="btn btn-secondary">
+                    <i class="fas fa-star"></i> See Features
                 </a>
             </div>
 
@@ -82,7 +82,7 @@
                 <div class="tab-headers">
                     <button class="tab-header active" data-tab="pip">pip</button>
                     <button class="tab-header" data-tab="git">Git Clone</button>
-                    <button class="tab-header" data-tab="self-promo">Self-Promotion</button>
+                    <button class="tab-header" data-tab="self-promo">Real Test</button>
                 </div>
 
                 <div class="tab-content">
@@ -98,18 +98,18 @@ aetherpost init
 
 # That's it! Dependencies installed automatically.
 # Create your first AI-powered campaign
-cat > campaign.yaml << EOF
+cat > campaign.yaml &lt;&lt; EOF
 name: "AI App Launch"
 concept: "Revolutionary AI-powered productivity tool"
-platforms: [twitter, reddit, youtube, bluesky]
+platforms: [twitter, reddit, youtube]
 content:
   style: professional
   action: "Try it now!"
   ai_enhanced: true
 EOF
 
-# Generate AI content preview
-aetherpost plan --ai
+# Generate content preview (Terraform-style)
+aetherpost plan
 
 # Deploy when ready
 aetherpost apply</code></pre>
@@ -136,20 +136,18 @@ aetherpost init
                             <button class="copy-btn" onclick="copyCode('self-promo-install')">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <pre><code id="self-promo-install"># Try the self-promotion feature!
-# AetherPost promoting itself using its own capabilities
+                            <pre><code id="self-promo-install"># Test with real campaign!
 
 # Setup environment
-cp .env.self_promotion .env
-# Add your API keys to .env
+export OPENAI_API_KEY="your-key"
+export TWITTER_API_KEY="your-key"
 
-# Run interactive self-promotion
-./scripts/self_promote.sh
+# Run test campaign
+aetherpost init test-campaign
+aetherpost plan
+aetherpost apply
 
-# Or automated self-promotion
-python aetherpost_self_promotion.py
-
-# See the meta magic happen! 🎭</code></pre>
+# See it work in real-time! 🚀</code></pre>
                         </div>
                     </div>
                 </div>
@@ -176,27 +174,72 @@ content:
                         <div class="step-number">2</div>
                         <h4>AI Generates Content</h4>
                         <div class="code-block small">
-                            <pre><code class="language-bash">$ aetherpost plan --ai
-🤖 Generating AI content...
+                            <pre><code class="language-bash">$ aetherpost plan
+📋 Campaign Preview
 ✅ Twitter: "🚀 Introducing revolutionary AI productivity app..."
 ✅ Reddit: "Deep dive: How AI transforms productivity workflows..."
 ✅ YouTube: "Video concept: AI productivity demo"
-💡 Run 'aetherpost apply' to post</code></pre>
+💡 Run 'aetherpost apply' to execute this campaign</code></pre>
                         </div>
                     </div>
 
                     <div class="example-step">
                         <div class="step-number">3</div>
-                        <h4>Deploy Across 5+ Platforms</h4>
+                        <h4>Deploy Across Platforms</h4>
                         <div class="code-block small">
                             <pre><code class="language-bash">$ aetherpost apply
-🚀 Posting to 5 platforms...
-✅ Twitter: Posted successfully
-✅ Reddit: Posted to r/programming
-✅ YouTube: Video concept created
-✅ Bluesky: Posted successfully
-✅ Mastodon: Posted successfully</code></pre>
+🚀 Campaign Execution
+✅ Posted to Twitter: https://twitter.com/...
+✅ Posted to Reddit: r/programming
+✅ Posted to YouTube: Video uploaded
+🎉 Successfully posted to 3/3 platforms!</code></pre>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section -->
+    <section id="demo" class="demo-section" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 60px 0;">
+        <div class="container">
+            <h2 style="color: white; text-align: center; font-size: 2.5rem; margin-bottom: 20px;">
+                <i class="fas fa-play-circle"></i> Interactive Demo
+            </h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9); text-align: center; font-size: 1.2rem; margin-bottom: 40px;">
+                Watch the complete workflow in action - from init to deployment
+            </p>
+        </div>
+        
+        <!-- Full Width Animation Container -->
+        <div style="width: 100%; max-width: 100vw; overflow: hidden; margin: 0;">
+            <object data="animations/interactive-demo.svg" type="image/svg+xml" 
+                    style="width: 100%; height: 900px; display: block; pointer-events: none;"></object>
+        </div>
+        
+        <div class="container" style="margin-top: 40px;">
+            <div class="demo-controls">
+                <h3 style="color: white; text-align: center; margin-bottom: 30px;">Terraform-Style Commands</h3>
+                <div class="command-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🎯</div>
+                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost init</code>
+                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Initialize project with auto-dependency installation</p>
+                    </div>
+                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">📋</div>
+                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost plan</code>
+                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Preview AI-generated content for all platforms</p>
+                    </div>
+                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🚀</div>
+                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost apply</code>
+                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Execute campaign across Twitter, Reddit, YouTube</p>
+                    </div>
+                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
+                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost destroy</code>
+                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Clean up and remove posted content</p>
                     </div>
                 </div>
             </div>
@@ -221,8 +264,8 @@ content:
                     <div class="feature-icon">
                         <i class="fas fa-share-alt"></i>
                     </div>
-                    <h3>5+ Platforms Supported</h3>
-                    <p>Twitter, YouTube, Reddit, Bluesky, Mastodon with intelligent content adaptation for each platform.</p>
+                    <h3>Multiple Platforms Supported</h3>
+                    <p>Twitter, YouTube, Reddit with intelligent content adaptation for each platform. Ready for production use.</p>
                     <a href="guides/platforms.html" class="feature-link">Platform Guide →</a>
                 </div>
 
@@ -230,9 +273,9 @@ content:
                     <div class="feature-icon">
                         <i class="fas fa-magic"></i>
                     </div>
-                    <h3>Self-Promotion Meta Feature</h3>
-                    <p>AetherPost can promote itself using its own capabilities - the ultimate proof of concept!</p>
-                    <a href="#self-promotion" class="feature-link">See Demo →</a>
+                    <h3>Interactive Demo</h3>
+                    <p>Experience the complete workflow with live animations and real command examples!</p>
+                    <a href="#demo" class="feature-link">See Demo →</a>
                 </div>
 
                 <div class="feature-card">
@@ -260,105 +303,6 @@ content:
                     <h3>100% Tested</h3>
                     <p>Comprehensive test suite with real API validation, ensuring production reliability.</p>
                     <a href="guides/testing.html" class="feature-link">Test Report →</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="self-promotion" class="self-promotion">
-        <div class="container">
-            <h2><i class="fas fa-magic"></i> The Meta Feature: Self-Promotion</h2>
-            <p class="section-subtitle">
-                AetherPost can promote itself using its own capabilities. This is the ultimate proof of concept!
-            </p>
-            
-            <div class="self-promo-showcase">
-                <div class="promo-explanation">
-                    <h3>How It Works</h3>
-                    <div class="promo-steps">
-                        <div class="promo-step">
-                            <div class="step-icon">🤖</div>
-                            <div class="step-content">
-                                <h4>AI Content Generation</h4>
-                                <p>Uses OpenAI to generate platform-specific promotional content about AetherPost itself</p>
-                            </div>
-                        </div>
-                        <div class="promo-step">
-                            <div class="step-icon">🎯</div>
-                            <div class="step-content">
-                                <h4>4 Campaign Types</h4>
-                                <p>Launch announcements, feature highlights, community building, and technical content</p>
-                            </div>
-                        </div>
-                        <div class="promo-step">
-                            <div class="step-icon">📱</div>
-                            <div class="step-content">
-                                <h4>Multi-Platform Deployment</h4>
-                                <p>Automatically adapts content for Twitter, Reddit, YouTube, Bluesky, and Mastodon</p>
-                            </div>
-                        </div>
-                        <div class="promo-step">
-                            <div class="step-icon">📊</div>
-                            <div class="step-content">
-                                <h4>100% Success Rate</h4>
-                                <p>Thoroughly tested with real APIs, achieving 100% functionality across all features</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="promo-demo">
-                    <h3>Try It Yourself</h3>
-                    <div class="demo-options">
-                        <div class="demo-option">
-                            <h4>Interactive Mode</h4>
-                            <div class="code-block">
-                                <pre><code>./scripts/self_promote.sh</code></pre>
-                            </div>
-                            <p>Choose from 7 interactive options including quick posts, custom campaigns, and analytics</p>
-                        </div>
-                        <div class="demo-option">
-                            <h4>Automated Mode</h4>
-                            <div class="code-block">
-                                <pre><code>python aetherpost_self_promotion.py</code></pre>
-                            </div>
-                            <p>Fully automated self-promotion with AI-generated content and multi-platform posting</p>
-                        </div>
-                        <div class="demo-option">
-                            <h4>Scheduled Mode</h4>
-                            <div class="code-block">
-                                <pre><code># Daily at 2 PM
-0 14 * * * cd /path/to/aetherpost && python aetherpost_self_promotion.py</code></pre>
-                            </div>
-                            <p>Set up cron jobs for regular, automated self-promotion campaigns</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="promo-results">
-                <h3>Real Results from Self-Promotion Testing</h3>
-                <div class="results-grid">
-                    <div class="result-card">
-                        <div class="result-number">100%</div>
-                        <div class="result-label">AI Content Generation Success</div>
-                        <p>All 4 campaign types generate high-quality, platform-specific content</p>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-number">5+</div>
-                        <div class="result-label">Platform Connectors</div>
-                        <p>Twitter, YouTube, Reddit, Bluesky, Mastodon all integrated and tested</p>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-number">7</div>
-                        <div class="result-label">Shell Script Options</div>
-                        <p>Complete interactive menu with both manual and automated modes</p>
-                    </div>
-                    <div class="result-card">
-                        <div class="result-number">95%</div>
-                        <div class="result-label">Type Coverage</div>
-                        <p>Comprehensive type hints ensuring code reliability and maintainability</p>
-                    </div>
                 </div>
             </div>
         </div>
@@ -415,7 +359,7 @@ content:
             
             <div class="example-tabs">
                 <div class="tab-headers">
-                    <button class="tab-header active" data-tab="self-promo">Self-Promotion</button>
+                    <button class="tab-header active" data-tab="self-promo">Sample Campaign</button>
                     <button class="tab-header" data-tab="startup">Startup Launch</button>
                     <button class="tab-header" data-tab="oss">OSS Release</button>
                 </div>
@@ -424,11 +368,11 @@ content:
                     <div class="tab-pane active" id="self-promo">
                         <div class="example-showcase">
                             <div class="example-code">
-                                <h4>aetherpost-self-promotion.yaml</h4>
+                                <h4>sample-campaign.yaml</h4>
                                 <div class="code-block">
-                                    <pre><code class="language-yaml">name: "aetherpost-self-promotion"
-concept: "AetherPost - Developer-friendly social media automation that actually works"
-platforms: [twitter, bluesky, mastodon, reddit]
+                                    <pre><code class="language-yaml">name: "sample-campaign"
+concept: "Developer-friendly social media automation platform"
+platforms: [twitter, reddit, youtube]
 
 content:
   style: casual
@@ -438,7 +382,7 @@ content:
 promotion_themes:
   - "🚀 Open source social media automation for developers"
   - "🤖 AI-powered content generation with OpenAI integration"
-  - "📱 Multi-platform posting: Twitter, Bluesky, Mastodon, Reddit"
+  - "📱 Multi-platform posting: Twitter, Reddit, YouTube"
   - "⚡ Simple CLI interface - no complex dashboards needed"
 
 reddit_strategy:
@@ -452,7 +396,7 @@ reddit_strategy:
                                     <div class="social-header">
                                         <i class="fab fa-twitter"></i> Twitter
                                     </div>
-                                    <p>🚀 Just discovered the power of multi-platform posting! Sharing the same content on Twitter, Bluesky, Mastodon, and Reddit helps reach wider audiences. #OpenSource #SocialMediaAutomation</p>
+                                    <p>🚀 Just discovered the power of multi-platform posting! Sharing the same content on Twitter, Reddit, and YouTube helps reach wider audiences. #OpenSource #SocialMediaAutomation</p>
                                 </div>
                                 <div class="social-preview reddit">
                                     <div class="social-header">
@@ -512,7 +456,7 @@ analytics: true</code></pre>
                                 <div class="code-block">
                                     <pre><code class="language-yaml">name: "MyLibrary v2.0"
 concept: "Open source library for developers"
-platforms: [twitter, reddit, mastodon]
+platforms: [twitter, reddit, youtube]
 
 content:
   style: technical
@@ -534,11 +478,11 @@ template: "oss-release"</code></pre>
                                     </div>
                                     <p><strong>r/opensource:</strong> Released MyLibrary v2.0 with significant improvements for developers. Open source library now supports advanced features. Contributions welcome!</p>
                                 </div>
-                                <div class="social-preview mastodon">
+                                <div class="social-preview youtube">
                                     <div class="social-header">
-                                        <i class="fab fa-mastodon"></i> Mastodon
+                                        <i class="fab fa-youtube"></i> YouTube
                                     </div>
-                                    <p>📦 MyLibrary v2.0 is here! New features include improved performance and better API design. Perfect for developers who value open source solutions. #opensource #developer</p>
+                                    <p><strong>Video Concept:</strong> "MyLibrary v2.0 Release Demo - Advanced Features & Performance Improvements" with automated description and tags</p>
                                 </div>
                             </div>
                         </div>
@@ -593,10 +537,10 @@ template: "oss-release"</code></pre>
                     <div class="community-icon">
                         <i class="fas fa-magic"></i>
                     </div>
-                    <h3>Try Self-Promotion</h3>
-                    <p>Test the meta feature and share your experience with the community!</p>
+                    <h3>Try Live Demo</h3>
+                    <p>Test the interactive features and share your experience with the community!</p>
                     <div class="community-links">
-                        <a href="#self-promotion">Self-Promotion Guide</a>
+                        <a href="#demo">Live Demo</a>
                         <a href="https://github.com/fununnn/aetherpost/discussions">Share Results</a>
                     </div>
                 </div>
@@ -620,7 +564,7 @@ template: "oss-release"</code></pre>
                     <h4>Features</h4>
                     <ul>
                         <li><a href="guides/platforms.html">Platform Setup</a></li>
-                        <li><a href="#self-promotion">Self-Promotion</a></li>
+                        <li><a href="#demo">Live Demo</a></li>
                         <li><a href="guides/automation.html">Automation</a></li>
                         <li><a href="guides/testing.html">Testing</a></li>
                     </ul>

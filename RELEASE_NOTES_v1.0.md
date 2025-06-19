@@ -17,13 +17,13 @@ AetherPost v1.0 marks the first public release of our AI-powered social media au
 - **Platform Optimization**: Automatic content adaptation for each social platform
 - **Smart Hashtag Generation**: AI-driven hashtag selection and optimization
 - **Multiple Content Styles**: Professional, casual, technical, and friendly tones
+- **🌍 Multi-Language Support**: Generate content in 20+ languages including Japanese, Spanish, French, German, Korean, Chinese, and more
 
 ### 📱 Multi-Platform Support
-- **Twitter**: Full API v2 integration with OAuth 1.0a
-- **YouTube**: Data API v3 with OAuth2 flow for video management
+- **Twitter**: Full API v2 integration with OAuth 1.0a authentication
+- **YouTube**: Data API v3 with OAuth2 flow for video management  
 - **Reddit**: PRAW-based integration with subreddit optimization
-- **Bluesky**: Native AT Protocol support
-- **Mastodon**: ActivityPub integration for federated posting
+- **Production Ready**: All three platforms fully tested and validated
 
 ### 🎯 Self-Promotion Meta Feature
 - **Dogfooding Excellence**: AetherPost can promote itself using its own capabilities
@@ -31,8 +31,8 @@ AetherPost v1.0 marks the first public release of our AI-powered social media au
 - **Automated Workflows**: Both interactive and non-interactive modes
 - **100% Test Coverage**: Comprehensive validation with real API integration
 
-### 🛠️ Developer Experience
-- **CLI Interface**: Intuitive command-line tools for all operations
+### 🛠️ Developer Experience  
+- **Terraform-style CLI**: Simple, predictable commands (`init`, `plan`, `apply`, `destroy`)
 - **YAML Configuration**: Human-readable campaign definitions
 - **Type Safety**: 95% type hint coverage with robust error handling
 - **Comprehensive Testing**: Full test suite with real API validation
@@ -84,10 +84,11 @@ aetherpost doctor
 ```yaml
 name: "Product Launch Campaign"
 concept: "Revolutionary AI productivity tool"
-platforms: [twitter, reddit, youtube, bluesky]
+platforms: [twitter, reddit, youtube]
 content:
   style: professional
   action: "Try our beta!"
+  language: en  # Multi-language support
   ai_enhanced: true
 ```
 
@@ -95,10 +96,11 @@ content:
 ```yaml
 name: "OSS Release Campaign"
 concept: "New version with exciting features"
-platforms: [twitter, reddit, mastodon]
+platforms: [twitter, reddit, youtube]
 content:
   style: technical
   action: "Check it out on GitHub!"
+  language: en  # Available in 20+ languages
   hashtags: ["#OpenSource", "#Developer"]
 ```
 
@@ -106,11 +108,35 @@ content:
 ```yaml
 name: "Community Engagement"
 concept: "Building our developer community"
-platforms: [twitter, bluesky, mastodon, reddit]
+platforms: [twitter, reddit, youtube]
 content:
   style: friendly
   action: "Join our community!"
+  language: en  # Supports global community with multi-language content
   themes: ["feedback", "contributions", "discussions"]
+```
+
+### 🌍 Multi-Language Campaign Examples
+```yaml
+# Japanese Campaign
+name: "日本市場展開"
+concept: "革新的なAI生産性ツール"
+platforms: [twitter, reddit]
+content:
+  style: professional
+  action: "今すぐ試してみてください！"
+  language: ja
+  hashtags: ["#AI", "#生産性", "#ツール"]
+
+# Spanish Campaign  
+name: "Lanzamiento Hispano"
+concept: "Herramienta de productividad con IA"
+platforms: [twitter, reddit]
+content:
+  style: casual
+  action: "Pruébalo ahora"
+  language: es
+  hashtags: ["#IA", "#Productividad"]
 ```
 
 ## 🔧 Advanced Features
@@ -168,6 +194,7 @@ content:
 - **TikTok Support**: Video content automation
 - **Advanced Analytics**: Custom dashboard and reporting
 - **Team Features**: Multi-user collaboration tools
+- **🌍 Language Expansion**: Support for additional languages and regional variations
 
 ### 🚀 Future Vision (Q4 2025+)
 - **AI Video Generation**: Automated video content creation
@@ -180,7 +207,7 @@ content:
 AetherPost v1.0 is the result of extensive development focused on creating a production-ready, developer-friendly social media automation platform. Special thanks to:
 
 - **OpenAI**: For providing the AI capabilities that power our content generation
-- **Platform APIs**: Twitter, YouTube, Reddit, Bluesky, and Mastodon for robust integration options
+- **Platform APIs**: Twitter, YouTube, and Reddit for robust integration options
 - **Open Source Community**: For the amazing libraries and tools that made this possible
 - **Early Users**: For feedback and testing that helped shape this release
 
