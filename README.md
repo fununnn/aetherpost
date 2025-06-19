@@ -32,18 +32,12 @@ AetherPost automates your app promotion across social media platforms using AI-g
 ### Installation & Setup
 
 ```bash
-# One command install!
+# Install via pip
 pip install aetherpost
 
-# Create campaign
+# Interactive setup
 aetherpost init
 
-# That's it!
-```
-
-### Usage
-
-```bash
 # Preview content
 aetherpost plan
 
