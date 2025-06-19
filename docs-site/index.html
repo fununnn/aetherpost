@@ -13,7 +13,7 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <h1><i class="fas fa-rocket"></i> AetherPost</h1>
-                <span class="beta-badge">v1.0</span>
+                <span class="beta-badge">v1.2.0</span>
             </div>
             <div class="nav-links">
                 <a href="#quick-start">Quick Start</a>
@@ -38,7 +38,7 @@
             
             <div class="hero-stats">
                 <div class="stat">
-                    <span class="stat-number">3</span>
+                    <span class="stat-number">5</span>
                     <span class="stat-label">Platforms</span>
                 </div>
                 <div class="stat">
@@ -82,7 +82,6 @@
                 <div class="tab-headers">
                     <button class="tab-header active" data-tab="pip">pip</button>
                     <button class="tab-header" data-tab="git">Git Clone</button>
-                    <button class="tab-header" data-tab="self-promo">Real Test</button>
                 </div>
 
                 <div class="tab-content">
@@ -121,25 +120,6 @@ aetherpost apply</code></pre>
                         </div>
                     </div>
 
-                    <div class="tab-pane" id="self-promo">
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode('self-promo-install')">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <pre><code id="self-promo-install"># Test with real campaign!
-
-# Setup environment
-export OPENAI_API_KEY="your-key"
-export TWITTER_API_KEY="your-key"
-
-# Run test campaign
-aetherpost init test-campaign
-aetherpost plan
-aetherpost apply
-
-# See it work in real-time! 🚀</code></pre>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -152,7 +132,7 @@ aetherpost apply
                         <div class="code-block small">
                             <pre><code class="language-yaml">name: "AI Product Launch"
 concept: "Revolutionary AI productivity app"
-platforms: [twitter, reddit, youtube]
+platforms: [twitter, reddit, youtube, bluesky]
 content:
   style: professional
   ai_enhanced: true
@@ -182,7 +162,7 @@ content:
 ✅ Posted to Twitter: https://twitter.com/...
 ✅ Posted to Reddit: r/programming
 ✅ Posted to YouTube: Video uploaded
-🎉 Successfully posted to 3/3 platforms!</code></pre>
+🎉 Successfully posted to 5/5 platforms!</code></pre>
                         </div>
                     </div>
                 </div>
@@ -208,7 +188,7 @@ content:
 <span style="color: #666;">$</span> aetherpost init
 <span style="color: #666;">$</span> aetherpost plan
 <span style="color: #666;">$</span> aetherpost apply
-<span style="color: #00ff00;">✅ Posted to 3 platforms successfully!</span>
+<span style="color: #00ff00;">✅ Posted to 5 platforms successfully!</span>
             </pre>
         </div>
         
@@ -260,7 +240,7 @@ content:
                         <i class="fas fa-share-alt"></i>
                     </div>
                     <h3>Multiple Platforms Supported</h3>
-                    <p>Twitter, YouTube, Reddit with intelligent content adaptation for each platform. Ready for production use.</p>
+                    <p>Twitter, Reddit, YouTube, Bluesky, Instagram with intelligent content adaptation for each platform. Ready for production use.</p>
                     <a href="guides/platforms.html" class="feature-link">Platform Guide →</a>
                 </div>
 
@@ -268,9 +248,9 @@ content:
                     <div class="feature-icon">
                         <i class="fas fa-magic"></i>
                     </div>
-                    <h3>Interactive Demo</h3>
-                    <p>Experience the complete workflow with live animations and real command examples!</p>
-                    <a href="#demo" class="feature-link">See Demo →</a>
+                    <h3>Interactive Setup</h3>
+                    <p>Guided prompts for project concept, platforms, language, and style selection.</p>
+                    <a href="#demo" class="feature-link">See Setup →</a>
                 </div>
 
                 <div class="feature-card">
@@ -286,8 +266,8 @@ content:
                     <div class="feature-icon">
                         <i class="fas fa-cogs"></i>
                     </div>
-                    <h3>Non-Interactive Mode</h3>
-                    <p>Perfect for CI/CD, cron jobs, and automated workflows with graceful error handling.</p>
+                    <h3>Quick & Automation Modes</h3>
+                    <p>Interactive setup by default, with --quick flag for CI/CD, cron jobs, and automated workflows.</p>
                     <a href="guides/automation.html" class="feature-link">Automation →</a>
                 </div>
 
@@ -367,7 +347,7 @@ content:
                                 <div class="code-block">
                                     <pre><code class="language-yaml">name: "sample-campaign"
 concept: "Developer-friendly social media automation platform"
-platforms: [twitter, reddit, youtube]
+platforms: [twitter, reddit, youtube, bluesky]
 
 content:
   style: casual
@@ -377,7 +357,7 @@ content:
 promotion_themes:
   - "🚀 Open source social media automation for developers"
   - "🤖 AI-powered content generation with OpenAI integration"
-  - "📱 Multi-platform posting: Twitter, Reddit, YouTube"
+  - "📱 Multi-platform posting: Twitter, Reddit, YouTube, Bluesky, Instagram"
   - "⚡ Simple CLI interface - no complex dashboards needed"
 
 reddit_strategy:
@@ -451,7 +431,7 @@ analytics: true</code></pre>
                                 <div class="code-block">
                                     <pre><code class="language-yaml">name: "MyLibrary v2.0"
 concept: "Open source library for developers"
-platforms: [twitter, reddit, youtube]
+platforms: [twitter, reddit, youtube, instagram]
 
 content:
   style: technical
@@ -584,7 +564,7 @@ template: "oss-release"</code></pre>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 AetherPost v1.0. Released under the MIT License.</p>
+                <p>&copy; 2025 AetherPost v1.2.0. Released under the MIT License.</p>
                 <p>Built with ❤️ by the open source community. Powered by OpenAI.</p>
                 <p><strong>Meta Achievement:</strong> This documentation site is promoted using AetherPost itself! 🎭</p>
             </div>
