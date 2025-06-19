@@ -19,7 +19,7 @@ init_app = typer.Typer()
 @init_app.command()
 def main(
     name: Optional[str] = typer.Argument(None, help="Project name"),
-    quick: bool = typer.Option(True, "--quick/--interactive", "-q", help="Quick setup with defaults (default: True)"),
+    quick: bool = typer.Option(False, "--quick/--interactive", "-q", help="Interactive setup with prompts (default: True)"),
     template: str = typer.Option("starter", "--template", "-t", 
                                 help="Template type (starter, production, enterprise)"),
     example: bool = typer.Option(False, "--example", help="Show configuration examples"),
@@ -27,7 +27,7 @@ def main(
                                help="Backend type (local, aws, cloud)"),
     upgrade: bool = typer.Option(False, "--upgrade", help="Upgrade existing configuration"),
 ):
-    """Initialize AetherPost workspace - Simple and quick by default."""
+    """Initialize AetherPost workspace - Interactive setup by default."""
     
     if example:
         show_examples()
@@ -61,6 +61,19 @@ def main(
     # Get or confirm project name
     if not name:
         name = Prompt.ask("Project name", default=Path.cwd().name)
+    
+    # Get project concept (always ask)
+    concept = Prompt.ask("Project description/concept", default=f"Innovative {name} application")
+    
+    # Ask about free tier usage
+    use_free_tier = Confirm.ask("Stay within free tier limits? (50 posts/day)", default=True)
+    
+    # Ask about content style
+    console.print("\n[bold]🎨 Content Style:[/bold]")
+    console.print("1) Casual 2) Professional 3) Technical 4) Humorous")
+    style_choice = Prompt.ask("Select style (1-4)", default="1")
+    style_map = {"1": "casual", "2": "professional", "3": "technical", "4": "humorous"}
+    content_style = style_map.get(style_choice, "casual")
     
     # Template selection
     if not quick:
@@ -96,17 +109,24 @@ def main(
         "reddit": {"name": "Reddit", "required": False, "cost": "Free (60 req/min)"}
     }
     
-    selected_platforms = []
+    # Platform selection (simplified)
+    console.print(f"\n[bold]📱 Platform Selection:[/bold]")
+    console.print("Available: 1) Twitter/X 2) Reddit 3) YouTube 4) Bluesky 5) Instagram")
+    platform_choice = Prompt.ask("Select platforms (1-5, comma separated)", default="1,2")
     
-    if quick:
-        selected_platforms = ["twitter", "reddit"]  # Quick defaults - free platforms
-    else:
-        console.print("Select platforms to enable:")
-        for platform, info in available_platforms.items():
-            default = info["required"] or (template == "production")
-            
-            if Confirm.ask(f"Enable {info['name']}? ({info['cost']})", default=default):
-                selected_platforms.append(platform)
+    platform_map = {
+        "1": "twitter", "2": "reddit", "3": "youtube", 
+        "4": "bluesky", "5": "instagram"
+    }
+    
+    selected_platforms = []
+    for choice in platform_choice.split(","):
+        choice = choice.strip()
+        if choice in platform_map:
+            selected_platforms.append(platform_map[choice])
+    
+    if not selected_platforms:
+        selected_platforms = ["twitter", "reddit"]  # Safe defaults
     
     # Language configuration
     console.print(f"\n[bold]🌍 Language Configuration:[/bold]")
@@ -124,18 +144,15 @@ def main(
         "ar": "Arabic (العربية)"
     }
     
-    if quick:
-        content_language = "en"  # Default to English
-    else:
-        console.print("Available languages for content generation:")
-        for code, name in available_languages.items():
-            console.print(f"  {code}: {name}")
-        
-        content_language = Prompt.ask(
-            "Choose content language", 
-            choices=list(available_languages.keys()), 
-            default="en"
-        )
+    console.print("Popular: 1) English 2) Japanese 3) Spanish 4) French 5) German 6) Korean")
+    lang_choice = Prompt.ask("Select language (1-6 or enter code like 'zh')", default="1")
+    
+    lang_map = {
+        "1": "en", "2": "ja", "3": "es", 
+        "4": "fr", "5": "de", "6": "ko"
+    }
+    
+    content_language = lang_map.get(lang_choice, lang_choice if len(lang_choice) == 2 else "en")
     
     # AI Services configuration
     console.print(f"\n[bold]🤖 AI Services Configuration:[/bold]")
@@ -146,30 +163,11 @@ def main(
         "synthesia": {"name": "Synthesia Video", "cost": "$30-90/month", "required": False}
     }
     
-    selected_ai = []
+    # AI Services (simplified - just use OpenAI)
+    selected_ai = ["openai"]
     
-    if quick:
-        selected_ai = ["openai"]  # Essential only
-    else:
-        for service, info in ai_services.items():
-            default = info["required"] or (template == "enterprise")
-            
-            if Confirm.ask(f"Enable {info['name']}? ({info['cost']})", default=default):
-                selected_ai.append(service)
-    
-    # Backend configuration
-    console.print(f"\n[bold]☁️ Backend Configuration:[/bold]")
-    
-    backends = {
-        "local": "Local files (development)",
-        "aws": "AWS S3 + DynamoDB (production)",
-        "cloud": "AetherPost Cloud (managed)"
-    }
-    
-    if not quick:
-        for b, desc in backends.items():
-            console.print(f"  {b}: {desc}")
-        backend = Prompt.ask("Choose backend", choices=list(backends.keys()), default=backend)
+    # Backend (simplified - use local for starter)
+    backend = "local"  # Keep simple for beginners
     
     # Cost estimation
     estimated_cost = calculate_cost_estimate(template, selected_platforms, selected_ai, backend)
@@ -206,7 +204,7 @@ def main(
             return
     
     # Create workspace
-    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language)
+    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language, concept, use_free_tier, content_style)
     
     # Next steps
     show_next_steps(name, selected_platforms)
@@ -260,7 +258,8 @@ def calculate_cost_estimate(template: str, platforms: List[str], ai_services: Li
 
 
 def create_workspace(name: str, template: str, platforms: List[str], ai_services: List[str], 
-                    backend: str, autopromo_dir: Path, content_language: str = "en"):
+                    backend: str, autopromo_dir: Path, content_language: str = "en", concept: str = "", 
+                    use_free_tier: bool = True, content_style: str = "casual"):
     """Create AetherPost workspace files."""
     
     # Create directory structure
@@ -340,21 +339,32 @@ __pycache__/
     with open(".gitignore", "w") as f:
         f.write(gitignore_content.strip())
     
+    # Create campaign.yaml
+    campaign_yaml = {
+        "name": name,
+        "concept": concept or f"Innovative {name} application",
+        "url": f"https://github.com/yourusername/{name}",
+        "platforms": platforms,
+        "content": {
+            "style": content_style,
+            "action": "Check it out!",
+            "language": content_language,
+            "hashtags": ["#OpenSource", "#DevTools"]
+        },
+        "limits": {
+            "free_tier": use_free_tier,
+            "max_posts_per_day": 50 if use_free_tier else 1000
+        }
+    }
+    
+    with open("campaign.yaml", "w") as f:
+        yaml.dump(campaign_yaml, f, default_flow_style=False, sort_keys=False)
+    
     console.print(f"\n✅ [green]AetherPost workspace initialized successfully![/green]")
     console.print(f"📁 Configuration created in: [cyan].aetherpost/[/cyan]")
+    console.print(f"📝 Campaign template created: [cyan]campaign.yaml[/cyan]")
     
-    # Auto-install dependencies if requirements file exists
-    if Path("requirements-oss.txt").exists():
-        console.print(f"\n📦 [yellow]Installing dependencies automatically...[/yellow]")
-        import subprocess
-        try:
-            subprocess.run(["pip", "install", "-r", "requirements-oss.txt"], check=True, capture_output=True)
-            subprocess.run(["pip", "install", "-e", "."], check=True, capture_output=True)
-            console.print(f"✅ [green]Dependencies installed successfully![/green]")
-        except subprocess.CalledProcessError:
-            console.print(f"⚠️ [yellow]Dependencies installation failed. Please run manually:[/yellow]")
-            console.print(f"   pip install -r requirements-oss.txt")
-            console.print(f"   pip install -e .")
+    # Don't auto-install dependencies - keep it simple
 
 
 def get_backend_config(backend: str) -> dict:
@@ -675,41 +685,12 @@ def show_examples():
 
 def show_next_steps(name: str, platforms: List[str]):
     """Show next steps after initialization."""
-    console.print(f"\n[bold green]🎉 {name} initialized successfully![/bold green]\n")
+    console.print(f"\n[bold green]🎉 {name} ready for promotion![/bold green]\n")
     
-    steps = [
-        "1️⃣  Copy [cyan].aetherpost/.env.template[/cyan] to [cyan].env.aetherpost[/cyan]",
-        "2️⃣  Add your API keys to [cyan].env.aetherpost[/cyan]",
-        "3️⃣  Test configuration: [cyan]aetherpost validate[/cyan]",
-        "4️⃣  Plan your first promotion: [cyan]aetherpost plan[/cyan]",
-        "5️⃣  Apply configuration: [cyan]aetherpost apply[/cyan]"
-    ]
-    
-    for step in steps:
-        console.print(step)
-    
-    console.print(f"\n[dim]💡 Quick start: aetherpost promote \"Hello World!\" --platforms {','.join(platforms[:2])}[/dim]")
-    
-    # Show example campaign configuration
-    console.print(f"\n[bold]📝 Example campaign.yaml:[/bold]")
-    example_yaml = f"""[dim]name: "{name}-campaign"
-concept: "Awesome AI-powered productivity tool"
-url: "https://myapp.com"
-platforms: [{', '.join(f'"{p}"' for p in platforms[:3])}]
-content:
-  style: casual
-  action: "Try it now!"
-  language: en  # Change to ja, es, fr, de, ko, etc.
-  hashtags: ["#AI", "#productivity"]
-[/dim]"""
-    console.print(example_yaml)
-    
-    # Show helpful links
-    console.print(f"\n[bold]📚 Helpful Resources:[/bold]")
-    console.print("• Documentation: [blue]https://d3b75mcubdhimz.cloudfront.net[/blue]")
-    console.print("• GitHub: [blue]https://github.com/fununnn/aetherpost[/blue]") 
-    console.print("• Multi-Language Examples: [blue]examples/multilang-campaign.yaml[/blue]")
-    console.print("• Language Support: [blue]20+ languages including Japanese, Spanish, French, German, Korean[/blue]")
+    console.print("[bold]Next steps:[/bold]")
+    console.print("1️⃣  Add API keys: [cyan]cp .aetherpost/.env.template .env.aetherpost[/cyan]")
+    console.print("2️⃣  Preview posts: [cyan]aetherpost plan[/cyan]")
+    console.print("3️⃣  Go live: [cyan]aetherpost apply[/cyan]")
 
 
 if __name__ == "__main__":

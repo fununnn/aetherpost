@@ -91,24 +91,20 @@
                             <button class="copy-btn" onclick="copyCode('pip-install')">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <pre><code id="pip-install"># Clone and setup - just one command does everything!
-git clone https://github.com/fununnn/aetherpost.git
-cd aetherpost
+                            <pre><code id="pip-install"># One command install!
+pip install aetherpost
+
+# Create campaign (interactive setup)
 aetherpost init
 
-# That's it! Dependencies installed automatically.
-# Create your first AI-powered campaign
-cat > campaign.yaml &lt;&lt; EOF
-name: "AI App Launch"
-concept: "Revolutionary AI-powered productivity tool"
-platforms: [twitter, reddit, youtube]
-content:
-  style: professional
-  action: "Try it now!"
-  ai_enhanced: true
-EOF
+# That's it! Interactive prompts will ask:
+# - Project concept/description
+# - Platforms to use (Twitter, Reddit, YouTube, etc.)
+# - Content language (English, Japanese, Spanish, etc.)
+# - Content style (Casual, Professional, Technical, Humorous)
+# - Free tier limits (50 posts/day)
 
-# Generate content preview (Terraform-style)
+# Preview AI-generated content
 aetherpost plan
 
 # Deploy when ready
@@ -125,9 +121,9 @@ aetherpost apply</code></pre>
 git clone https://github.com/fununnn/aetherpost.git
 cd aetherpost
 
-# One command setup - handles everything automatically!
+# Interactive setup with prompts
 aetherpost init
-# Dependencies, configuration, platform setup - all done!</code></pre>
+# No dependencies to install - works immediately!</code></pre>
                         </div>
                     </div>
 

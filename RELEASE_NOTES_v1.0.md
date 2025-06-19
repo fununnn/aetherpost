@@ -16,8 +16,9 @@ AetherPost v1.0 marks the first public release of our AI-powered social media au
 - **OpenAI Integration**: GPT-3.5-turbo powered content creation
 - **Platform Optimization**: Automatic content adaptation for each social platform
 - **Smart Hashtag Generation**: AI-driven hashtag selection and optimization
-- **Multiple Content Styles**: Professional, casual, technical, and friendly tones
+- **4 Content Styles**: Casual, Professional, Technical, Humorous
 - **🌍 Multi-Language Support**: Generate content in 20+ languages including Japanese, Spanish, French, German, Korean, Chinese, and more
+- **Interactive Style Selection**: Choose style during setup with numbered options
 
 ### 📱 Multi-Platform Support
 - **Twitter**: Full API v2 integration with OAuth 1.0a authentication
@@ -25,9 +26,10 @@ AetherPost v1.0 marks the first public release of our AI-powered social media au
 - **Reddit**: PRAW-based integration with subreddit optimization
 - **Production Ready**: All three platforms fully tested and validated
 
-### 🎯 Self-Promotion Meta Feature
-- **Dogfooding Excellence**: AetherPost can promote itself using its own capabilities
-- **4 Campaign Types**: Launch announcements, feature highlights, community building, technical content
+### 🎯 Interactive Setup
+- **Guided Configuration**: Interactive prompts for easy setup without complex configuration files
+- **Smart Defaults**: Sensible defaults for beginners with advanced options for power users
+- **Free Tier Support**: Built-in awareness of platform limits and cost optimization
 - **Automated Workflows**: Both interactive and non-interactive modes
 - **100% Test Coverage**: Comprehensive validation with real API integration
 
