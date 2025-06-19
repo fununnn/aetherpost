@@ -32,27 +32,23 @@ AetherPost automates your app promotion across social media platforms using AI-g
 ### Installation & Setup
 
 ```bash
-git clone https://github.com/fununnn/aetherpost.git
-cd aetherpost
+# One command install!
+pip install aetherpost
 
-# One command does everything!
+# Create campaign
 aetherpost init
+
+# That's it!
 ```
 
 ### Usage
 
 ```bash
-# Create campaign (super simple!)
-aetherpost init
-
 # Preview content
 aetherpost plan
 
 # Execute posts
 aetherpost apply
-
-# Check status
-aetherpost status
 ```
 
 ## 📋 Configuration Example
