@@ -1,10 +1,10 @@
 name: "my-awesome-project"
 concept: "Revolutionary AI-powered development tool that enhances productivity"
 url: "https://github.com/user/my-awesome-project"
+# 🎯 Start small with 2 platforms, add more later!
 platforms:
-  - twitter
-  - reddit
-  - youtube
+  - twitter   # Essential for quick reach
+  - reddit    # Great for developer communities
 
 content:
   style: professional
@@ -35,5 +35,7 @@ platform_config:
       - "programming"
       - "opensource"
       - "devtools"
-  youtube:
-    video_concept: "Development workflow demonstration"
+  # youtube: (commented out - add when ready for video content)
+  #   video_concept: "Development workflow demonstration"
+  # bluesky: (commented out - add for decentralized reach)
+  # instagram: (commented out - add for visual content)

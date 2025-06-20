@@ -88,6 +88,13 @@ API_REQUIREMENTS = {
             "setup_url": "https://api.slack.com/apps",
             "keys": ["SLACK_WEBHOOK_URL"]
         },
+        "instagram": {
+            "name": "Instagram Graph API",
+            "description": "Post photos, reels, and stories",
+            "cost": "Free (rate limited, business account required)",
+            "setup_url": "https://developers.facebook.com/docs/instagram-api",
+            "keys": ["INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_BUSINESS_ACCOUNT_ID"]
+        },
         "line_notify": {
             "name": "LINE Notify",
             "description": "Mobile notifications",
@@ -236,6 +243,7 @@ def save_api_keys(api_keys: Dict[str, str], autopromo_dir: Path):
         "Reddit": ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USERNAME", "REDDIT_PASSWORD"],
         "YouTube": ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET"],
         "Bluesky": ["BLUESKY_HANDLE", "BLUESKY_PASSWORD"],
+        "Instagram": ["INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_BUSINESS_ACCOUNT_ID"],
         "Notifications": ["SLACK_WEBHOOK_URL", "LINE_NOTIFY_TOKEN"]
     }
     
@@ -291,6 +299,22 @@ def validate_api_keys(api_keys: Dict[str, str]) -> Dict[str, Dict[str, str]]:
         results["YouTube"] = {"status": "valid", "message": "OAuth2 credentials provided"}
     elif youtube_count > 0:
         results["YouTube"] = {"status": "warning", "message": "Incomplete OAuth2 setup"}
+    
+    # Bluesky validation
+    bluesky_keys = ["BLUESKY_HANDLE", "BLUESKY_PASSWORD"]
+    bluesky_count = sum(1 for key in bluesky_keys if key in api_keys)
+    if bluesky_count == 2:
+        results["Bluesky"] = {"status": "valid", "message": "Credentials provided"}
+    elif bluesky_count > 0:
+        results["Bluesky"] = {"status": "warning", "message": "Incomplete credentials"}
+    
+    # Instagram validation
+    instagram_keys = ["INSTAGRAM_ACCESS_TOKEN", "INSTAGRAM_BUSINESS_ACCOUNT_ID"]
+    instagram_count = sum(1 for key in instagram_keys if key in api_keys)
+    if instagram_count == 2:
+        results["Instagram"] = {"status": "valid", "message": "Business account setup complete"}
+    elif instagram_count > 0:
+        results["Instagram"] = {"status": "warning", "message": "Incomplete business account setup"}
     
     # Notification services
     if "SLACK_WEBHOOK_URL" in api_keys:

@@ -32,8 +32,8 @@
         <div class="hero-content">
             <h1>AI-Powered Social Media Automation</h1>
             <p class="hero-subtitle">
-                Professional multi-platform social media management with OpenAI integration. 
-                Deploy campaigns across multiple platforms with YAML configuration and intelligent content generation.
+                <strong>5-platform social media automation</strong> with OpenAI integration. 
+                Deploy to Twitter, Reddit, YouTube, Bluesky, and Instagram with intelligent content optimization for each platform. Start with 1, scale to all 5.
             </p>
             
             <div class="hero-stats">
@@ -105,6 +105,7 @@ aetherpost apply</code></pre>
                         </div>
                         <div style="background: #f0f8ff; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
                             <p><strong>💡 For Claude Code & AI Tools:</strong> Pre-create campaign.yaml and .env.aetherpost files. AetherPost will auto-detect and skip interactive prompts.</p>
+                            <p><strong>🎯 Platform Flexibility:</strong> Choose any combination of platforms - you don't need all 5. Start with 1-2 platforms and expand as needed.</p>
                         </div>
                     </div>
 
@@ -125,6 +126,7 @@ aetherpost apply</code></pre>
                         </div>
                         <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
                             <p><strong>📝 For Manual Setup:</strong> AetherPost will guide you through project setup, API collection, and platform configuration with interactive prompts.</p>
+                            <p><strong>🎯 Platform Choice:</strong> Select only the platforms you want to use. Start small with Twitter + Reddit, then add YouTube, Bluesky, or Instagram later.</p>
                         </div>
                     </div>
 
@@ -140,7 +142,7 @@ aetherpost apply</code></pre>
                         <div class="code-block small">
                             <pre><code class="language-yaml">name: "AI Product Launch"
 concept: "Revolutionary AI productivity app"
-platforms: [twitter, reddit, youtube, bluesky]
+platforms: [twitter, reddit]  # Start with 2 platforms
 content:
   style: professional
   ai_enhanced: true
@@ -156,7 +158,6 @@ content:
 📋 Campaign Preview
 ✅ Twitter: "🚀 Introducing revolutionary AI productivity app..."
 ✅ Reddit: "Deep dive: How AI transforms productivity workflows..."
-✅ YouTube: "Video concept: AI productivity demo"
 💡 Run 'aetherpost apply' to execute this campaign</code></pre>
                         </div>
                     </div>
@@ -169,8 +170,7 @@ content:
 🚀 Campaign Execution
 ✅ Posted to Twitter: https://twitter.com/...
 ✅ Posted to Reddit: r/programming
-✅ Posted to YouTube: Video uploaded
-🎉 Successfully posted to 5/5 platforms!</code></pre>
+🎉 Successfully posted to 2/2 platforms!</code></pre>
                         </div>
                     </div>
                 </div>
@@ -217,7 +217,7 @@ content:
                     <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
                         <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🚀</div>
                         <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost apply</code>
-                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Execute campaign across Twitter, Reddit, YouTube</p>
+                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Execute campaign across Twitter, Reddit, YouTube, Bluesky, Instagram</p>
                     </div>
                     <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
                         <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
@@ -247,8 +247,12 @@ content:
                     <div class="feature-icon">
                         <i class="fas fa-share-alt"></i>
                     </div>
-                    <h3>Multiple Platforms Supported</h3>
-                    <p>Twitter, Reddit, YouTube, Bluesky, Instagram with intelligent content adaptation for each platform. Ready for production use.</p>
+                    <h3>5 Platforms. Your Choice.</h3>
+                    <p><strong>Most comprehensive platform support:</strong> Twitter, Reddit, YouTube, Bluesky, Instagram. Mix and match any combination. Start with 1, scale to all 5. Each platform intelligently optimized.</p>
+                    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
+                        ✅ Twitter (280 char optimization) ✅ Reddit (subreddit targeting) ✅ YouTube (video concepts)<br>
+                        ✅ Bluesky (decentralized reach) ✅ Instagram (visual content)
+                    </div>
                     <a href="guides/platforms.html" class="feature-link">Platform Guide →</a>
                 </div>
 
@@ -384,17 +388,35 @@ notifications:
                 </div>
                 
                 <div class="tech-card" style="border-left: 4px solid #ef4444;">
-                    <h3><i class="fas fa-key"></i> API Keys Template</h3>
+                    <h3><i class="fas fa-key"></i> API Keys (Start Small)</h3>
                     <div class="code-block small" style="margin: 1rem 0;">
-                        <pre><code># .env.aetherpost
+                        <pre><code># .env.aetherpost (Starter - $5/month)
 OPENAI_API_KEY=sk-proj-xxx
 TWITTER_API_KEY=xxx
 TWITTER_API_SECRET=xxx
 TWITTER_ACCESS_TOKEN=xxx
 TWITTER_ACCESS_TOKEN_SECRET=xxx
-REDDIT_CLIENT_ID=xxx
-REDDIT_CLIENT_SECRET=xxx</code></pre>
+
+# Add more platforms when ready:
+# REDDIT_CLIENT_ID=xxx
+# REDDIT_CLIENT_SECRET=xxx
+# REDDIT_USERNAME=xxx
+# REDDIT_PASSWORD=xxx
+
+# YOUTUBE_CLIENT_ID=xxx
+# YOUTUBE_CLIENT_SECRET=xxx
+
+# BLUESKY_HANDLE=your_handle.bsky.social
+# BLUESKY_PASSWORD=your_app_password
+
+# INSTAGRAM_ACCESS_TOKEN=xxx
+# INSTAGRAM_BUSINESS_ACCOUNT_ID=xxx
+
+# SLACK_WEBHOOK_URL=https://hooks.slack.com/...</code></pre>
                     </div>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                        <strong>💡 Tip:</strong> Start with OpenAI + Twitter, then uncomment and fill in other platforms as needed. Each platform needs specific credentials.
+                    </p>
                 </div>
             </div>
             
@@ -439,7 +461,8 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
             <h2>🔑 API Requirements & Setup Levels</h2>
             
             <p class="section-subtitle">
-                AetherPost offers flexible setup levels - start simple and expand as needed. 
+                <strong>Choose your own adventure!</strong> AetherPost supports any combination of platforms. 
+                Start with just Twitter, add Reddit for developer communities, then expand to YouTube, Bluesky, or Instagram when ready. 
                 The interactive <code>aetherpost init</code> will guide you through the process.
             </p>
             
@@ -481,7 +504,7 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
                         <h4>Setup Time:</h4>
                         <p>~20 minutes</p>
                         <h4>Perfect for:</h4>
-                        <p>OSS projects, developer tools, startup launches</p>
+                        <p>OSS projects, developer tools, startup launches. <strong>Most popular choice</strong> - covers the largest developer audience with minimal cost.</p>
                     </div>
                 </div>
 
@@ -518,8 +541,8 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
                         <h4>Required APIs:</h4>
                         <ul>
                             <li><strong>All previous APIs</strong> +</li>
-                            <li><strong>Bluesky API</strong> - Decentralized social (Free)</li>
-                            <li><strong>Instagram Basic Display</strong> - Photo/story posting</li>
+                            <li><strong>Bluesky API</strong> - Decentralized social posting (Free)</li>
+                            <li><strong>Instagram Graph API</strong> - Business account photo/reel/carousel posting (Free, rate limited)</li>
                         </ul>
                         <h4>Optional:</h4>
                         <ul>
@@ -552,7 +575,216 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
                         <span class="cost-item"><strong>Starter:</strong> $5-15/month (OpenAI + Twitter)</span>
                         <span class="cost-item"><strong>Recommended:</strong> $5-15/month (Reddit is free!)</span>
                         <span class="cost-item"><strong>Advanced:</strong> $10-25/month (+ YouTube quota)</span>
-                        <span class="cost-item"><strong>Complete:</strong> $15-35/month (+ all platforms)</span>
+                        <span class="cost-item"><strong>Complete:</strong> $10-25/month (Bluesky & Instagram are free!)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="api-setup-guide" style="background: #f8f9fa; padding: 60px 0;">
+        <div class="container">
+            <h2>🔧 Detailed API Setup Guide</h2>
+            <p class="section-subtitle">
+                Step-by-step instructions for setting up each platform. Bookmark this section for reference during setup.
+            </p>
+            
+            <div class="api-guide-grid">
+                <div class="api-guide-card">
+                    <div class="api-guide-header">
+                        <h3><i class="fas fa-robot"></i> OpenAI API (Required)</h3>
+                        <span class="difficulty easy">Easy • 5 minutes</span>
+                    </div>
+                    <div class="api-guide-content">
+                        <h4>What you need:</h4>
+                        <ul>
+                            <li><strong>OPENAI_API_KEY</strong> - Your OpenAI API key</li>
+                        </ul>
+                        <h4>Setup steps:</h4>
+                        <ol>
+                            <li>Visit <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI API Keys</a></li>
+                            <li>Sign up or log in to your OpenAI account</li>
+                            <li>Click "Create new secret key"</li>
+                            <li>Copy the key (starts with <code>sk-proj-</code>)</li>
+                            <li>Add to .env.aetherpost: <code>OPENAI_API_KEY=sk-proj-your-key</code></li>
+                        </ol>
+                        <div class="cost-note">💰 <strong>Cost:</strong> $0.002-0.06 per 1K tokens (~$5-15/month typical usage)</div>
+                    </div>
+                </div>
+
+                <div class="api-guide-card">
+                    <div class="api-guide-header">
+                        <h3><i class="fab fa-twitter"></i> Twitter API v2</h3>
+                        <span class="difficulty medium">Medium • 15 minutes</span>
+                    </div>
+                    <div class="api-guide-content">
+                        <h4>What you need:</h4>
+                        <ul>
+                            <li><strong>TWITTER_API_KEY</strong> - Consumer API Key</li>
+                            <li><strong>TWITTER_API_SECRET</strong> - Consumer API Secret</li>
+                            <li><strong>TWITTER_ACCESS_TOKEN</strong> - Access Token</li>
+                            <li><strong>TWITTER_ACCESS_TOKEN_SECRET</strong> - Access Token Secret</li>
+                        </ul>
+                        <h4>Setup steps:</h4>
+                        <ol>
+                            <li>Visit <a href="https://developer.twitter.com/en/portal" target="_blank">Twitter Developer Portal</a></li>
+                            <li>Apply for Twitter Developer Account</li>
+                            <li>Create a new App in your Developer Portal</li>
+                            <li>Generate API Keys & Tokens</li>
+                            <li>Set App permissions to "Read and Write"</li>
+                            <li>Add all 4 keys to .env.aetherpost</li>
+                        </ol>
+                        <div class="cost-note">💰 <strong>Cost:</strong> Free tier + $100/month for high volume (15,000 tweets/month free)</div>
+                    </div>
+                </div>
+
+                <div class="api-guide-card">
+                    <div class="api-guide-header">
+                        <h3><i class="fab fa-reddit"></i> Reddit API</h3>
+                        <span class="difficulty easy">Easy • 10 minutes</span>
+                    </div>
+                    <div class="api-guide-content">
+                        <h4>What you need:</h4>
+                        <ul>
+                            <li><strong>REDDIT_CLIENT_ID</strong> - App ID</li>
+                            <li><strong>REDDIT_CLIENT_SECRET</strong> - App Secret</li>
+                            <li><strong>REDDIT_USERNAME</strong> - Your Reddit username</li>
+                            <li><strong>REDDIT_PASSWORD</strong> - Your Reddit password</li>
+                        </ul>
+                        <h4>Setup steps:</h4>
+                        <ol>
+                            <li>Visit <a href="https://www.reddit.com/prefs/apps" target="_blank">Reddit App Preferences</a></li>
+                            <li>Click "Create App" or "Create Another App"</li>
+                            <li>Choose "script" type</li>
+                            <li>Fill in name, description, redirect URI (can be http://localhost)</li>
+                            <li>Note the Client ID (under app name) and Secret</li>
+                            <li>Add credentials to .env.aetherpost</li>
+                        </ol>
+                        <div class="cost-note">💰 <strong>Cost:</strong> Free! (60 requests per minute limit)</div>
+                    </div>
+                </div>
+
+                <div class="api-guide-card">
+                    <div class="api-guide-header">
+                        <h3><i class="fab fa-youtube"></i> YouTube Data API v3</h3>
+                        <span class="difficulty hard">Advanced • 20 minutes</span>
+                    </div>
+                    <div class="api-guide-content">
+                        <h4>What you need:</h4>
+                        <ul>
+                            <li><strong>YOUTUBE_CLIENT_ID</strong> - OAuth2 Client ID</li>
+                            <li><strong>YOUTUBE_CLIENT_SECRET</strong> - OAuth2 Client Secret</li>
+                        </ul>
+                        <h4>Setup steps:</h4>
+                        <ol>
+                            <li>Visit <a href="https://console.cloud.google.com/apis" target="_blank">Google Cloud Console</a></li>
+                            <li>Create a new project or select existing</li>
+                            <li>Enable YouTube Data API v3</li>
+                            <li>Go to Credentials → Create Credentials → OAuth 2.0 Client ID</li>
+                            <li>Configure OAuth consent screen (external)</li>
+                            <li>Download credentials JSON file</li>
+                            <li>Extract client_id and client_secret from JSON</li>
+                        </ol>
+                        <div class="cost-note">💰 <strong>Cost:</strong> Free quota (10,000 units/day) + $0.002 per 100 units after</div>
+                    </div>
+                </div>
+
+                <div class="api-guide-card">
+                    <div class="api-guide-header">
+                        <h3><i class="fas fa-cloud"></i> Bluesky AT Protocol</h3>
+                        <span class="difficulty easy">Easy • 5 minutes</span>
+                    </div>
+                    <div class="api-guide-content">
+                        <h4>What you need:</h4>
+                        <ul>
+                            <li><strong>BLUESKY_HANDLE</strong> - Your handle (e.g., username.bsky.social)</li>
+                            <li><strong>BLUESKY_PASSWORD</strong> - App password (not main password)</li>
+                        </ul>
+                        <h4>Setup steps:</h4>
+                        <ol>
+                            <li>Sign up at <a href="https://bsky.app" target="_blank">Bluesky</a> if you haven't</li>
+                            <li>Go to Settings → Privacy and Security</li>
+                            <li>Scroll to "App Passwords"</li>
+                            <li>Click "Add App Password"</li>
+                            <li>Give it a name (e.g., "AetherPost")</li>
+                            <li>Copy the generated password</li>
+                            <li>Use your full handle (username.bsky.social) and app password</li>
+                        </ol>
+                        <div class="cost-note">💰 <strong>Cost:</strong> Free! Decentralized social network</div>
+                    </div>
+                </div>
+
+                <div class="api-guide-card">
+                    <div class="api-guide-header">
+                        <h3><i class="fab fa-instagram"></i> Instagram Graph API</h3>
+                        <span class="difficulty hard">Advanced • 30 minutes</span>
+                    </div>
+                    <div class="api-guide-content">
+                        <h4>What you need:</h4>
+                        <ul>
+                            <li><strong>INSTAGRAM_ACCESS_TOKEN</strong> - Long-lived access token</li>
+                            <li><strong>INSTAGRAM_BUSINESS_ACCOUNT_ID</strong> - Business account ID</li>
+                        </ul>
+                        <h4>Setup steps:</h4>
+                        <ol>
+                            <li>Convert your Instagram account to Business/Creator</li>
+                            <li>Connect to a Facebook Page</li>
+                            <li>Visit <a href="https://developers.facebook.com" target="_blank">Facebook for Developers</a></li>
+                            <li>Create a Meta App</li>
+                            <li>Add Instagram Graph API product</li>
+                            <li>Get Page Access Token</li>
+                            <li>Exchange for long-lived token</li>
+                            <li>Get Instagram Business Account ID</li>
+                        </ol>
+                        <div class="cost-note">💰 <strong>Cost:</strong> Free (rate limited, business account required)</div>
+                        <div class="warning-note">⚠️ <strong>Note:</strong> Requires Instagram Business/Creator account and Facebook Page connection</div>
+                    </div>
+                </div>
+
+                <div class="api-guide-card">
+                    <div class="api-guide-header">
+                        <h3><i class="fas fa-bell"></i> Notifications (Optional)</h3>
+                        <span class="difficulty easy">Easy • 5 minutes each</span>
+                    </div>
+                    <div class="api-guide-content">
+                        <h4>Slack Webhook:</h4>
+                        <ol>
+                            <li>Go to your Slack workspace settings</li>
+                            <li>Create a new Slack App</li>
+                            <li>Enable Incoming Webhooks</li>
+                            <li>Create a webhook for your channel</li>
+                            <li>Copy the webhook URL</li>
+                        </ol>
+                        <h4>LINE Notify:</h4>
+                        <ol>
+                            <li>Visit <a href="https://notify-bot.line.me" target="_blank">LINE Notify</a></li>
+                            <li>Log in with your LINE account</li>
+                            <li>Generate a token for your target chat/group</li>
+                            <li>Copy the token</li>
+                        </ol>
+                        <div class="cost-note">💰 <strong>Cost:</strong> Both free!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setup-tips">
+                <h3>🎯 Setup Tips</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>Start Small</h4>
+                        <p>Begin with OpenAI + Twitter. Get comfortable with the workflow, then add Reddit, then expand to other platforms.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Test Each Platform</h4>
+                        <p>After adding API keys, use <code>aetherpost plan</code> to verify each platform is working before going live.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Secure Your Keys</h4>
+                        <p>Never commit .env.aetherpost to Git. Add it to .gitignore immediately. Treat API keys like passwords.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Rate Limits</h4>
+                        <p>Each platform has rate limits. AetherPost handles this automatically, but be aware for high-volume usage.</p>
                     </div>
                 </div>
             </div>
@@ -565,7 +797,8 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
             
             <div class="example-tabs">
                 <div class="tab-headers">
-                    <button class="tab-header active" data-tab="self-promo">Sample Campaign</button>
+                    <button class="tab-header active" data-tab="self-promo">Simple Start</button>
+                    <button class="tab-header" data-tab="full-power">5-Platform Power</button>
                     <button class="tab-header" data-tab="startup">Startup Launch</button>
                     <button class="tab-header" data-tab="oss">OSS Release</button>
                 </div>
@@ -574,11 +807,11 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
                     <div class="tab-pane active" id="self-promo">
                         <div class="example-showcase">
                             <div class="example-code">
-                                <h4>sample-campaign.yaml</h4>
+                                <h4>simple-start.yaml</h4>
                                 <div class="code-block">
-                                    <pre><code class="language-yaml">name: "sample-campaign"
+                                    <pre><code class="language-yaml">name: "simple-start"
 concept: "Developer-friendly social media automation platform"
-platforms: [twitter, reddit, youtube, bluesky]
+platforms: [twitter, reddit]  # Perfect starter combo
 
 content:
   style: casual
@@ -602,13 +835,74 @@ reddit_strategy:
                                     <div class="social-header">
                                         <i class="fab fa-twitter"></i> Twitter
                                     </div>
-                                    <p>🚀 Just discovered the power of multi-platform posting! Sharing the same content on Twitter, Reddit, and YouTube helps reach wider audiences. #OpenSource #SocialMediaAutomation</p>
+                                    <p>🚀 Starting simple with Twitter and Reddit! Perfect combo for developer tools - quick reach + community engagement. #OpenSource #SocialMediaAutomation</p>
                                 </div>
                                 <div class="social-preview reddit">
                                     <div class="social-header">
                                         <i class="fab fa-reddit"></i> Reddit
                                     </div>
                                     <p><strong>r/programming:</strong> Excited to announce our new feature that allows you to easily share your content across multiple platforms with just one click! Technical deep-dive in comments.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane" id="full-power">
+                        <div class="example-showcase">
+                            <div class="example-code">
+                                <h4>full-platform-power.yaml</h4>
+                                <div class="code-block">
+                                    <pre><code class="language-yaml">name: "Maximum Reach Campaign"
+concept: "AI-powered productivity suite for modern teams"
+platforms: [twitter, reddit, youtube, bluesky, instagram]  # All 5!
+
+content:
+  style: professional
+  action: "Experience the future of work!"
+  hashtags: ["#AI", "#Productivity", "#TeamWork", "#Innovation"]
+
+platform_optimization:
+  twitter: "Quick announcements & updates"
+  reddit: "Technical discussions & community building" 
+  youtube: "Product demos & tutorials"
+  bluesky: "Decentralized community engagement"
+  instagram: "Visual brand storytelling"</code></pre>
+                                </div>
+                            </div>
+                            <div class="example-result">
+                                <h4>5-Platform Synchronized Launch</h4>
+                                <div class="social-preview twitter">
+                                    <div class="social-header">
+                                        <i class="fab fa-twitter"></i> Twitter
+                                    </div>
+                                    <p>🚀 Introducing the future of team productivity! Our AI suite revolutionizes how teams collaborate. Experience seamless workflow automation. #AI #Productivity</p>
+                                </div>
+                                <div class="social-preview reddit">
+                                    <div class="social-header">
+                                        <i class="fab fa-reddit"></i> Reddit
+                                    </div>
+                                    <p><strong>r/MachineLearning:</strong> Deep dive into our AI productivity architecture. Built with modern ML pipelines, real-time collaboration features, and enterprise security. Technical details and benchmarks in comments.</p>
+                                </div>
+                                <div class="social-preview" style="border-left: 4px solid #1da1f2; background: #f8f9ff;">
+                                    <div class="social-header">
+                                        <i class="fab fa-youtube"></i> YouTube
+                                    </div>
+                                    <p><strong>Video:</strong> "AI Productivity Suite Demo - 10X Your Team's Output" with automated captions, SEO optimization, and chapter markers.</p>
+                                </div>
+                                <div class="social-preview" style="border-left: 4px solid #00d4aa; background: #f0fff8;">
+                                    <div class="social-header">
+                                        <i class="fas fa-cloud"></i> Bluesky
+                                    </div>
+                                    <p>🌟 Building the future of decentralized productivity tools! Our AI suite empowers teams without vendor lock-in. Open standards, open future.</p>
+                                </div>
+                                <div class="social-preview" style="border-left: 4px solid #e4405f; background: #fff5f7;">
+                                    <div class="social-header">
+                                        <i class="fab fa-instagram"></i> Instagram
+                                    </div>
+                                    <p><strong>Visual Story:</strong> Behind-the-scenes carousel showing team productivity transformation, with professional graphics and engaging captions.</p>
+                                </div>
+                                <div style="background: #10b981; color: white; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: center;">
+                                    <strong>💡 Result: 5X wider reach across all major platforms simultaneously!</strong>
                                 </div>
                             </div>
                         </div>
@@ -621,7 +915,7 @@ reddit_strategy:
                                 <div class="code-block">
                                     <pre><code class="language-yaml">name: "TechStartup Launch"
 concept: "Revolutionary AI productivity platform"
-platforms: [twitter, youtube, reddit]
+platforms: [twitter, youtube, reddit, bluesky, instagram]
 
 content:
   style: professional
@@ -662,7 +956,7 @@ analytics: true</code></pre>
                                 <div class="code-block">
                                     <pre><code class="language-yaml">name: "MyLibrary v2.0"
 concept: "Open source library for developers"
-platforms: [twitter, reddit, youtube, instagram]
+platforms: [twitter, reddit, youtube, bluesky, instagram]
 
 content:
   style: technical
@@ -795,7 +1089,7 @@ template: "oss-release"</code></pre>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 AetherPost v1.2.0. Released under the MIT License.</p>
+                <p>&copy; 2025 AetherPost v1.3.0. Released under the MIT License.</p>
                 <p>Built with ❤️ by the open source community. Powered by OpenAI.</p>
                 <p><strong>Meta Achievement:</strong> This documentation site is promoted using AetherPost itself! 🎭</p>
             </div>
