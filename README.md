@@ -13,6 +13,7 @@ AetherPost automates your app promotion across social media platforms using AI-g
 - 🎯 **Declarative configuration** - Define campaigns in YAML
 - 🤖 **AI-generated content** - OpenAI GPT-powered posts
 - 📱 **Multi-platform support** - Twitter, Reddit, YouTube, Bluesky, Instagram (5 platforms)
+- 🆕 **Universal profile management** - Sync profiles across all platforms automatically
 - 🔒 **Secure** - Encrypted credential storage with .env.aetherpost
 - ⚡ **Auto-setup mode** - Zero-prompt initialization for AI tools
 - 📊 **Smart notifications** - Slack/LINE preview notifications
