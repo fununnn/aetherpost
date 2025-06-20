@@ -39,3 +39,11 @@ platform_config:
   #   video_concept: "Development workflow demonstration"
   # bluesky: (commented out - add for decentralized reach)
   # instagram: (commented out - add for visual content)
+
+# Profile settings (optional) - automatically update social media profiles
+# Uncomment to sync your project info across all platforms
+# profile:
+#   display_name: "My Awesome Project"
+#   bio: "🚀 Revolutionary AI-powered tool | Open Source | Made with ❤️"
+#   website: "https://github.com/user/my-awesome-project"
+#   sync_on_apply: true  # Auto-update profiles when running 'apply'

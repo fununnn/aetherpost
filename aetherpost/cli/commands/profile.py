@@ -1,13 +1,19 @@
-"""Social media profile and bio generation commands."""
+"""Profile management command for social media accounts."""
 
-import logging
-import json
-import yaml
-from typing import Dict, List, Any, Optional
-from pathlib import Path
-import click
+import asyncio
+import aiohttp
+import typer
+import os
+from typing import Optional, Dict, Any
 from rich.console import Console
+from rich.table import Table
 from rich.panel import Panel
+from pathlib import Path
+import json
+import requests
+from PIL import Image, ImageDraw, ImageFont
+import io
+import base64
 from rich.table import Table
 from rich.prompt import Prompt, Confirm, IntPrompt
 from rich.columns import Columns
