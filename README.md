@@ -201,4 +201,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - Inspired by Terraform's Infrastructure-as-Code approach
 - Built with [Typer](https://typer.tiangolo.com/) and [Rich](https://rich.readthedocs.io/)
-- AI content generation powered by [AI Provider](https://www.anthropic.com/) and [OpenAI](https://openai.com/)
+- AI content generation powered by advanced language models and [OpenAI](https://openai.com/)
