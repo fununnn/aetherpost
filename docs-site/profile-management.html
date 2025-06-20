@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Management - AetherPost</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1><i class="fas fa-rocket"></i> AetherPost</h1>
+                <span class="beta-badge">v1.5.0</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="getting-started.html">Quick Start</a>
+                <a href="configuration.html">Configuration</a>
+                <a href="guides/">Guides</a>
+                <a href="api/">API</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="hero-section">
+            <h1><i class="fas fa-user-cog"></i> Universal Profile Management</h1>
+            <p class="subtitle">Sync your project's profile across all social media platforms automatically</p>
+            <div class="version-badge">✨ New in v1.5.0</div>
+        </div>
+
+        <section class="content-section">
+            <h2><i class="fas fa-star"></i> Overview</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-globe"></i> Multi-Platform Support</h3>
+                    <p>Unified profile management across Twitter, Bluesky, Mastodon, Instagram, and Discord</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-magic"></i> Auto-Optimization</h3>
+                    <p>Automatically adapts content to each platform's character limits and requirements</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-cog"></i> Single Configuration</h3>
+                    <p>One YAML file controls all your social media profiles</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2><i class="fas fa-play-circle"></i> Quick Start</h2>
+            
+            <h3>1. Add Profile Configuration</h3>
+            <pre><code class="language-yaml"># campaign.yaml
+name: "my-awesome-project"
+platforms:
+  - twitter
+  - bluesky
+  - mastodon
+  - instagram
+
+# Add profile configuration
+profile:
+  display_name: "My Awesome Project"
+  bio: "🚀 Revolutionary AI tool | Open Source | Developer-friendly"
+  website: "https://github.com/user/my-project"
+  sync_on_apply: true  # Enable automatic profile updates</code></pre>
+
+            <h3>2. Preview Profile Updates</h3>
+            <pre><code class="language-bash">aetherpost plan</code></pre>
+            <p>This shows your campaign content <strong>and</strong> profile updates that will be applied.</p>
+
+            <h3>3. Apply Everything at Once</h3>
+            <pre><code class="language-bash">aetherpost apply</code></pre>
+            <p>Posts your campaign content and updates profiles on all configured platforms.</p>
+        </section>
+
+        <section class="content-section">
+            <h2><i class="fas fa-chart-bar"></i> Platform Support</h2>
+            
+            <div class="platform-status">
+                <div class="platform-item supported">
+                    <h4><i class="fab fa-twitter"></i> Twitter/X</h4>
+                    <span class="status-badge success">✅ Full Support</span>
+                    <p>Name, bio, website sync</p>
+                    <small>160 chars bio, 50 char name</small>
+                </div>
+                
+                <div class="platform-item supported">
+                    <h4><i class="fas fa-cloud"></i> Bluesky</h4>
+                    <span class="status-badge success">✅ Full Support</span>
+                    <p>Name, bio, website sync</p>
+                    <small>256 chars bio, 64 char name</small>
+                </div>
+                
+                <div class="platform-item supported">
+                    <h4><i class="fab fa-mastodon"></i> Mastodon</h4>
+                    <span class="status-badge success">✅ Full Support</span>
+                    <p>Name, bio, website field sync</p>
+                    <small>500 chars bio, 30 char name</small>
+                </div>
+                
+                <div class="platform-item partial">
+                    <h4><i class="fab fa-instagram"></i> Instagram</h4>
+                    <span class="status-badge partial">✅ Bio + Website</span>
+                    <p>Bio and website sync (business accounts)</p>
+                    <small>150 chars bio, 30 char name</small>
+                </div>
+                
+                <div class="platform-item limited">
+                    <h4><i class="fab fa-discord"></i> Discord</h4>
+                    <span class="status-badge limited">🔄 Bot Username</span>
+                    <p>Bot username updates only</p>
+                    <small>190 chars bio, 32 char name</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2><i class="fas fa-code"></i> Advanced Configuration</h2>
+            
+            <h3>Platform-Specific Overrides</h3>
+            <pre><code class="language-yaml">profile:
+  display_name: "AetherPost"
+  bio: "Default bio for most platforms"
+  website: "https://aetherpost.dev"
+  
+  # Override for specific platforms
+  overrides:
+    twitter:
+      bio: "🚀 Social automation for devs. 5 platforms, 1 command."
+    instagram:
+      bio: "AI-powered social media automation 🤖"</code></pre>
+
+            <h3>Conditional Profile Updates</h3>
+            <pre><code class="language-yaml">profile:
+  display_name: "My Project"
+  bio: "Amazing developer tool"
+  website: "https://github.com/user/project"
+  sync_on_apply: false  # Disable auto-sync
+  
+# Manual profile sync
+manual_profile_sync: true</code></pre>
+        </section>
+
+        <section class="content-section">
+            <h2><i class="fas fa-exclamation-triangle"></i> Best Practices</h2>
+            
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4><i class="fas fa-compress-alt"></i> Keep it Concise</h4>
+                    <p>Short, impactful bios work best across all platforms. Use the shortest platform's limit as your guide.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-smile"></i> Use Emojis</h4>
+                    <p>Emojis stand out and save characters. They're universally supported across all platforms.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-search"></i> Include Keywords</h4>
+                    <p>Help people find your project by including relevant keywords in your bio.</p>
+                </div>
+                
+                <div class="tip-card">
+                    <h4><i class="fas fa-sync-alt"></i> Update Regularly</h4>
+                    <p>Keep profiles fresh with project updates, new features, or achievements.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2><i class="fas fa-tools"></i> Troubleshooting</h2>
+            
+            <div class="troubleshoot-section">
+                <h3>Profile Not Updating</h3>
+                <ul>
+                    <li>Check API credentials in <code>.env.aetherpost</code></li>
+                    <li>Verify platform permissions (Instagram requires business accounts)</li>
+                    <li>Run <code>aetherpost doctor</code> to diagnose issues</li>
+                </ul>
+                
+                <h3>Character Limit Issues</h3>
+                <ul>
+                    <li>AetherPost auto-truncates content, but review the results</li>
+                    <li>Use platform-specific overrides for custom text</li>
+                    <li>Remove less important information first</li>
+                </ul>
+                
+                <h3>API Rate Limits</h3>
+                <ul>
+                    <li>Profile updates count against API limits</li>
+                    <li>Space out updates if hitting limits</li>
+                    <li>Disable <code>sync_on_apply</code> for high-frequency posting</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Ready to Unify Your Social Media Presence?</h2>
+            <div class="cta-buttons">
+                <a href="getting-started.html" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i> Get Started
+                </a>
+                <a href="configuration.html" class="btn btn-secondary">
+                    <i class="fas fa-cog"></i> Configuration Guide
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 AetherPost. Open source social media automation.</p>
+            <div class="footer-links">
+                <a href="https://github.com/fununnn/aetherpost">GitHub</a>
+                <a href="contributing.html">Contributing</a>
+                <a href="api/">API Reference</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
