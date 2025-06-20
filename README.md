@@ -32,7 +32,7 @@ AetherPost automates your app promotion across social media platforms using AI-g
 
 AetherPost supports **two setup modes** based on file detection:
 
-### 🤖 Auto Setup Mode (Claude Code & AI Tools)
+### 🤖 Auto Setup Mode
 
 **For automated workflows with pre-configured files**
 

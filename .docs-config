@@ -1,0 +1,5 @@
+BUCKET_NAME=aetherpost-docs
+REGION=ap-northeast-1
+DISTRIBUTION_ID=E17BSKULOX5DLU
+S3_URL=http://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com
+CLOUDFRONT_URL=https://d3b75mcubdhimz.cloudfront.net
