@@ -1048,3 +1048,198 @@ body {
 .copy-notification.show {
   transform: translateX(0);
 }
+
+/* API Requirements Section */
+.api-requirements {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  padding: 4rem 0;
+}
+
+.api-requirements h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: var(--text-color);
+  font-size: 2.5rem;
+}
+
+.api-requirements .section-subtitle {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  color: var(--text-light);
+  font-size: 1.2rem;
+}
+
+.setup-levels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.level-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.level-card:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.level-card.starter:before {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.level-card.recommended:before {
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+}
+
+.level-card.advanced:before {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.level-card.complete:before {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.level-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.level-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.level-header h3 {
+  color: var(--text-color);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.level-badge {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.starter .level-badge {
+  background: var(--secondary-color);
+}
+
+.recommended .level-badge {
+  background: var(--primary-color);
+}
+
+.advanced .level-badge {
+  background: var(--accent-color);
+}
+
+.complete .level-badge {
+  background: var(--error-color);
+}
+
+.level-content h4 {
+  color: var(--text-color);
+  margin: 1rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.level-content ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.level-content li {
+  margin: 0.25rem 0;
+  color: var(--text-light);
+}
+
+.level-content p {
+  color: var(--text-light);
+  margin: 0.5rem 0;
+}
+
+.setup-help {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  margin-top: 2rem;
+}
+
+.setup-help h3 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.setup-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.setup-benefits li {
+  padding: 0.5rem 0;
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.cost-summary {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f8fafc;
+  border-radius: 0.5rem;
+  border-left: 4px solid var(--secondary-color);
+}
+
+.cost-summary h4 {
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.cost-breakdown {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5rem;
+}
+
+.cost-item {
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .setup-levels {
+    grid-template-columns: 1fr;
+  }
+  
+  .cost-breakdown {
+    grid-template-columns: 1fr;
+  }
+  
+  .api-requirements h2 {
+    font-size: 2rem;
+  }
+}

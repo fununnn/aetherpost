@@ -1,0 +1,39 @@
+name: "my-awesome-project"
+concept: "Revolutionary AI-powered development tool that enhances productivity"
+url: "https://github.com/user/my-awesome-project"
+platforms:
+  - twitter
+  - reddit
+  - youtube
+
+content:
+  style: professional
+  action: "Try it free!"
+  language: en
+  hashtags:
+    - "#OpenSource"
+    - "#DevTools"
+    - "#AI"
+
+limits:
+  free_tier: true
+  max_posts_per_day: 50
+
+notifications:
+  enabled: true
+  auto_apply: false
+
+# Template hint for advanced setup
+template: "production"
+
+# Optional: Additional platform-specific settings
+platform_config:
+  twitter:
+    max_thread_length: 5
+  reddit:
+    target_subreddits:
+      - "programming"
+      - "opensource"
+      - "devtools"
+  youtube:
+    video_concept: "Development workflow demonstration"

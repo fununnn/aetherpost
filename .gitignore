@@ -1,63 +1,22 @@
-# Environment files
-.env*
-!.env.example
-
-# Logs
-logs/*.json
+# AetherPost
+.aetherpost/.env
+.aetherpost/state/
+.aetherpost/logs/
 *.log
 
-# State files  
-*.state.json
-promo.state.json
+# API Keys (exclude real config, include samples)
+.env.aetherpost
+credentials.json
+!sample.env.aetherpost
 
-# Temporary files
-.docs-config
-cloudfront-config.json
-bucket-policy.json
+# Campaign files (exclude real config, include samples)  
+campaign.yaml
+!sample-campaign.yaml
 
-# Python
+# Cache
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
+*.pyc
+.cache/
 
-# Virtual environments
-venv/
-env/
-.venv/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS
-.DS_Store
-Thumbs.db
-
-# AetherPost specific
-.aetherpost/content_cache/
-backup_before_cleanup/
-aetherpost-release/
-test-init/
-demo-flow/
-
-# Security - never commit
+# Claude Code specific
 CLAUDE.md

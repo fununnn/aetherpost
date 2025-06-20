@@ -13,7 +13,7 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <h1><i class="fas fa-rocket"></i> AetherPost</h1>
-                <span class="beta-badge">v1.2.0</span>
+                <span class="beta-badge">v1.3.0</span>
             </div>
             <div class="nav-links">
                 <a href="#quick-start">Quick Start</a>
@@ -80,43 +80,51 @@
             
             <div class="install-tabs">
                 <div class="tab-headers">
-                    <button class="tab-header active" data-tab="pip">pip</button>
-                    <button class="tab-header" data-tab="git">Git Clone</button>
+                    <button class="tab-header active" data-tab="auto">Auto Setup (Claude Code)</button>
+                    <button class="tab-header" data-tab="interactive">Interactive Setup</button>
                 </div>
 
                 <div class="tab-content">
-                    <div class="tab-pane active" id="pip">
+                    <div class="tab-pane active" id="auto">
                         <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode('pip-install')">
+                            <button class="copy-btn" onclick="copyCode('auto-install')">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <pre><code id="pip-install"># Install via pip
+                            <pre><code id="auto-install"># 1. Install AetherPost
 pip install aetherpost
 
-# Interactive setup
+# 2. Create campaign.yaml (pre-configure settings)
+# 3. Create .env.aetherpost (add API keys)
+
+# 4. Auto-initialize (no prompts)
 aetherpost init
 
-# Preview and deploy
+# 5. Preview and deploy
 aetherpost plan
 aetherpost apply</code></pre>
                         </div>
+                        <div style="background: #f0f8ff; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                            <p><strong>💡 For Claude Code & AI Tools:</strong> Pre-create campaign.yaml and .env.aetherpost files. AetherPost will auto-detect and skip interactive prompts.</p>
+                        </div>
                     </div>
 
-                    <div class="tab-pane" id="git">
+                    <div class="tab-pane" id="interactive">
                         <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode('git-install')">
+                            <button class="copy-btn" onclick="copyCode('interactive-install')">
                                 <i class="fas fa-copy"></i>
                             </button>
-                            <pre><code id="git-install"># Clone repository
-git clone https://github.com/fununnn/aetherpost.git
-cd aetherpost
+                            <pre><code id="interactive-install"># 1. Install AetherPost
+pip install aetherpost
 
-# Interactive setup
+# 2. Interactive setup with guided prompts
 aetherpost init
 
-# Preview and deploy
+# 3. Preview and deploy
 aetherpost plan
 aetherpost apply</code></pre>
+                        </div>
+                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                            <p><strong>📝 For Manual Setup:</strong> AetherPost will guide you through project setup, API collection, and platform configuration with interactive prompts.</p>
                         </div>
                     </div>
 
@@ -323,6 +331,229 @@ content:
                         <li>Robust error handling and logging</li>
                         <li>CI/CD compatible with exit codes</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="claude-code-setup" class="technical-details" style="background: linear-gradient(135deg, #e8f5e8 0%, #f0fff0 100%);">
+        <div class="container">
+            <h2>🤖 Claude Code & AI Tools Setup Guide</h2>
+            
+            <div class="tech-grid">
+                <div class="tech-card" style="border-left: 4px solid #10b981;">
+                    <h3><i class="fas fa-rocket"></i> Quick Auto Setup</h3>
+                    <p><strong>For automated project initialization</strong></p>
+                    <ol style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li>Create <code>campaign.yaml</code> with project configuration</li>
+                        <li>Create <code>.env.aetherpost</code> with API keys</li>
+                        <li>Run <code>aetherpost init</code> (auto-detects files)</li>
+                        <li>Execute <code>aetherpost plan && aetherpost apply</code></li>
+                    </ol>
+                    <p><strong>Result:</strong> Zero interactive prompts, instant setup</p>
+                </div>
+                
+                <div class="tech-card" style="border-left: 4px solid #6366f1;">
+                    <h3><i class="fas fa-file-code"></i> Required Files</h3>
+                    <p><strong>Minimum files for auto-setup</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li><code>campaign.yaml</code> - Project settings & platforms</li>
+                        <li><code>.env.aetherpost</code> - API credentials</li>
+                    </ul>
+                    <p><strong>Optional:</strong></p>
+                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
+                        <li><code>README.md</code> - Project documentation</li>
+                        <li><code>.gitignore</code> - Git ignore patterns</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-card" style="border-left: 4px solid #f59e0b;">
+                    <h3><i class="fas fa-cog"></i> Configuration Templates</h3>
+                    <div class="code-block small" style="margin: 1rem 0;">
+                        <pre><code># campaign.yaml
+name: "my-project"
+concept: "Project description"
+platforms: ["twitter", "reddit"]
+content:
+  style: professional
+  language: en
+notifications:
+  enabled: true
+  auto_apply: false</code></pre>
+                    </div>
+                </div>
+                
+                <div class="tech-card" style="border-left: 4px solid #ef4444;">
+                    <h3><i class="fas fa-key"></i> API Keys Template</h3>
+                    <div class="code-block small" style="margin: 1rem 0;">
+                        <pre><code># .env.aetherpost
+OPENAI_API_KEY=sk-proj-xxx
+TWITTER_API_KEY=xxx
+TWITTER_API_SECRET=xxx
+TWITTER_ACCESS_TOKEN=xxx
+TWITTER_ACCESS_TOKEN_SECRET=xxx
+REDDIT_CLIENT_ID=xxx
+REDDIT_CLIENT_SECRET=xxx</code></pre>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: white; padding: 2rem; border-radius: 1rem; margin-top: 2rem; border-left: 4px solid #10b981;">
+                <h3>🎯 Implementation Example for Claude Code</h3>
+                <div class="code-block">
+                    <pre><code>// 1. Create campaign.yaml based on project analysis
+const campaignConfig = {
+  name: projectName,
+  concept: projectDescription,
+  platforms: determinePlatforms(projectType),
+  content: {
+    style: 'professional',
+    language: 'en'
+  },
+  notifications: {
+    enabled: true,
+    auto_apply: false  // Set to true for full automation
+  }
+};
+
+// 2. Create .env.aetherpost template
+const envTemplate = `OPENAI_API_KEY=\${OPENAI_API_KEY}
+TWITTER_API_KEY=\${TWITTER_API_KEY}
+TWITTER_API_SECRET=\${TWITTER_API_SECRET}
+// ... other required keys`;
+
+// 3. User adds API keys to .env.aetherpost
+
+// 4. Auto-initialize
+exec('aetherpost init');  // No prompts, instant setup
+
+// 5. Execute campaign
+exec('aetherpost plan && aetherpost apply');</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="api-requirements">
+        <div class="container">
+            <h2>🔑 API Requirements & Setup Levels</h2>
+            
+            <p class="section-subtitle">
+                AetherPost offers flexible setup levels - start simple and expand as needed. 
+                The interactive <code>aetherpost init</code> will guide you through the process.
+            </p>
+            
+            <div class="setup-levels">
+                <div class="level-card starter">
+                    <div class="level-header">
+                        <h3>🚀 Starter Level</h3>
+                        <span class="level-badge">Recommended for beginners</span>
+                    </div>
+                    <div class="level-content">
+                        <h4>Required APIs:</h4>
+                        <ul>
+                            <li><strong>OpenAI API</strong> - AI content generation ($0.002-0.06/1K tokens)</li>
+                            <li><strong>Twitter API v2</strong> - Tweet posting (Free tier + $100/month high volume)</li>
+                        </ul>
+                        <h4>Setup Time:</h4>
+                        <p>~10 minutes</p>
+                        <h4>Perfect for:</h4>
+                        <p>Personal projects, quick announcements, basic automation</p>
+                    </div>
+                </div>
+
+                <div class="level-card recommended">
+                    <div class="level-header">
+                        <h3>⭐ Recommended Level</h3>
+                        <span class="level-badge">Best value</span>
+                    </div>
+                    <div class="level-content">
+                        <h4>Required APIs:</h4>
+                        <ul>
+                            <li><strong>OpenAI API</strong> - AI content generation</li>
+                            <li><strong>Twitter API v2</strong> - Tweet posting</li>
+                            <li><strong>Reddit API</strong> - Subreddit posting (Free, 60 req/min)</li>
+                        </ul>
+                        <h4>Optional:</h4>
+                        <ul>
+                            <li><strong>Slack Webhook</strong> - Preview notifications (Free)</li>
+                        </ul>
+                        <h4>Setup Time:</h4>
+                        <p>~20 minutes</p>
+                        <h4>Perfect for:</h4>
+                        <p>OSS projects, developer tools, startup launches</p>
+                    </div>
+                </div>
+
+                <div class="level-card advanced">
+                    <div class="level-header">
+                        <h3>🎯 Advanced Level</h3>
+                        <span class="level-badge">Multi-platform</span>
+                    </div>
+                    <div class="level-content">
+                        <h4>Required APIs:</h4>
+                        <ul>
+                            <li><strong>OpenAI API</strong> - AI content generation</li>
+                            <li><strong>Twitter API v2</strong> - Tweet posting</li>
+                            <li><strong>Reddit API</strong> - Subreddit posting</li>
+                            <li><strong>YouTube Data API v3</strong> - Video management (Free quota)</li>
+                        </ul>
+                        <h4>Optional:</h4>
+                        <ul>
+                            <li><strong>Slack/LINE</strong> - Preview notifications</li>
+                        </ul>
+                        <h4>Setup Time:</h4>
+                        <p>~30 minutes</p>
+                        <h4>Perfect for:</h4>
+                        <p>Content creators, comprehensive campaigns, brand building</p>
+                    </div>
+                </div>
+
+                <div class="level-card complete">
+                    <div class="level-header">
+                        <h3>🌟 Complete Level</h3>
+                        <span class="level-badge">Full power</span>
+                    </div>
+                    <div class="level-content">
+                        <h4>Required APIs:</h4>
+                        <ul>
+                            <li><strong>All previous APIs</strong> +</li>
+                            <li><strong>Bluesky API</strong> - Decentralized social (Free)</li>
+                            <li><strong>Instagram Basic Display</strong> - Photo/story posting</li>
+                        </ul>
+                        <h4>Optional:</h4>
+                        <ul>
+                            <li><strong>All notification services</strong></li>
+                            <li><strong>Advanced analytics</strong></li>
+                        </ul>
+                        <h4>Setup Time:</h4>
+                        <p>~45 minutes</p>
+                        <h4>Perfect for:</h4>
+                        <p>Enterprise use, maximum reach, professional campaigns</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setup-help">
+                <h3>🛠️ Interactive Setup</h3>
+                <p>Don't worry about setting everything up manually! Run <code>aetherpost init</code> and it will:</p>
+                <ul class="setup-benefits">
+                    <li>✅ Guide you through API key collection step-by-step</li>
+                    <li>✅ Recommend the best setup level for your needs</li>
+                    <li>✅ Provide direct links to API setup pages</li>
+                    <li>✅ Validate your API keys automatically</li>
+                    <li>✅ Save everything securely to <code>.env.aetherpost</code></li>
+                    <li>✅ Allow you to start simple and expand later</li>
+                </ul>
+                
+                <div class="cost-summary">
+                    <h4>💰 Typical Monthly Costs</h4>
+                    <div class="cost-breakdown">
+                        <span class="cost-item"><strong>Starter:</strong> $5-15/month (OpenAI + Twitter)</span>
+                        <span class="cost-item"><strong>Recommended:</strong> $5-15/month (Reddit is free!)</span>
+                        <span class="cost-item"><strong>Advanced:</strong> $10-25/month (+ YouTube quota)</span>
+                        <span class="cost-item"><strong>Complete:</strong> $15-35/month (+ all platforms)</span>
+                    </div>
                 </div>
             </div>
         </div>

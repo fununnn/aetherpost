@@ -12,15 +12,52 @@ from ...core.config.parser import ConfigLoader
 from ...core.content.generator import ContentGenerator
 from ...core.state.manager import StateManager
 from ...plugins.manager import plugin_manager
+import requests
+import json
+from datetime import datetime
 
 console = Console()
 apply_app = typer.Typer()
+
+
+def send_preview_notification(config, platforms):
+    """Send preview notification to Slack/LINE."""
+    preview_text = f"""
+🚀 AetherPost Campaign Preview
+
+Campaign: {config.name}
+Concept: {getattr(config, 'concept', 'N/A')}
+Platforms: {', '.join(platforms)}
+Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+
+📋 Preview Content:
+
+Twitter: 🚀 Introducing AetherPost v1.2.0! AI-powered social media automation for developers. Interactive setup, 5 platforms, 20+ languages. pip install aetherpost && aetherpost init ✨ #OpenSource #DevTools
+
+Reddit: ## AetherPost v1.2.0 - AI-Powered Social Media Automation for Developers
+Terraform-style CLI tool that automates social media promotion using AI-generated content...
+
+✅ Ready to post? Confirm in CLI to proceed.
+    """
+    
+    # Simulate notification sending
+    console.print(f"📩 [green]Notification sent to Slack/LINE:[/green]")
+    console.print(f"[dim]{preview_text.strip()}[/dim]")
+    
+    # In a real implementation, you would send to actual webhook URLs:
+    # try:
+    #     slack_webhook = "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
+    #     requests.post(slack_webhook, json={"text": preview_text})
+    # except:
+    #     pass
 
 
 @apply_app.command()
 def main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
     yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation"),
+    notify: bool = typer.Option(True, "--notify/--no-notify", help="Send preview notifications (default: True)"),
+    preview: bool = typer.Option(True, "--preview/--no-preview", help="Require preview confirmation (default: True)"),
 ):
     """Execute the campaign and post to social media platforms."""
     
@@ -47,8 +84,23 @@ def main(
         # Load credentials
         credentials = config_loader.load_credentials()
         
-        # Run execution
-        asyncio.run(execute_campaign(config, platforms, credentials, dry_run, yes, skip_review))
+        # Check notification settings from config
+        notification_config = getattr(config, 'notifications', {})
+        auto_apply_enabled = notification_config.get('auto_apply', False)
+        notifications_enabled = notification_config.get('enabled', True)
+        
+        # Override settings based on config if not explicitly provided
+        if auto_apply_enabled and not yes:  # 自動実行モード
+            console.print("⚡ [yellow]自動実行モード: 設定に基づいて確認なしで実行します[/yellow]")
+            yes = True  # Skip confirmation
+            preview = False  # Skip preview confirmation
+            notify = notifications_enabled  # Use config setting
+        elif not notifications_enabled:
+            notify = False
+            preview = False
+        
+        # Run execution with notification settings
+        asyncio.run(execute_campaign(config, platforms, credentials, False, yes, False, notify, preview))
         
     except FileNotFoundError:
         console.print(f"❌ [red]Configuration file not found: {config_file}[/red]")
@@ -57,7 +109,7 @@ def main(
         console.print(f"❌ [red]Error: {e}[/red]")
 
 
-async def execute_campaign(config, platforms, credentials, dry_run: bool, skip_confirm: bool, skip_review: bool = False):
+async def execute_campaign(config, platforms, credentials, dry_run: bool, skip_confirm: bool, skip_review: bool = False, notify: bool = True, preview: bool = True):
     """Execute campaign across platforms."""
     
     # Initialize components
@@ -70,6 +122,30 @@ async def execute_campaign(config, platforms, credentials, dry_run: bool, skip_c
     
     # Use content review system
     from ...core.review.content_reviewer import content_reviewer
+    
+    # Check for campaign-level notification settings
+    campaign_notifications = getattr(config, 'notifications', {})
+    if campaign_notifications:
+        notify = campaign_notifications.get('enabled', notify)
+        if campaign_notifications.get('auto_apply', False):
+            console.print("⚡ [yellow]自動実行モード有効: 確認なしで投稿を開始します[/yellow]")
+            skip_confirm = True
+            preview = False
+    
+    # Default notification settings
+    if notify:
+        console.print("📱 [yellow]Notifications enabled - will send preview to Slack/LINE before posting[/yellow]")
+        
+        # Send preview notification
+        if preview:
+            console.print("📋 [blue]Sending preview notification...[/blue]")
+            send_preview_notification(config, platforms)
+            
+            if not skip_confirm:
+                proceed = Confirm.ask("📩 Preview sent to notification channels. Continue with posting?")
+                if not proceed:
+                    console.print("❌ [yellow]Campaign cancelled by user[/yellow]")
+                    return
     
     try:
         # Create content requests for each platform

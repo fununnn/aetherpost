@@ -2,7 +2,7 @@
 
 import typer
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional, List, Dict
 from rich.console import Console
 from rich.prompt import Prompt, Confirm, IntPrompt
 from rich.panel import Panel
@@ -11,9 +11,326 @@ from rich.columns import Columns
 from rich.text import Text
 import yaml
 import json
+import getpass
+import os
 
 console = Console()
 init_app = typer.Typer()
+
+# API Requirements Configuration
+API_REQUIREMENTS = {
+    "levels": {
+        "starter": {
+            "name": "Starter (Twitter + AI)",
+            "description": "Essential setup for basic promotion",
+            "required": ["openai", "twitter"],
+            "optional": ["slack_webhook"]
+        },
+        "recommended": {
+            "name": "Recommended (+ Reddit)", 
+            "description": "Good coverage with developer communities",
+            "required": ["openai", "twitter", "reddit"],
+            "optional": ["slack_webhook", "line_notify"]
+        },
+        "advanced": {
+            "name": "Advanced (+ YouTube)",
+            "description": "Multi-platform with video content",
+            "required": ["openai", "twitter", "reddit", "youtube"],
+            "optional": ["slack_webhook", "line_notify"]
+        },
+        "complete": {
+            "name": "Complete (All Platforms)",
+            "description": "Full feature set with all integrations", 
+            "required": ["openai", "twitter", "reddit", "youtube", "bluesky"],
+            "optional": ["slack_webhook", "line_notify", "instagram"]
+        }
+    },
+    "services": {
+        "openai": {
+            "name": "OpenAI API",
+            "description": "AI content generation (GPT-3.5/4)",
+            "cost": "$0.002-0.06/1K tokens",
+            "setup_url": "https://platform.openai.com/api-keys",
+            "keys": ["OPENAI_API_KEY"]
+        },
+        "twitter": {
+            "name": "Twitter API v2", 
+            "description": "Post tweets and threads",
+            "cost": "Free tier + $100/month for high volume",
+            "setup_url": "https://developer.twitter.com/en/portal",
+            "keys": ["TWITTER_API_KEY", "TWITTER_API_SECRET", "TWITTER_ACCESS_TOKEN", "TWITTER_ACCESS_TOKEN_SECRET"]
+        },
+        "reddit": {
+            "name": "Reddit API",
+            "description": "Post to subreddits", 
+            "cost": "Free (60 requests/minute)",
+            "setup_url": "https://www.reddit.com/prefs/apps",
+            "keys": ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USERNAME", "REDDIT_PASSWORD"]
+        },
+        "youtube": {
+            "name": "YouTube Data API v3",
+            "description": "Upload videos and manage channel",
+            "cost": "Free quota + $0.002/100 units", 
+            "setup_url": "https://console.cloud.google.com/apis",
+            "keys": ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET"]
+        },
+        "bluesky": {
+            "name": "Bluesky API",
+            "description": "Post to Bluesky social network",
+            "cost": "Free",
+            "setup_url": "https://bsky.app",
+            "keys": ["BLUESKY_HANDLE", "BLUESKY_PASSWORD"]
+        },
+        "slack_webhook": {
+            "name": "Slack Notifications",
+            "description": "Preview notifications before posting",
+            "cost": "Free",
+            "setup_url": "https://api.slack.com/apps",
+            "keys": ["SLACK_WEBHOOK_URL"]
+        },
+        "line_notify": {
+            "name": "LINE Notify",
+            "description": "Mobile notifications",
+            "cost": "Free", 
+            "setup_url": "https://notify-bot.line.me",
+            "keys": ["LINE_NOTIFY_TOKEN"]
+        }
+    }
+}
+
+
+def collect_api_keys(selected_platforms: List[str], template: str) -> Dict[str, str]:
+    """Collect API keys based on selected platforms and template."""
+    
+    console.print(Panel(
+        "[bold]🔑 API Keys Setup[/bold]\n\n"
+        "We'll help you set up the API keys needed for your selected platforms.\n"
+        "You can start with the basics and add more later.",
+        title="API Configuration",
+        border_style="yellow"
+    ))
+    
+    # Determine setup level based on platforms
+    setup_level = determine_setup_level(selected_platforms, template)
+    
+    # Show setup level options
+    console.print(f"\n[bold]📊 Recommended Setup Level:[/bold]")
+    levels = API_REQUIREMENTS["levels"]
+    
+    table = Table()
+    table.add_column("Level", style="cyan")
+    table.add_column("Description", style="white")
+    table.add_column("Required APIs", style="green")
+    
+    for level_key, level_info in levels.items():
+        marker = "→" if level_key == setup_level else " "
+        required_count = len(level_info["required"])
+        table.add_row(
+            f"{marker} {level_info['name']}",
+            level_info["description"], 
+            f"{required_count} required"
+        )
+    
+    console.print(table)
+    
+    # Let user choose setup level
+    chosen_level = Prompt.ask(
+        "Choose setup level",
+        choices=list(levels.keys()),
+        default=setup_level
+    )
+    
+    # Collect API keys for chosen level
+    api_keys = {}
+    level_config = levels[chosen_level]
+    
+    console.print(f"\n[bold]🔧 Setting up {level_config['name']}:[/bold]")
+    
+    # Required APIs
+    console.print("\n[bold green]Required APIs:[/bold green]")
+    for service_key in level_config["required"]:
+        service_info = API_REQUIREMENTS["services"][service_key]
+        keys = collect_service_keys(service_key, service_info, required=True)
+        api_keys.update(keys)
+    
+    # Optional APIs
+    if level_config["optional"]:
+        setup_optional = Confirm.ask("\nSet up optional services (notifications, etc.)?")
+        if setup_optional:
+            console.print("\n[bold yellow]Optional APIs:[/bold yellow]")
+            for service_key in level_config["optional"]:
+                service_info = API_REQUIREMENTS["services"][service_key]
+                setup_this = Confirm.ask(f"Set up {service_info['name']}?")
+                if setup_this:
+                    keys = collect_service_keys(service_key, service_info, required=False)
+                    api_keys.update(keys)
+    
+    return api_keys
+
+
+def determine_setup_level(platforms: List[str], template: str) -> str:
+    """Determine recommended setup level based on platforms and template."""
+    if template == "enterprise":
+        return "complete"
+    elif "youtube" in platforms:
+        return "advanced"
+    elif "reddit" in platforms:
+        return "recommended"
+    else:
+        return "starter"
+
+
+def collect_service_keys(service_key: str, service_info: Dict, required: bool = True) -> Dict[str, str]:
+    """Collect API keys for a specific service."""
+    console.print(f"\n[bold]{service_info['name']}[/bold]")
+    console.print(f"Description: {service_info['description']}")
+    console.print(f"Cost: {service_info['cost']}")
+    console.print(f"Setup guide: [blue]{service_info['setup_url']}[/blue]")
+    
+    keys = {}
+    
+    for key_name in service_info["keys"]:
+        prompt_text = f"Enter {key_name}"
+        if not required:
+            prompt_text += " (optional, press Enter to skip)"
+        
+        # Use getpass for sensitive API keys
+        if "API_KEY" in key_name or "SECRET" in key_name or "TOKEN" in key_name:
+            value = getpass.getpass(f"{prompt_text}: ")
+        else:
+            value = Prompt.ask(prompt_text, default="" if not required else None)
+        
+        if value:
+            keys[key_name] = value
+        elif required:
+            console.print(f"[red]⚠️ {key_name} is required for {service_info['name']}[/red]")
+            # Allow user to skip if they want to set up later
+            skip = Confirm.ask("Skip this service for now? (you can add it later)")
+            if skip:
+                break
+            else:
+                return collect_service_keys(service_key, service_info, required)
+    
+    return keys
+
+
+def save_api_keys(api_keys: Dict[str, str], autopromo_dir: Path):
+    """Save API keys to .env.aetherpost file."""
+    env_file = autopromo_dir.parent / ".env.aetherpost"
+    
+    # Create header
+    content = """# AetherPost API Configuration
+# Generated automatically by 'aetherpost init'
+# Keep this file secure and do not commit to version control
+
+# ===========================================
+# PLATFORM CREDENTIALS
+# ===========================================
+
+"""
+    
+    # Group keys by service
+    service_groups = {
+        "AI Services": ["OPENAI_API_KEY"],
+        "Twitter": ["TWITTER_API_KEY", "TWITTER_API_SECRET", "TWITTER_ACCESS_TOKEN", "TWITTER_ACCESS_TOKEN_SECRET"],
+        "Reddit": ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET", "REDDIT_USERNAME", "REDDIT_PASSWORD"],
+        "YouTube": ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET"],
+        "Bluesky": ["BLUESKY_HANDLE", "BLUESKY_PASSWORD"],
+        "Notifications": ["SLACK_WEBHOOK_URL", "LINE_NOTIFY_TOKEN"]
+    }
+    
+    for group_name, group_keys in service_groups.items():
+        group_has_keys = any(key in api_keys for key in group_keys)
+        if group_has_keys:
+            content += f"# {group_name}\n"
+            for key in group_keys:
+                if key in api_keys:
+                    content += f"{key}={api_keys[key]}\n"
+            content += "\n"
+    
+    # Write to file
+    with open(env_file, "w") as f:
+        f.write(content)
+    
+    # Set secure permissions (readable only by owner)
+    env_file.chmod(0o600)
+
+
+def validate_api_keys(api_keys: Dict[str, str]) -> Dict[str, Dict[str, str]]:
+    """Validate API key formats and provide setup status."""
+    results = {}
+    
+    # OpenAI validation
+    if "OPENAI_API_KEY" in api_keys:
+        key = api_keys["OPENAI_API_KEY"]
+        if key.startswith("sk-") and len(key) > 20:
+            results["OpenAI"] = {"status": "valid", "message": "API key format looks correct"}
+        else:
+            results["OpenAI"] = {"status": "warning", "message": "API key format may be incorrect"}
+    
+    # Twitter validation
+    twitter_keys = ["TWITTER_API_KEY", "TWITTER_API_SECRET", "TWITTER_ACCESS_TOKEN", "TWITTER_ACCESS_TOKEN_SECRET"]
+    twitter_count = sum(1 for key in twitter_keys if key in api_keys)
+    if twitter_count == 4:
+        results["Twitter"] = {"status": "valid", "message": "All required keys provided"}
+    elif twitter_count > 0:
+        results["Twitter"] = {"status": "warning", "message": f"Only {twitter_count}/4 keys provided"}
+    
+    # Reddit validation
+    reddit_keys = ["REDDIT_CLIENT_ID", "REDDIT_CLIENT_SECRET"]
+    reddit_count = sum(1 for key in reddit_keys if key in api_keys)
+    if reddit_count == 2:
+        results["Reddit"] = {"status": "valid", "message": "Required keys provided"}
+    elif reddit_count > 0:
+        results["Reddit"] = {"status": "warning", "message": f"Only {reddit_count}/2 required keys provided"}
+    
+    # YouTube validation
+    youtube_keys = ["YOUTUBE_CLIENT_ID", "YOUTUBE_CLIENT_SECRET"]
+    youtube_count = sum(1 for key in youtube_keys if key in api_keys)
+    if youtube_count == 2:
+        results["YouTube"] = {"status": "valid", "message": "OAuth2 credentials provided"}
+    elif youtube_count > 0:
+        results["YouTube"] = {"status": "warning", "message": "Incomplete OAuth2 setup"}
+    
+    # Notification services
+    if "SLACK_WEBHOOK_URL" in api_keys:
+        webhook = api_keys["SLACK_WEBHOOK_URL"]
+        if webhook.startswith("https://hooks.slack.com/"):
+            results["Slack"] = {"status": "valid", "message": "Webhook URL format correct"}
+        else:
+            results["Slack"] = {"status": "warning", "message": "Webhook URL format may be incorrect"}
+    
+    return results
+
+
+def show_validation_results(results: Dict[str, Dict[str, str]]):
+    """Display API key validation results."""
+    if not results:
+        return
+        
+    console.print(f"\n[bold]🔍 API Key Validation:[/bold]")
+    
+    table = Table()
+    table.add_column("Service", style="cyan")
+    table.add_column("Status", style="white")
+    table.add_column("Message", style="dim")
+    
+    for service, result in results.items():
+        status = result["status"]
+        if status == "valid":
+            status_icon = "✅"
+            status_color = "green"
+        else:
+            status_icon = "⚠️"
+            status_color = "yellow"
+        
+        table.add_row(
+            service,
+            f"[{status_color}]{status_icon} {status.title()}[/{status_color}]",
+            result["message"]
+        )
+    
+    console.print(table)
 
 
 @init_app.command()
@@ -32,6 +349,32 @@ def main(
     if example:
         show_examples()
         return
+    
+    # Check for existing campaign.yaml - auto-setup mode
+    campaign_file = Path("campaign.yaml")
+    if campaign_file.exists() and not upgrade:
+        try:
+            with open(campaign_file, "r", encoding="utf-8") as f:
+                existing_campaign = yaml.safe_load(f)
+            
+            console.print(Panel(
+                "[bold green]📋 既存設定を検出しました[/bold green]\n\n"
+                "[dim]campaign.yaml が見つかりました[/dim]\n\n"
+                f"• プロジェクト: {existing_campaign.get('name', 'Unknown')}\n"
+                f"• プラットフォーム: {', '.join(existing_campaign.get('platforms', []))}\n"
+                f"• 言語: {existing_campaign.get('content', {}).get('language', 'en')}\n\n"
+                "既存設定を使用して自動初期化します...",
+                title="🚀 Auto Setup Mode",
+                border_style="green"
+            ))
+            
+            # Auto-setup using existing campaign
+            auto_setup_from_campaign(existing_campaign)
+            return
+            
+        except Exception as e:
+            console.print(f"⚠️ [yellow]campaign.yaml読み込みエラー: {e}[/yellow]")
+            console.print("インタラクティブモードで続行します...")
     
     # Welcome banner
     if quick:
@@ -154,6 +497,26 @@ def main(
     
     content_language = lang_map.get(lang_choice, lang_choice if len(lang_choice) == 2 else "en")
     
+    # API Key Collection
+    console.print(f"\n[bold]🔑 API Keys Setup:[/bold]")
+    api_keys = collect_api_keys(selected_platforms, template)
+    
+    # Notification Settings
+    console.print(f"\n[bold]📱 通知設定（Notification Settings）:[/bold]")
+    console.print("投稿前に確認通知を受け取りますか？")
+    console.print("1) あり - Slack/LINE通知で事前確認（推奨）")
+    console.print("2) なし - 自動投稿（確認なし）")
+    
+    notification_choice = Prompt.ask("通知設定を選択 (1-2)", default="1")
+    enable_notifications = notification_choice == "1"
+    
+    if enable_notifications:
+        console.print("✅ [green]通知ありモード: apply実行時に事前確認通知を送信します[/green]")
+        auto_apply = False
+    else:
+        console.print("⚡ [yellow]自動実行モード: apply実行後に自動的に投稿します[/yellow]")
+        auto_apply = True
+    
     # AI Services configuration
     console.print(f"\n[bold]🤖 AI Services Configuration:[/bold]")
     
@@ -193,6 +556,7 @@ def main(
         summary_table.add_row("Template", template)
         summary_table.add_row("Platforms", ", ".join(selected_platforms))
         summary_table.add_row("Content Language", f"{available_languages.get(content_language, content_language)} ({content_language})")
+        summary_table.add_row("Notification Mode", "事前確認あり" if enable_notifications else "自動実行")
         summary_table.add_row("AI Services", ", ".join(selected_ai))
         summary_table.add_row("Backend", backend)
         summary_table.add_row("Est. Monthly Cost", estimated_cost.get("total", "$0-50"))
@@ -203,11 +567,11 @@ def main(
             console.print("❌ Initialization cancelled")
             return
     
-    # Create workspace
-    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language, concept, use_free_tier, content_style)
+    # Create workspace with API keys and notification settings
+    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language, concept, use_free_tier, content_style, api_keys, enable_notifications, auto_apply)
     
     # Next steps
-    show_next_steps(name, selected_platforms)
+    show_next_steps(name, selected_platforms, bool(api_keys))
 
 
 def calculate_cost_estimate(template: str, platforms: List[str], ai_services: List[str], backend: str) -> dict:
@@ -259,7 +623,8 @@ def calculate_cost_estimate(template: str, platforms: List[str], ai_services: Li
 
 def create_workspace(name: str, template: str, platforms: List[str], ai_services: List[str], 
                     backend: str, autopromo_dir: Path, content_language: str = "en", concept: str = "", 
-                    use_free_tier: bool = True, content_style: str = "casual"):
+                    use_free_tier: bool = True, content_style: str = "casual", api_keys: Dict[str, str] = None,
+                    enable_notifications: bool = True, auto_apply: bool = False):
     """Create AetherPost workspace files."""
     
     # Create directory structure
@@ -289,6 +654,11 @@ def create_workspace(name: str, template: str, platforms: List[str], ai_services
             "timezone": "UTC",
             "default_delay": "5m",
             "retry_attempts": 3
+        },
+        "notifications": {
+            "enabled": enable_notifications,
+            "auto_apply": auto_apply,
+            "preview_required": enable_notifications
         },
         "analytics": {
             "enabled": template != "starter",
@@ -354,6 +724,10 @@ __pycache__/
         "limits": {
             "free_tier": use_free_tier,
             "max_posts_per_day": 50 if use_free_tier else 1000
+        },
+        "notifications": {
+            "enabled": enable_notifications,
+            "auto_apply": auto_apply
         }
     }
     
@@ -363,6 +737,15 @@ __pycache__/
     console.print(f"\n✅ [green]AetherPost workspace initialized successfully![/green]")
     console.print(f"📁 Configuration created in: [cyan].aetherpost/[/cyan]")
     console.print(f"📝 Campaign template created: [cyan]campaign.yaml[/cyan]")
+    
+    # Save API keys to .env.aetherpost
+    if api_keys:
+        save_api_keys(api_keys, autopromo_dir)
+        console.print(f"🔑 [green]API keys saved securely to .env.aetherpost[/green]")
+        
+        # Validate API keys
+        validation_results = validate_api_keys(api_keys)
+        show_validation_results(validation_results)
     
     # Don't auto-install dependencies - keep it simple
 
@@ -683,14 +1066,153 @@ def show_examples():
     ))
 
 
-def show_next_steps(name: str, platforms: List[str]):
+def show_next_steps(name: str, platforms: List[str], api_keys_configured: bool = False):
     """Show next steps after initialization."""
     console.print(f"\n[bold green]🎉 {name} ready for promotion![/bold green]\n")
     
     console.print("[bold]Next steps:[/bold]")
-    console.print("1️⃣  Add API keys: [cyan]cp .aetherpost/.env.template .env.aetherpost[/cyan]")
-    console.print("2️⃣  Preview posts: [cyan]aetherpost plan[/cyan]")
-    console.print("3️⃣  Go live: [cyan]aetherpost apply[/cyan]")
+    
+    if api_keys_configured:
+        console.print("1️⃣  ✅ [green]API keys configured[/green]")
+        console.print("2️⃣  Test connection: [cyan]aetherpost auth test[/cyan]")
+        console.print("3️⃣  Preview posts: [cyan]aetherpost plan[/cyan]")
+        console.print("4️⃣  Go live: [cyan]aetherpost apply[/cyan]")
+    else:
+        console.print("1️⃣  Set up API keys: [cyan]aetherpost auth setup[/cyan]")
+        console.print("2️⃣  Or manually edit: [cyan].env.aetherpost[/cyan]")
+        console.print("3️⃣  Preview posts: [cyan]aetherpost plan[/cyan]")
+        console.print("4️⃣  Go live: [cyan]aetherpost apply[/cyan]")
+    
+    # Show API requirements for selected platforms
+    console.print(f"\n[bold]🔑 Required APIs for your platforms:[/bold]")
+    api_table = Table()
+    api_table.add_column("Platform", style="cyan")
+    api_table.add_column("Required APIs", style="green")
+    api_table.add_column("Setup Guide", style="blue")
+    
+    platform_apis = {
+        "twitter": ("Twitter API v2", "https://developer.twitter.com/en/portal"),
+        "reddit": ("Reddit API", "https://www.reddit.com/prefs/apps"),
+        "youtube": ("YouTube Data API v3", "https://console.cloud.google.com/apis"),
+        "bluesky": ("Bluesky API", "https://bsky.app"),
+        "instagram": ("Instagram Basic Display", "https://developers.facebook.com/")
+    }
+    
+    # Always show OpenAI requirement
+    api_table.add_row("AI Content", "OpenAI API", "https://platform.openai.com/api-keys")
+    
+    for platform in platforms:
+        if platform in platform_apis:
+            name, url = platform_apis[platform]
+            api_table.add_row(platform.title(), name, url)
+    
+    console.print(api_table)
+
+
+def auto_setup_from_campaign(campaign_config: dict):
+    """Auto-setup workspace from existing campaign.yaml."""
+    
+    # Extract configuration from campaign
+    name = campaign_config.get('name', 'my-project')
+    concept = campaign_config.get('concept', f'Innovative {name} application')
+    platforms = campaign_config.get('platforms', ['twitter', 'reddit'])
+    content_config = campaign_config.get('content', {})
+    content_style = content_config.get('style', 'casual')
+    content_language = content_config.get('language', 'en')
+    notifications_config = campaign_config.get('notifications', {})
+    enable_notifications = notifications_config.get('enabled', True)
+    auto_apply = notifications_config.get('auto_apply', False)
+    
+    # Check for template hints
+    explicit_template = campaign_config.get('template', '')
+    if explicit_template in ['starter', 'production', 'enterprise']:
+        template = explicit_template
+    else:
+        template = "starter"
+        if len(platforms) >= 3:
+            template = "production"
+    
+    # Default AI services
+    ai_services = ["openai"]
+    backend = "local"
+    use_free_tier = campaign_config.get('limits', {}).get('free_tier', True)
+    
+    # Create workspace directory
+    autopromo_dir = Path(".aetherpost")
+    
+    # Check for existing API keys
+    env_file = Path(".env.aetherpost")
+    api_keys = {}
+    
+    if env_file.exists():
+        console.print("🔑 [green].env.aetherpost が見つかりました - API設定を読み込み中...[/green]")
+        # Read existing API keys
+        try:
+            with open(env_file, "r") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        key, value = line.split('=', 1)
+                        if value:
+                            api_keys[key] = value
+            console.print(f"✅ [green]{len(api_keys)}個のAPIキーを読み込みました[/green]")
+        except Exception as e:
+            console.print(f"⚠️ [yellow].env.aetherpost読み込みエラー: {e}[/yellow]")
+    else:
+        console.print("📝 [yellow].env.aetherpostが見つかりません - 後でAPI設定が必要です[/yellow]")
+    
+    # Create workspace with existing configuration
+    create_workspace(
+        name=name,
+        template=template,
+        platforms=platforms,
+        ai_services=ai_services,
+        backend=backend,
+        autopromo_dir=autopromo_dir,
+        content_language=content_language,
+        concept=concept,
+        use_free_tier=use_free_tier,
+        content_style=content_style,
+        api_keys=api_keys,
+        enable_notifications=enable_notifications,
+        auto_apply=auto_apply
+    )
+    
+    console.print(f"\n✅ [bold green]{name}の自動初期化が完了しました！[/bold green]")
+    
+    # Show status and next steps
+    if api_keys:
+        console.print("\n[bold]🎯 準備完了 - すぐに開始できます:[/bold]")
+        console.print("1️⃣  コンテンツ確認: [cyan]aetherpost plan[/cyan]")
+        console.print("2️⃣  投稿実行: [cyan]aetherpost apply[/cyan]")
+        
+        if auto_apply:
+            console.print("\n⚡ [yellow]自動実行モードが有効です - apply実行で確認なしで投稿します[/yellow]")
+        else:
+            console.print("\n📱 [blue]通知モードが有効です - apply実行前に確認通知を受け取ります[/blue]")
+    else:
+        console.print("\n[bold]🔑 次のステップ:[/bold]")
+        console.print("1️⃣  API設定: [cyan].env.aetherpost[/cyan]ファイルを作成")
+        console.print("2️⃣  設定例: [cyan].aetherpost/.env.template[/cyan]を参考")
+        console.print("3️⃣  確認: [cyan]aetherpost plan[/cyan]")
+        console.print("4️⃣  実行: [cyan]aetherpost apply[/cyan]")
+    
+    # Show detected configuration
+    console.print(f"\n[bold]📋 検出された設定:[/bold]")
+    summary_table = Table()
+    summary_table.add_column("項目", style="cyan")
+    summary_table.add_column("値", style="white")
+    
+    summary_table.add_row("プロジェクト名", name)
+    summary_table.add_row("テンプレート", template)
+    summary_table.add_row("プラットフォーム", ", ".join(platforms))
+    summary_table.add_row("コンテンツ言語", content_language)
+    summary_table.add_row("通知モード", "事前確認あり" if enable_notifications else "自動実行")
+    summary_table.add_row("API設定", "✅ 設定済み" if api_keys else "❌ 未設定")
+    
+    console.print(summary_table)
+    
+    console.print(f"\n🎭 [dim]Meta: このワークフローはClaude Codeなどによる自動プロジェクト生成に最適化されています[/dim]")
 
 
 if __name__ == "__main__":

@@ -3,6 +3,6 @@
 Automate your app promotion across social media platforms.
 """
 
-__version__ = "1.2.0"
+__version__ = "1.3.0"
 __author__ = "AetherPost Team"
 __email__ = "team@autopromo.dev"
