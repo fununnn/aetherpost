@@ -20,3 +20,6 @@ __pycache__/
 
 # Claude Code specific
 CLAUDE.md
+
+# Self-promotion directory (separate from main project)
+aetherpost-promotion/
