@@ -6,6 +6,8 @@ AetherPost automates your app promotion across social media platforms using AI-g
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![AI-Friendly](https://img.shields.io/badge/AI--Friendly-Claude%20Code%20%7C%20Copilot-purple.svg)](CODE_GUIDELINES.md)
+[![Beginner-Friendly](https://img.shields.io/badge/Beginner--Friendly-GUI%20Setup-green.svg)](GUI_SETUP_GUIDE.md)
 
 ## ✨ Features
 
@@ -191,7 +193,26 @@ content:
 
 ## 🤝 Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+**AetherPost welcomes all contributors!** We're an AI-friendly OSS project that supports modern development workflows.
+
+### 🤖 AI-Assisted Development Welcome
+- ✅ **Claude Code, GitHub Copilot, and other AI tools fully supported**
+- ✅ **AI-generated code accepted** (with proper review and testing)
+- ✅ **Co-author credit** for AI contributions encouraged
+
+### 🔰 Beginner-Friendly
+- 📖 **[GUI Setup Guide](GUI_SETUP_GUIDE.md)** - No command line required!
+- 📋 **[Code Guidelines](CODE_GUIDELINES.md)** - Comprehensive standards
+- 🛠️ **[Contributing Guide](CONTRIBUTING.md)** - Step-by-step process
+
+### 🎯 Contribution Opportunities
+- **New platform connectors** (Instagram, LinkedIn, TikTok)
+- **AI provider integrations** (Google Gemini, local models)
+- **Analytics and visualization**
+- **Documentation and tutorials**
+- **Bug fixes and improvements**
+
+**Get started**: [CONTRIBUTING.md](CONTRIBUTING.md) | **Need help?** [GitHub Discussions](https://github.com/fununnn/aetherpost/discussions)
 
 ## 📄 License
 
