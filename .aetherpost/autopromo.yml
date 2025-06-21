@@ -1,0 +1,51 @@
+project:
+  name: aetherpost-v1.5.0-universal-profile-management
+  version: 1.0.0
+  template: production
+  created: '2024-01-01T00:00:00Z'
+backend:
+  type: local
+  config:
+    state_file: .aetherpost/terraform.tfstate
+    backup: true
+platforms:
+  twitter:
+    enabled: true
+    auth_required: true
+    rate_limits: true
+    features:
+    - posts
+    - threads
+    - spaces
+    - hashtags
+    - mentions
+  bluesky:
+    enabled: true
+    auth_required: true
+    rate_limits: true
+    features:
+    - posts
+ai:
+  openai:
+    enabled: true
+    model: gpt-4-turbo
+    limits:
+      requests_per_minute: 500
+      tokens_per_month: 1000000
+content:
+  default_style: casual
+  max_length: 280
+  hashtags:
+  - '#AetherPost'
+  language: en
+scheduling:
+  timezone: UTC
+  default_delay: 5m
+  retry_attempts: 3
+notifications:
+  enabled: false
+  auto_apply: true
+  preview_required: false
+analytics:
+  enabled: true
+  retention_days: 30

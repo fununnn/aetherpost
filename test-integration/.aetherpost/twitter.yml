@@ -1,0 +1,22 @@
+authentication:
+  method: oauth2
+  scopes:
+  - tweet.read
+  - tweet.write
+  - users.read
+content:
+  hashtag_limit: 10
+  max_length: 280
+  supported_media:
+  - image
+  - video
+  - gif
+metadata:
+  platform: twitter
+  template: starter
+  version: '1.0'
+posting:
+  rate_limit: 300/15min
+  retry_policy:
+    attempts: 3
+    backoff: exponential

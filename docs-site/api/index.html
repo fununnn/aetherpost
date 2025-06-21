@@ -184,7 +184,7 @@ aetherpost apply --dry-run
 aetherpost apply --auto-approve
 
 # Deploy to specific platform only
-aetherpost apply --platform twitter</code></pre>
+aetherpost apply --platform bluesky</code></pre>
                             </div>
                         </div>
                     </div>
@@ -205,7 +205,7 @@ Arguments:
   MESSAGE              Text to post [required]
 
 Options:
-  --to TEXT            Platforms (comma-separated) [default: twitter]
+  --to TEXT            Platforms (comma-separated) [default: bluesky]
   --hashtags TEXT      Hashtags (comma-separated)
   --style TEXT         Posting style [default: casual]
   -y, --yes           Skip confirmation
@@ -217,11 +217,11 @@ Options:
                         <div class="command-examples">
                             <h4>Examples</h4>
                             <div class="code-block">
-                                <pre><code># Quick tweet
+                                <pre><code># Quick post to Bluesky
 aetherpost now "Just launched our new feature! 🚀"
 
 # Multi-platform post
-aetherpost now "Product update available" --to twitter,bluesky
+aetherpost now "Product update available" --to bluesky,twitter
 
 # With hashtags and style
 aetherpost now "New tutorial published" \
@@ -243,7 +243,7 @@ aetherpost now "New tutorial published" \
                     <div class="code-block">
                         <pre><code class="language-yaml">name: "My Campaign"                    # Campaign name
 concept: "What you're promoting"       # Brief description
-platforms: [twitter, bluesky]         # Target platforms
+platforms: [bluesky, twitter]         # Target platforms
 
 content:                               # Content configuration
   style: "professional"               # Content style
@@ -273,7 +273,7 @@ analytics: true                        # Enable analytics tracking</code></pre>
 
                     <div class="config-item">
                         <h4><code>platforms</code> <span class="type">array</span> <span class="required">required</span></h4>
-                        <p>List of platforms to post to. Available: <code>twitter</code>, <code>bluesky</code>, <code>mastodon</code></p>
+                        <p>List of platforms to post to. Available: <code>bluesky</code> (free), <code>twitter</code> (paid), <code>mastodon</code></p>
                     </div>
 
                     <div class="config-item">
@@ -310,12 +310,12 @@ analytics: true                        # Enable analytics tracking</code></pre>
   
   # Platform-specific content
   platform_specific:
-    twitter:
-      max_length: 280
-      include_media: true
     bluesky:
       max_length: 300
-      style: "casual"</code></pre>
+      style: "casual"
+    twitter:
+      max_length: 280
+      include_media: true</code></pre>
                 </div>
 
                 <div class="config-reference">
@@ -417,10 +417,10 @@ class MyAIProvider(BaseAIProvider):
         """Generate content using custom AI service."""
         
         # Platform-specific optimization
-        if platform == 'twitter':
-            prompt += " Keep it under 280 characters."
-        elif platform == 'bluesky':
+        if platform == 'bluesky':
             prompt += " Make it engaging and conversational."
+        elif platform == 'twitter':
+            prompt += " Keep it under 280 characters."
         
         # Call your AI service
         response = await self._ai_api_call(prompt, {
@@ -484,7 +484,7 @@ ap = AetherPost()
 campaign = CampaignConfig(
     name="API Demo",
     concept="Demonstrating AetherPost Python SDK",
-    platforms=["twitter", "bluesky"],
+    platforms=["bluesky", "twitter"],
     content=ContentConfig(
         style="professional",
         action="Check it out!",
@@ -521,9 +521,9 @@ async def automated_campaign():
     content = await ap.generate_content(campaign)
     
     # Customize content if needed
-    if 'twitter' in campaign.platforms:
-        content['twitter'] = await ap.optimize_for_platform(
-            content['twitter'], 'twitter'
+    if 'bluesky' in campaign.platforms:
+        content['bluesky'] = await ap.optimize_for_platform(
+            content['bluesky'], 'bluesky'
         )
     
     # Schedule for optimal timing

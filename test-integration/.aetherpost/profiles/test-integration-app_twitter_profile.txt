@@ -1,0 +1,13 @@
+=== TWITTER PROFILE ===
+
+DISPLAY NAME:
+test-integration-app
+
+BIO (155/160 characters):
+👋 Building test-integration-app! Test application for integration testing. Join me on this journey to simplify social media for developers. | Learn more ⬇️
+
+WEBSITE:
+https://aether-post.com/test-integration-app
+
+PROFILE IMAGE SUGGESTION:
+Logo with clean background, high contrast

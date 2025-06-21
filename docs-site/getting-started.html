@@ -98,7 +98,7 @@ aetherpost apply
 concept: "AI-powered task manager that learns your habits"
 url: "https://github.com/user/my-awesome-app"
 platforms: 
-  - twitter
+  - bluesky
   - reddit
   - youtube
 
@@ -127,7 +127,11 @@ template: "production"
 <pre><code class="language-bash"># AI Services
 OPENAI_API_KEY=sk-proj-your_openai_key_here
 
-# Twitter
+# Bluesky (Recommended - Free)
+BLUESKY_HANDLE=your_handle.bsky.social
+BLUESKY_PASSWORD=your_app_password_here
+
+# Twitter/X (Requires Paid Plan - $100/month minimum)
 TWITTER_API_KEY=your_twitter_api_key_here
 TWITTER_API_SECRET=your_twitter_api_secret_here
 TWITTER_ACCESS_TOKEN=your_twitter_access_token_here
@@ -201,7 +205,7 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 
 <h4>🚀 Starter Level (Recommended for beginners)</h4>
 <p><strong>Setup time:</strong> ~10 minutes<br>
-<strong>Monthly cost:</strong> $5-15</p>
+<strong>Monthly cost:</strong> $5-10 (Bluesky is free!)</p>
 
 <p><strong>Required APIs:</strong></p>
 <ul>
@@ -213,19 +217,23 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
     <li>Format: <code>sk-proj-...</code></li>
   </ul>
 </li>
-<li><strong>Twitter API v2</strong>
+<li><strong>Bluesky API (Recommended)</strong>
   <ul>
-    <li>Purpose: Post tweets and threads</li>
-    <li>Cost: Free tier + $100/month for high volume</li>
-    <li>Setup: <a href="https://developer.twitter.com/en/portal" target="_blank">Twitter Developer Portal</a></li>
-    <li>Required: API Key, API Secret, Access Token, Access Token Secret</li>
+    <li>Purpose: Post to the decentralized social network</li>
+    <li>Cost: Completely free</li>
+    <li>Setup: <a href="https://bsky.app" target="_blank">Create Bluesky account</a> + generate app password</li>
+    <li>Required: Handle, App Password</li>
   </ul>
 </li>
 </ul>
 
+<div style="background: #fff3cd; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; border-left: 4px solid #ffc107;">
+<p><strong>⚠️ Twitter/X Note:</strong> Twitter now requires a paid API plan starting at $100/month. We recommend starting with Bluesky (free) for social media automation.</p>
+</div>
+
 <h4>⭐ Recommended Level (Best value)</h4>
 <p><strong>Setup time:</strong> ~20 minutes<br>
-<strong>Monthly cost:</strong> $5-15 (Reddit is free!)</p>
+<strong>Monthly cost:</strong> $5-10 (Both Bluesky and Reddit are free!)</p>
 
 <p><strong>Additional APIs:</strong></p>
 <ul>
@@ -271,7 +279,7 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 
 <p><strong>Additional APIs:</strong></p>
 <ul>
-<li><strong>Bluesky API</strong> - Decentralized social (Free)</li>
+<li><strong>Twitter/X API</strong> - Requires paid plan ($100/month minimum)</li>
 <li><strong>Instagram Basic Display</strong> - Photo/story posting</li>
 <li><strong>LINE Notify</strong> - Mobile notifications (Free)</li>
 </ul>
@@ -291,7 +299,7 @@ SLACK_WEBHOOK_URL=https://hooks.slack.com/services/your/webhook/url
 </ol>
 
 <div style="background: #f8fafc; border-left: 4px solid #10b981; padding: 1rem; margin: 1rem 0; border-radius: 0 0.5rem 0.5rem 0;">
-<p><strong>💡 Pro Tip:</strong> Start with the Starter level (OpenAI + Twitter) to get familiar with the workflow. You can always add more platforms later by running <code>aetherpost auth setup [platform]</code>.</p>
+<p><strong>💡 Pro Tip:</strong> Start with the Starter level (OpenAI + Bluesky) to get familiar with the workflow. Bluesky is completely free, while Twitter now requires a paid plan ($100/month minimum). You can always add more platforms later by running <code>aetherpost auth setup [platform]</code>.</p>
 </div>
 
 <h2>📖 Documentation</h2>

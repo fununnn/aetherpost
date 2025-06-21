@@ -129,7 +129,8 @@ aetherpost apply</code></pre>
                         </div>
                         <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
                             <p><strong>📝 For Manual Setup:</strong> AetherPost will guide you through project setup, API collection, and platform configuration with interactive prompts.</p>
-                            <p><strong>🎯 Platform Choice:</strong> Select only the platforms you want to use. Start small with Twitter + Reddit, then add YouTube, Bluesky, or Instagram later.</p>
+                            <p><strong>🎯 Platform Choice:</strong> Select only the platforms you want to use. Start small with Bluesky + Reddit, then add YouTube, Instagram, or Twitter later.</p>
+                            <p><strong>⚠️ Twitter/X Note:</strong> Twitter now requires a paid API plan ($100/month minimum). We recommend starting with Bluesky (free) for social media automation.</p>
                         </div>
                     </div>
 
@@ -145,7 +146,7 @@ aetherpost apply</code></pre>
                         <div class="code-block small">
                             <pre><code class="language-yaml">name: "AI Product Launch"
 concept: "Revolutionary AI productivity app"
-platforms: [twitter, reddit]  # Start with 2 platforms
+platforms: [bluesky, reddit]  # Start with 2 platforms
 content:
   style: professional
   ai_enhanced: true
@@ -159,7 +160,7 @@ content:
                         <div class="code-block small">
                             <pre><code class="language-bash">$ aetherpost plan
 📋 Campaign Preview
-✅ Twitter: "🚀 Introducing revolutionary AI productivity app..."
+✅ Bluesky: "🚀 Introducing revolutionary AI productivity app..."
 ✅ Reddit: "Deep dive: How AI transforms productivity workflows..."
 💡 Run 'aetherpost apply' to execute this campaign</code></pre>
                         </div>
@@ -171,7 +172,7 @@ content:
                         <div class="code-block small">
                             <pre><code class="language-bash">$ aetherpost apply
 🚀 Campaign Execution
-✅ Posted to Twitter: https://twitter.com/...
+✅ Posted to Bluesky: https://bsky.app/...
 ✅ Posted to Reddit: r/programming
 🎉 Successfully posted to 2/2 platforms!</code></pre>
                         </div>
@@ -220,7 +221,7 @@ content:
                     <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
                         <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🚀</div>
                         <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost apply</code>
-                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Execute campaign across Twitter, Reddit, YouTube, Bluesky, Instagram</p>
+                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Execute campaign across Bluesky, Reddit, YouTube, Instagram, Twitter*</p>
                     </div>
                     <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
                         <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
@@ -251,10 +252,10 @@ content:
                         <i class="fas fa-share-alt"></i>
                     </div>
                     <h3>5 Platforms. Your Choice.</h3>
-                    <p><strong>Most comprehensive platform support:</strong> Twitter, Reddit, YouTube, Bluesky, Instagram. Mix and match any combination. Start with 1, scale to all 5. Each platform intelligently optimized.</p>
+                    <p><strong>Most comprehensive platform support:</strong> Bluesky, Reddit, YouTube, Instagram, Twitter*. Mix and match any combination. Start with 1, scale to all 5. Each platform intelligently optimized.</p>
                     <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
-                        ✅ Twitter (280 char optimization) ✅ Reddit (subreddit targeting) ✅ YouTube (video concepts)<br>
-                        ✅ Bluesky (decentralized reach) ✅ Instagram (visual content)
+                        ✅ Bluesky (decentralized, free) ✅ Reddit (subreddit targeting) ✅ YouTube (video concepts)<br>
+                        ✅ Instagram (visual content) ✅ Twitter* (280 char - requires $100/mo paid plan)
                     </div>
                     <a href="guides/platforms.html" class="feature-link">Platform Guide →</a>
                 </div>
@@ -427,7 +428,7 @@ TWITTER_ACCESS_TOKEN_SECRET=xxx
 # SLACK_WEBHOOK_URL=https://hooks.slack.com/...</code></pre>
                     </div>
                     <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
-                        <strong>💡 Tip:</strong> Start with OpenAI + Twitter, then uncomment and fill in other platforms as needed. Each platform needs specific credentials.
+                        <strong>💡 Tip:</strong> Start with OpenAI + Bluesky (free), then uncomment and fill in other platforms as needed. Note: Twitter requires a paid API plan ($100/month).
                     </p>
                 </div>
             </div>
@@ -474,7 +475,7 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
             
             <p class="section-subtitle">
                 <strong>Choose your own adventure!</strong> AetherPost supports any combination of platforms. 
-                Start with just Twitter, add Reddit for developer communities, then expand to YouTube, Bluesky, or Instagram when ready. 
+                Start with just Bluesky (free), add Reddit for developer communities, then expand to YouTube, Instagram, or Twitter (paid) when ready. 
                 The interactive <code>aetherpost init</code> will guide you through the process.
             </p>
             
@@ -584,7 +585,7 @@ exec('aetherpost plan && aetherpost apply');</code></pre>
                 <div class="cost-summary">
                     <h4>💰 Typical Monthly Costs</h4>
                     <div class="cost-breakdown">
-                        <span class="cost-item"><strong>Starter:</strong> $5-15/month (OpenAI + Twitter)</span>
+                        <span class="cost-item"><strong>Starter:</strong> $5-15/month (OpenAI + Bluesky)</span>
                         <span class="cost-item"><strong>Recommended:</strong> $5-15/month (Reddit is free!)</span>
                         <span class="cost-item"><strong>Advanced:</strong> $10-25/month (+ YouTube quota)</span>
                         <span class="cost-item"><strong>Complete:</strong> $10-25/month (Bluesky & Instagram are free!)</span>

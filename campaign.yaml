@@ -1,0 +1,20 @@
+name: aetherpost-v1.5.0-universal-profile-management
+concept: Revolutionary AI-powered social media automation tool with Universal Profile
+  Management
+url: https://github.com/yourusername/aetherpost-v1.5.0-universal-profile-management
+platforms:
+- twitter
+- bluesky
+content:
+  style: professional
+  action: Check it out!
+  language: en
+  hashtags:
+  - '#OpenSource'
+  - '#DevTools'
+limits:
+  free_tier: true
+  max_posts_per_day: 50
+notifications:
+  enabled: false
+  auto_apply: true

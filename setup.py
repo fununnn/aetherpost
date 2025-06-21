@@ -35,7 +35,7 @@ setup(
     author_email="team@aetherpost.dev",
     url="https://github.com/fununnn/aetherpost",
     project_urls={
-        "Documentation": "https://d3b75mcubdhimz.cloudfront.net",
+        "Documentation": "https://aether-post.com",
         "Source": "https://github.com/fununnn/aetherpost",
         "Issues": "https://github.com/fununnn/aetherpost/issues",
     },

@@ -189,7 +189,18 @@ logging:
   backup_count: 5
 </code>`<code>
 <h2>Platform-Specific Configuration</h2>
-<h3>Twitter/X</h3>
+<h3>Bluesky (Recommended - Free)</h3>
+</code>`<code>yaml
+bluesky:
+  style: casual
+  include_url: true
+  include_preview: true
+  max_length: 300
+  
+  # Moderation
+  content_filter: moderate
+</code>`<code>
+<h3>Twitter/X (Requires Paid Plan - $100/month minimum)</h3>
 </code>`<code>yaml
 twitter:
   style: professional
@@ -203,17 +214,9 @@ twitter:
     posts_per_hour: 10
     posts_per_day: 50
 </code>`<code>
-<h3>Bluesky</h3>
-</code>`<code>yaml
-bluesky:
-  style: casual
-  include_url: true
-  include_preview: true
-  max_length: 300
-  
-  # Moderation
-  content_filter: moderate
-</code>`<code>
+<div style="background: #fff3cd; padding: 1rem; border-radius: 0.5rem; margin: 1rem 0; border-left: 4px solid #ffc107;">
+<p><strong>⚠️ Note:</strong> Twitter/X now requires a paid API plan. Consider using Bluesky for free social media automation.</p>
+</div>
 <h3>Mastodon</h3>
 </code>`<code>yaml
 mastodon:

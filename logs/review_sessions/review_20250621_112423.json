@@ -1,0 +1,149 @@
+{
+  "session_id": "review_20250621_112423",
+  "campaign_name": "aetherpost-v1.5.0-universal-profile-management",
+  "created_at": "2025-06-21T11:24:23.814562",
+  "auto_approve": true,
+  "reviewer_notes": "",
+  "items": [
+    {
+      "platform": "twitter",
+      "content_type": "promotional",
+      "text": "Spending more time on social media than coding\n\nAetherPost: Social media automation that doesn't suck\n\n5 platforms, 1 command, 0 headaches\n\nTry it: pip install aetherpost",
+      "hashtags": [
+        "#DevLife",
+        "#Productivity",
+        "#OpenSource"
+      ],
+      "media_requirements": {
+        "required": false,
+        "type": "optional",
+        "style": "generic_branded"
+      },
+      "metadata": {
+        "tone": "relatable_solution",
+        "optimal_time": "09:00,13:00,18:00",
+        "schedule_recommendation": null,
+        "context": {
+          "campaign_config": {
+            "name": "aetherpost-v1.5.0-universal-profile-management",
+            "concept": "Revolutionary AI-powered social media automation tool with Universal Profile Management",
+            "url": "https://github.com/fununnn/aetherpost",
+            "platforms": [
+              "twitter",
+              "bluesky"
+            ],
+            "content": {
+              "style": "professional",
+              "action": "Try AetherPost v1.5.0 today!",
+              "max_length": 280,
+              "hashtags": [
+                "#DevTools",
+                "#Automation",
+                "#SocialMedia",
+                "#OpenSource",
+                "#Python"
+              ],
+              "ai_prompt": null,
+              "language": "en"
+            },
+            "schedule": {
+              "type": "immediate",
+              "datetime": null,
+              "timezone": "UTC",
+              "frequency": null,
+              "exclude_weekends": false
+            },
+            "image": null,
+            "experiments": null,
+            "story": null,
+            "analytics": true
+          },
+          "concept": "Revolutionary AI-powered social media automation tool with Universal Profile Management",
+          "style": "professional",
+          "hashtags": [
+            "#DevTools",
+            "#Automation",
+            "#SocialMedia",
+            "#OpenSource",
+            "#Python"
+          ],
+          "url": "https://github.com/fununnn/aetherpost",
+          "image": null
+        }
+      },
+      "generated_at": "2025-06-21T11:24:23.813473",
+      "review_status": "approved",
+      "review_notes": "Auto-approved"
+    },
+    {
+      "platform": "bluesky",
+      "content_type": "promotional",
+      "text": "Plot twist:\n\nManually posting to 5 platforms takes forever 😮‍💨\n\nTerraform-style social media deployment\n\n5 platforms, 1 command, 0 headaches\n\nTry it: pip install aetherpost",
+      "hashtags": [
+        "#DevLife",
+        "#Automation",
+        "#OpenSource"
+      ],
+      "media_requirements": {
+        "required": false,
+        "type": "optional",
+        "style": "generic_branded"
+      },
+      "metadata": {
+        "tone": "conversational_helpful",
+        "optimal_time": null,
+        "schedule_recommendation": null,
+        "context": {
+          "campaign_config": {
+            "name": "aetherpost-v1.5.0-universal-profile-management",
+            "concept": "Revolutionary AI-powered social media automation tool with Universal Profile Management",
+            "url": "https://github.com/fununnn/aetherpost",
+            "platforms": [
+              "twitter",
+              "bluesky"
+            ],
+            "content": {
+              "style": "professional",
+              "action": "Try AetherPost v1.5.0 today!",
+              "max_length": 280,
+              "hashtags": [
+                "#DevTools",
+                "#Automation",
+                "#SocialMedia",
+                "#OpenSource",
+                "#Python"
+              ],
+              "ai_prompt": null,
+              "language": "en"
+            },
+            "schedule": {
+              "type": "immediate",
+              "datetime": null,
+              "timezone": "UTC",
+              "frequency": null,
+              "exclude_weekends": false
+            },
+            "image": null,
+            "experiments": null,
+            "story": null,
+            "analytics": true
+          },
+          "concept": "Revolutionary AI-powered social media automation tool with Universal Profile Management",
+          "style": "professional",
+          "hashtags": [
+            "#DevTools",
+            "#Automation",
+            "#SocialMedia",
+            "#OpenSource",
+            "#Python"
+          ],
+          "url": "https://github.com/fununnn/aetherpost",
+          "image": null
+        }
+      },
+      "generated_at": "2025-06-21T11:24:23.814150",
+      "review_status": "approved",
+      "review_notes": "Auto-approved"
+    }
+  ]
+}
