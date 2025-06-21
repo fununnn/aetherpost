@@ -13,7 +13,7 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <h1><i class="fas fa-rocket"></i> AetherPost</h1>
-                <span class="beta-badge">v1.5.0</span>
+                <span class="beta-badge">v1.6.0</span>
             </div>
             <div class="nav-links">
                 <a href="#quick-start">Quick Start</a>
@@ -35,8 +35,8 @@
         <div class="hero-content">
             <h1>AI-Powered Social Media Automation</h1>
             <p class="hero-subtitle">
-                <strong>5-platform social media automation</strong> with OpenAI integration. 
-                Deploy to Twitter, Reddit, YouTube, Bluesky, and Instagram with intelligent content optimization for each platform. Start with 1, scale to all 5.
+                <strong>5-platform social media automation</strong> with integrated profile management. 
+                Deploy to Twitter, Reddit, YouTube, Bluesky, and Instagram with intelligent content optimization and AI-generated profiles. One command setup, complete automation.
             </p>
             
             <div class="hero-stats">
@@ -99,7 +99,7 @@ pip install aetherpost
 # 2. Create campaign.yaml (pre-configure settings)
 # 3. Create .env.aetherpost (add API keys)
 
-# 4. Auto-initialize (no prompts)
+# 4. Auto-initialize with profile generation
 aetherpost init
 
 # 5. Preview and deploy
@@ -107,8 +107,9 @@ aetherpost plan
 aetherpost apply</code></pre>
                         </div>
                         <div style="background: #f0f8ff; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
-                            <p><strong>💡 For Claude Code & AI Tools:</strong> Pre-create campaign.yaml and .env.aetherpost files. AetherPost will auto-detect and skip interactive prompts.</p>
+                            <p><strong>💡 For Claude Code & AI Tools:</strong> Pre-create campaign.yaml and .env.aetherpost files. AetherPost will auto-detect, skip prompts, and auto-generate profiles.</p>
                             <p><strong>🎯 Platform Flexibility:</strong> Choose any combination of platforms - you don't need all 5. Start with 1-2 platforms and expand as needed.</p>
+                            <p><strong>📱 New in v1.6.0:</strong> Automatic profile generation and application during init. Multi-URL support for better content optimization.</p>
                         </div>
                     </div>
 
@@ -120,7 +121,7 @@ aetherpost apply</code></pre>
                             <pre><code id="interactive-install"># 1. Install AetherPost
 pip install aetherpost
 
-# 2. Interactive setup with guided prompts
+# 2. Interactive setup with profile generation
 aetherpost init
 
 # 3. Preview and deploy
@@ -128,8 +129,9 @@ aetherpost plan
 aetherpost apply</code></pre>
                         </div>
                         <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
-                            <p><strong>📝 For Manual Setup:</strong> AetherPost will guide you through project setup, API collection, and platform configuration with interactive prompts.</p>
+                            <p><strong>📝 For Manual Setup:</strong> AetherPost will guide you through project setup, API collection, platform configuration, and automatic profile generation.</p>
                             <p><strong>🎯 Platform Choice:</strong> Select only the platforms you want to use. Start small with Bluesky + Reddit, then add YouTube, Instagram, or Twitter later.</p>
+                            <p><strong>📱 Profile Integration:</strong> Profiles are automatically generated and applied during setup - no separate commands needed.</p>
                             <p><strong>⚠️ Twitter/X Note:</strong> Twitter now requires a paid API plan ($100/month minimum). We recommend starting with Bluesky (free) for social media automation.</p>
                         </div>
                     </div>
@@ -146,6 +148,10 @@ aetherpost apply</code></pre>
                         <div class="code-block small">
                             <pre><code class="language-yaml">name: "AI Product Launch"
 concept: "Revolutionary AI productivity app"
+urls:
+  main: https://myapp.com
+  github: https://github.com/user/myapp
+  docs: https://myapp.com/docs
 platforms: [bluesky, reddit]  # Start with 2 platforms
 content:
   style: professional
