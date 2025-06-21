@@ -27,7 +27,7 @@ core_requirements = [req for req in requirements if not any(
 
 setup(
     name="aetherpost",
-    version="1.5.0",
+    version="1.6.0",
     description="Promotion as Code - Automate your app promotion across social media platforms",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -40,6 +40,7 @@ setup(
         "Issues": "https://github.com/fununnn/aetherpost/issues",
     },
     packages=find_packages(),
+    package_dir={'aetherpost': 'aetherpost_source'},
     include_package_data=True,
     install_requires=core_requirements,
     extras_require={
