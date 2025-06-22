@@ -874,33 +874,32 @@ OPENAI_API_KEY=sk-proj-your-openai-key-here
 ANTHROPIC_API_KEY=your-anthropic-key
 COHERE_API_KEY=your-cohere-key
 
-# ===== SOCIAL MEDIA PLATFORMS =====
-# Twitter (Requires $100/month Basic plan)
+# ===== SOCIAL MEDIA PLATFORMS (Choose any combination) =====
+# Configure only the platforms you want to use
+
+# Twitter
 TWITTER_API_KEY=your-twitter-api-key
 TWITTER_API_SECRET=your-twitter-api-secret
 TWITTER_ACCESS_TOKEN=your-twitter-access-token
 TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
-TWITTER_BEARER_TOKEN=your-bearer-token  # OPTIONAL (v2 API)
+TWITTER_BEARER_TOKEN=your-bearer-token
 
-# Bluesky (Completely Free)
+# Bluesky
 BLUESKY_HANDLE=username.bsky.social
 BLUESKY_PASSWORD=your-app-password
 
-# Instagram (Free with Business Account)
+# Instagram
 INSTAGRAM_ACCESS_TOKEN=your-instagram-access-token
 INSTAGRAM_BUSINESS_ACCOUNT_ID=your-business-account-id
 
-# YouTube (Free with OAuth)
+# YouTube
 YOUTUBE_CLIENT_ID=your-youtube-client-id
 YOUTUBE_CLIENT_SECRET=your-youtube-client-secret
-YOUTUBE_REFRESH_TOKEN=your-refresh-token  # OPTIONAL
+YOUTUBE_REFRESH_TOKEN=your-refresh-token
 
-# Mastodon (Free - Open Source)
+# Mastodon
 MASTODON_ACCESS_TOKEN=your-mastodon-token
-MASTODON_BASE_URL=https://mastodon.social
-
-# LinkedIn (Profile generation only - No API needed)
-# GitHub (Profile generation only - No API needed)
+MASTODON_INSTANCE_URL=https://mastodon.social
 
 # ===== AETHERPOST CONFIGURATION =====
 AETHERPOST_LOG_LEVEL=INFO
@@ -976,23 +975,11 @@ aetherpost apply # Deploy & begin automation</pre>
                                     <td style="padding: 0.75rem;">🔴 Required upfront</td>
                                     <td style="padding: 0.75rem;">Project config, platforms, URLs</td>
                                 </tr>
-                                <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <tr>
                                     <td style="padding: 0.75rem; white-space: nowrap;"><strong>.env.aetherpost</strong></td>
                                     <td style="padding: 0.75rem;">🔄 Created during setup</td>
                                     <td style="padding: 0.75rem;">🔴 Required upfront</td>
                                     <td style="padding: 0.75rem;">API keys and credentials</td>
-                                </tr>
-                                <tr style="border-bottom: 1px solid #e2e8f0;">
-                                    <td style="padding: 0.75rem; white-space: nowrap;"><strong>README.md</strong></td>
-                                    <td style="padding: 0.75rem;">🟢 Auto-generated</td>
-                                    <td style="padding: 0.75rem;">🟢 Auto-generated if missing</td>
-                                    <td style="padding: 0.75rem;">Project documentation</td>
-                                </tr>
-                                <tr>
-                                    <td style="padding: 0.75rem; white-space: nowrap;"><strong>.gitignore</strong></td>
-                                    <td style="padding: 0.75rem;">🟢 Auto-generated</td>
-                                    <td style="padding: 0.75rem;">🟢 Auto-generated if missing</td>
-                                    <td style="padding: 0.75rem;">Git ignore patterns</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -1001,21 +988,31 @@ aetherpost apply # Deploy & begin automation</pre>
 
                 <!-- Profile Generation Example -->
                 <div style="background: rgba(16, 185, 129, 0.1); padding: 2rem; border-radius: 0.75rem; margin-top: 2rem; border-left: 4px solid #10b981;">
-                    <h4>🎭 Profile Generation Result</h4>
+                    <h4>🎭 Profile Generation Example</h4>
+                    <p><em>Example of AI-generated profiles based on your campaign.yaml settings:</em></p>
                     <div class="code-block">
-<pre># From your campaign.yaml:
-name: "MyAwesomeApp"
-urls:
-  main: "https://myapp.com"
-  github: "https://github.com/user/myapp"
+<pre>Based on campaign.yaml with:
+  name: "TaskMaster Pro"
+  concept: "AI-powered project management"
 
-# Generated Twitter Profile:
-Display Name: MyAwesomeApp 🚀
-Bio: 👋 Building MyAwesomeApp! Revolutionary productivity tool for developers. Join me!
-Website: https://myapp.com
-Characters: 98/160</pre>
+AetherPost generates natural profiles like:
+
+🐦 Twitter Profile:
+"Building TaskMaster Pro - an AI-powered project management tool that actually gets you! 
+Helping teams ship faster with intelligent task prioritization. 
+🚀 https://taskmaster.app"
+
+🦋 Bluesky Profile: 
+"Creator of TaskMaster Pro - revolutionizing how teams manage projects with AI. 
+Currently shipping v2.0 with smart notifications! 
+Always excited to connect with fellow builders."
+
+🐘 Mastodon Profile:
+"Independent developer creating TaskMaster Pro. 
+Passionate about building tools that enhance human productivity. 
+Open source advocate and coffee enthusiast."</pre>
                     </div>
-                    <p><strong>✅ Your app name, ✅ Your URLs, ✅ Your content, ❌ No AetherPost branding</strong></p>
+                    <p><strong>✅ Your branding, ✅ Your URLs, ✅ Your message, ❌ No AetherPost mentions</strong></p>
                 </div>
             </div>
 
@@ -1107,26 +1104,23 @@ Characters: 98/160</pre>
                     <small style="color: #6b7280;">⚠️ Business account + Facebook Page required</small>
                 </div>
 
-                <div class="platform-card" style="border-left: 4px solid #24292e;">
-                    <div class="platform-icon">👩‍💻</div>
-                    <h3>GitHub</h3>
-                    <p>Developer-focused profile and README generation</p>
-                    <div style="background: rgba(36, 41, 46, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
-                        <strong>Profile Generation Only:</strong><br>
-                        No API keys needed for profile generation
+                <div class="platform-card" style="border-left: 4px solid #6364ff;">
+                    <div class="platform-icon">🐘</div>
+                    <h3>Mastodon</h3>
+                    <p>Decentralized open-source social network with community focus</p>
+                    <div style="background: rgba(99, 100, 255, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                        <strong>API Requirements:</strong><br>
+                        <code>MASTODON_ACCESS_TOKEN</code><br>
+                        <code>MASTODON_INSTANCE_URL</code>
                     </div>
-                    <small style="color: #10b981; font-weight: 600;">✅ Free - Profile generation only</small>
-                </div>
-
-                <div class="platform-card" style="border-left: 4px solid #0077b5;">
-                    <div class="platform-icon">💼</div>
-                    <h3>LinkedIn</h3>
-                    <p>Professional networking profile optimization</p>
-                    <div style="background: rgba(0, 119, 181, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
-                        <strong>Profile Generation Only:</strong><br>
-                        No API keys needed for profile generation
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.85rem;">
+                        <strong>Current Status (2025):</strong><br>
+                        • Completely free API access<br>
+                        • No corporate restrictions<br>
+                        • Choose your own instance<br>
+                        • Open-source community platform
                     </div>
-                    <small style="color: #6b7280;">📋 Profile generation only</small>
+                    <small style="color: #10b981; font-weight: 600;">✅ Free and open-source</small>
                 </div>
 
                 <div class="platform-card" style="border-left: 4px solid #ff0000;">
@@ -1150,30 +1144,6 @@ Characters: 98/160</pre>
                 </div>
             </div>
 
-            <!-- Cost Summary -->
-            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%); padding: 2rem; border-radius: 1rem; margin-top: 3rem;">
-                <h3 style="text-align: center; margin-bottom: 2rem;">💰 Cost Breakdown</h3>
-                <div class="cost-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #10b981;">
-                        <h4 style="color: #10b981; margin-bottom: 1rem;">🆓 Free Tier</h4>
-                        <p><strong>Bluesky + GitHub + LinkedIn</strong></p>
-                        <p>Cost: <strong>$0/month</strong></p>
-                        <p>Perfect for: Profile generation testing</p>
-                    </div>
-                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #3b82f6;">
-                        <h4 style="color: #3b82f6; margin-bottom: 1rem;">💫 Starter</h4>
-                        <p><strong>OpenAI + Bluesky + YouTube</strong></p>
-                        <p>Cost: <strong>$5-15/month</strong></p>
-                        <p>Perfect for: Small projects, OSS releases</p>
-                    </div>
-                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #f59e0b;">
-                        <h4 style="color: #f59e0b; margin-bottom: 1rem;">🚀 Professional</h4>
-                        <p><strong>All platforms including Twitter</strong></p>
-                        <p>Cost: <strong>$105-120/month</strong></p>
-                        <p>Perfect for: Professional campaigns, startups</p>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
