@@ -43,13 +43,13 @@
 </ul>
 </div>
 
-<h2>Core Workflow</h2>
-<p>AetherPost follows a simple process:</p>
+<h2>Core Workflow (One setup, full automation)</h2>
+<p>AetherPost follows pure Terraform-style simplicity:</p>
 <ol>
-<li><strong>Init</strong> - Set up your project with <code>aetherpost init</code></li>
-<li><strong>Profile</strong> - Generate optimized social media profiles with <code>aetherpost profile generate</code></li>
+<li><strong>Init</strong> - One-time interactive setup with <code>aetherpost init</code> (generates campaign.yaml + profiles automatically)</li>
 <li><strong>Plan</strong> - Preview AI-generated content with <code>aetherpost plan</code></li>
-<li><strong>Apply</strong> - Deploy your promotion campaign with <code>aetherpost apply</code></li>
+<li><strong>Apply</strong> - Deploy and begin continuous automation with <code>aetherpost apply</code></li>
+<li><strong>Destroy</strong> - Stop automation and cleanup with <code>aetherpost destroy</code> (when needed)</li>
 </ol>
 
 <h2>Supported Platforms</h2>
@@ -79,18 +79,15 @@
 # Install latest version
 pip install aetherpost
 
-# Initialize your project
+# One-time setup (generates campaign.yaml + profiles automatically)
 aetherpost init
 
-# Generate social media profiles
-aetherpost profile generate --campaign-config campaign.yaml
-
-# Preview and deploy campaigns
+# Preview and deploy continuous automation
 aetherpost plan
 aetherpost apply
 ```
 
-<h2>Profile Generation Workflow</h2>
+<h2>Auto-Detection & Setup Workflow</h2>
 <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 15px 0;">
 <p><strong>1. Create your campaign.yaml:</strong></p>
 <pre><code>name: "MyAwesomeApp"
@@ -106,13 +103,12 @@ content:
   style: friendly
   action: "Check it out!"</code></pre>
 
-<p><strong>2. Generate optimized profiles:</strong></p>
-<pre><code># Generate for specific platform
-aetherpost profile generate --platform twitter --campaign-config campaign.yaml
-
-# Generate for all platforms with different styles
-aetherpost profile generate --style professional
-aetherpost profile generate --style creative</code></pre>
+<p><strong>2. Run auto-detection setup:</strong></p>
+<pre><code># With campaign.yaml prepared, AetherPost auto-detects and generates everything:
+aetherpost init  # 🔍 Detects campaign.yaml
+                 # ✅ Generates profiles for all platforms automatically
+                 # ✅ Creates optimized content strategies
+                 # ✅ Sets up continuous automation</code></pre>
 </div>
 
 <h2>Generated Profile Examples</h2>

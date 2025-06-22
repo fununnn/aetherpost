@@ -521,10 +521,10 @@
     <section class="hero">
         <div class="container">
             <div class="version-badge">✨ NEW: v1.7.1 with Profile Generation</div>
-            <h1>Social Media Automation<br>for Developers</h1>
+            <h1>Ultimate Social Media Automation<br>for Developers</h1>
             <p class="subtitle">
-                Terraform-style automation with AI-powered profile generation. 
-                Deploy to Twitter, Bluesky, Instagram, GitHub, and more with intelligent content optimization.
+                One setup, full automation. Terraform-style workflow with 4 simple commands. 
+                Intelligent profile generation, content creation, and posting across 5 platforms - completely automated.
             </p>
             <div class="hero-buttons">
                 <a href="#quickstart" class="btn btn-primary">
@@ -545,14 +545,13 @@
             <h2>🆕 What's New in v1.7.1</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="new-badge">NEW</div>
-                    <h3>🎭 Smart Profile Generation</h3>
-                    <p>Generate optimized social media profiles for your apps across all platforms. Each profile is tailored to platform requirements and includes your campaign URLs naturally.</p>
+                    <div class="new-badge">SIMPLIFIED</div>
+                    <h3>⚡ 4-Command Workflow</h3>
+                    <p>Terraform-style simplicity. One interactive setup generates campaign.yaml, then plan and apply. Profile generation, content creation, and posting - all automated.</p>
                     <div class="code-block" style="font-size: 0.85rem;">
-<pre>aetherpost profile generate --campaign-config campaign.yaml
-✅ Twitter Profile: MyApp 🚀
-✅ Bluesky Profile: MyApp 🌐  
-✅ Instagram Profile: MyApp</pre>
+<pre>aetherpost init   # Interactive setup → campaign.yaml
+aetherpost plan   # Preview content
+aetherpost apply  # Deploy & automate</pre>
                     </div>
                 </div>
 
@@ -568,15 +567,15 @@
                 </div>
 
                 <div class="feature-card">
-                    <div class="new-badge">ENHANCED</div>
-                    <h3>📸 Instagram Support</h3>
-                    <p>Professional Instagram profile optimization with visual content suggestions and character limit optimization.</p>
+                    <div class="new-badge">SMART</div>
+                    <h3>🔍 Auto-Detection</h3>
+                    <p>Pre-created campaign.yaml + .env.aetherpost? AetherPost auto-detects and skips interactive setup. Perfect for Claude Code and AI development workflows.</p>
                 </div>
 
                 <div class="feature-card">
-                    <div class="new-badge">ENHANCED</div>
-                    <h3>🔗 Your URLs Only</h3>
-                    <p>Profile generation includes only YOUR campaign URLs from campaign.yaml. No forced AetherPost branding - every profile promotes your product.</p>
+                    <div class="new-badge">COMPLETE</div>
+                    <h3>🎯 Full Automation</h3>
+                    <p>Profile generation, icon creation, content posting, and continuous promotion - all automated. Set it once, promote forever.</p>
                 </div>
             </div>
         </div>
@@ -597,33 +596,23 @@
 
                 <div class="step-card">
                     <div class="step-number">2</div>
-                    <h3>Initialize Project</h3>
+                    <h3>One-Time Setup</h3>
                     <div class="code-block">
                         <button class="copy-btn" onclick="copyToClipboard('aetherpost init')">Copy</button>
 <pre>aetherpost init</pre>
                     </div>
-                    <p>Interactive setup with automatic profile generation</p>
+                    <p>Interactive setup generates campaign.yaml + creates profiles automatically</p>
                 </div>
 
                 <div class="step-card">
                     <div class="step-number">3</div>
-                    <h3>Generate Profiles</h3>
-                    <div class="code-block">
-                        <button class="copy-btn" onclick="copyToClipboard('aetherpost profile generate')">Copy</button>
-<pre>aetherpost profile generate</pre>
-                    </div>
-                    <p>Create optimized profiles for all your platforms</p>
-                </div>
-
-                <div class="step-card">
-                    <div class="step-number">4</div>
-                    <h3>Preview & Deploy</h3>
+                    <h3>Deploy & Automate</h3>
                     <div class="code-block">
                         <button class="copy-btn" onclick="copyToClipboard('aetherpost plan\naetherpost apply')">Copy</button>
 <pre>aetherpost plan
 aetherpost apply</pre>
                     </div>
-                    <p>Preview AI-generated content and deploy across platforms</p>
+                    <p>Preview content, then deploy. Continuous automation begins instantly.</p>
                 </div>
             </div>
 
@@ -641,31 +630,43 @@ aetherpost apply</pre>
                 <!-- Interactive Setup -->
                 <div id="interactive-setup" class="setup-method">
                     <div style="background: rgba(37, 99, 235, 0.1); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid #2563eb;">
-                        <h4>📋 Interactive Setup (Recommended for first-time users)</h4>
+                        <h4>📋 Interactive Setup (One-time configuration)</h4>
                         <div class="code-block">
 <pre>pip install aetherpost
 aetherpost init
 
-# AetherPost will guide you through:
-# 1. Project name and description input
-# 2. Platform selection (Twitter, Bluesky, Instagram, etc.)
-# 3. API key collection with direct links
-# 4. Automatic profile generation
-# 5. Campaign.yaml creation</pre>
+# Single interactive session handles everything:
+# 1. Project details → campaign.yaml generation
+# 2. Platform selection → automated profile creation
+# 3. API authentication → continuous automation setup
+# 4. Then: plan → apply → fully automated promotion</pre>
                         </div>
-                        <p><strong>✅ No files needed upfront</strong> - AetherPost creates everything for you<br>
-                        <strong>✅ Beginner-friendly</strong> - Step-by-step guidance<br>
-                        <strong>✅ API key validation</strong> - Tests connections immediately</p>
+                        <p><strong>✅ One setup, full automation</strong> - One setup, lifetime automation<br>
+                        <strong>✅ Smart generation</strong> - Profiles, content, posting schedules<br>
+                        <strong>✅ Zero maintenance</strong> - Runs continuously after init</p>
                     </div>
                 </div>
 
                 <!-- Automated Setup -->
                 <div id="automated-setup" class="setup-method" style="display: none;">
                     <div style="background: rgba(16, 185, 129, 0.1); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid #10b981;">
-                        <h4>🚀 Automated Setup (Perfect for Claude Code)</h4>
-                        <p>Pre-create files to skip all interactive prompts:</p>
+                        <h4>🚀 Auto-Detection Setup (Perfect for Claude Code)</h4>
+                        <p>Pre-create files and AetherPost auto-detects them, skipping all interactive prompts:</p>
                         
                         <div class="responsive-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                            <!-- Mobile responsive fix -->
+                            <style>
+                                @media (max-width: 768px) {
+                                    .responsive-grid {
+                                        grid-template-columns: 1fr !important;
+                                        gap: 1rem !important;
+                                    }
+                                    .code-block {
+                                        font-size: 0.7rem !important;
+                                        padding: 1rem !important;
+                                    }
+                                }
+                            </style>
                             <!-- Required Files -->
                             <div>
                                 <h5 style="color: #dc2626; margin-bottom: 1rem;">🔴 Required Files</h5>
@@ -694,58 +695,58 @@ content:
                                 <h5 style="color: #dc2626; margin-bottom: 1rem;">🔴 Required for API Access</h5>
                                 <div style="background: rgba(220, 38, 38, 0.1); padding: 1.5rem; border-radius: 0.5rem; border-left: 3px solid #dc2626;">
                                     <p><strong>.env.aetherpost</strong> - API credentials</p>
-                                    <div class="code-block" style="font-size: 0.8rem;">
+                                    <div class="code-block" style="font-size: 0.75rem; overflow-x: auto; white-space: pre-wrap; word-break: break-all;">
 <pre># ===== AI PROVIDERS (Choose one) =====
 # OpenAI (Required for content generation)
-OPENAI_API_KEY=sk-proj-your-openai-key-here                    # REQUIRED
+OPENAI_API_KEY=sk-proj-your-openai-key-here
 
 # Alternative AI Providers (Optional)
-ANTHROPIC_API_KEY=your-anthropic-key                           # OPTIONAL
-COHERE_API_KEY=your-cohere-key                                 # OPTIONAL
+ANTHROPIC_API_KEY=your-anthropic-key
+COHERE_API_KEY=your-cohere-key
 
 # ===== SOCIAL MEDIA PLATFORMS =====
 # Twitter (Requires $100/month Basic plan)
-TWITTER_API_KEY=your-twitter-api-key                           # REQUIRED for Twitter
-TWITTER_API_SECRET=your-twitter-api-secret                     # REQUIRED for Twitter
-TWITTER_ACCESS_TOKEN=your-twitter-access-token                 # REQUIRED for Twitter
-TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret   # REQUIRED for Twitter
-TWITTER_BEARER_TOKEN=your-bearer-token                         # OPTIONAL (v2 API)
+TWITTER_API_KEY=your-twitter-api-key
+TWITTER_API_SECRET=your-twitter-api-secret
+TWITTER_ACCESS_TOKEN=your-twitter-access-token
+TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret
+TWITTER_BEARER_TOKEN=your-bearer-token  # OPTIONAL (v2 API)
 
 # Bluesky (Completely Free)
-BLUESKY_HANDLE=username.bsky.social                            # REQUIRED for Bluesky
-BLUESKY_PASSWORD=your-app-password                             # REQUIRED for Bluesky
+BLUESKY_HANDLE=username.bsky.social
+BLUESKY_PASSWORD=your-app-password
 
 # Instagram (Free with Business Account)
-INSTAGRAM_ACCESS_TOKEN=your-instagram-access-token             # REQUIRED for Instagram
-INSTAGRAM_BUSINESS_ACCOUNT_ID=your-business-account-id         # REQUIRED for Instagram
+INSTAGRAM_ACCESS_TOKEN=your-instagram-access-token
+INSTAGRAM_BUSINESS_ACCOUNT_ID=your-business-account-id
 
 # YouTube (Free with OAuth)
-YOUTUBE_CLIENT_ID=your-youtube-client-id                       # REQUIRED for YouTube
-YOUTUBE_CLIENT_SECRET=your-youtube-client-secret               # REQUIRED for YouTube
-YOUTUBE_REFRESH_TOKEN=your-refresh-token                       # OPTIONAL (auto-generated)
+YOUTUBE_CLIENT_ID=your-youtube-client-id
+YOUTUBE_CLIENT_SECRET=your-youtube-client-secret
+YOUTUBE_REFRESH_TOKEN=your-refresh-token  # OPTIONAL
 
 # Mastodon (Free - Open Source)
-MASTODON_ACCESS_TOKEN=your-mastodon-token                      # REQUIRED for Mastodon
-MASTODON_BASE_URL=https://mastodon.social                      # REQUIRED for Mastodon
+MASTODON_ACCESS_TOKEN=your-mastodon-token
+MASTODON_BASE_URL=https://mastodon.social
 
 # LinkedIn (Profile generation only - No API needed)
 # GitHub (Profile generation only - No API needed)
 
 # ===== AETHERPOST CONFIGURATION =====
-AETHERPOST_LOG_LEVEL=INFO                                      # OPTIONAL (DEBUG, INFO, WARNING, ERROR)
-AETHERPOST_CACHE_DIR=.aetherpost/cache                         # OPTIONAL (default: .aetherpost/cache)
-AETHERPOST_MAX_RETRIES=3                                       # OPTIONAL (default: 3)
-AETHERPOST_TIMEOUT=30                                          # OPTIONAL (default: 30 seconds)
-AETHERPOST_SAFE_MODE=false                                     # OPTIONAL (default: false)
+AETHERPOST_LOG_LEVEL=INFO
+AETHERPOST_CACHE_DIR=.aetherpost/cache
+AETHERPOST_MAX_RETRIES=3
+AETHERPOST_TIMEOUT=30
+AETHERPOST_SAFE_MODE=false
 
 # ===== CONTENT GENERATION =====
-CONTENT_STYLE=friendly                                         # OPTIONAL (friendly, professional, creative)
-CONTENT_LANGUAGE=en                                            # OPTIONAL (en, ja, es, fr, de, etc.)
-CONTENT_MAX_LENGTH=280                                         # OPTIONAL (platform-specific defaults)
+CONTENT_STYLE=friendly
+CONTENT_LANGUAGE=en
+CONTENT_MAX_LENGTH=280
 
 # ===== SCHEDULING (Future Feature) =====
-SCHEDULE_TIMEZONE=UTC                                          # OPTIONAL (default: UTC)
-SCHEDULE_ENABLED=false                                         # OPTIONAL (default: false)</pre>
+SCHEDULE_TIMEZONE=UTC
+SCHEDULE_ENABLED=false</pre>
                                     </div>
                                 </div>
                             </div>
@@ -768,18 +769,19 @@ SCHEDULE_ENABLED=false                                         # OPTIONAL (defau
 
                         <!-- Automated Command -->
                         <div style="background: white; padding: 1.5rem; border-radius: 0.5rem; margin-top: 2rem;">
-                            <h5>🎯 Automated Execution</h5>
+                            <h5>🎯 Auto-Detection Flow</h5>
                             <div class="code-block">
-<pre># With files prepared, zero prompts:
+<pre># Files detected → instant setup:
 pip install aetherpost
-aetherpost init  # Auto-detects files, skips prompts
-aetherpost profile generate  # Creates profiles for all platforms
-aetherpost plan  # Preview content
-aetherpost apply  # Deploy to platforms</pre>
+aetherpost init  # 🔍 Auto-detects campaign.yaml + .env.aetherpost
+                 # ✅ Generates profiles automatically
+                 # ✅ Creates workspace instantly
+aetherpost plan  # Preview AI-generated content
+aetherpost apply # Deploy & begin automation</pre>
                             </div>
-                            <p><strong>✅ Zero interactive prompts</strong><br>
-                            <strong>✅ Perfect for automation</strong><br>
-                            <strong>✅ CI/CD friendly</strong></p>
+                            <p><strong>✅ Smart file detection</strong> - No manual configuration<br>
+                            <strong>✅ Claude Code optimized</strong> - Perfect for AI workflows<br>
+                            <strong>✅ Enterprise ready</strong> - CI/CD and automation friendly</p>
                         </div>
                     </div>
                 </div>
@@ -1013,18 +1015,18 @@ Characters: 98/160</pre>
                 </div>
 
                 <div class="feature-card">
-                    <h3>🎯 Terraform Workflow</h3>
-                    <p>Familiar init, plan, apply, destroy commands for infrastructure-as-code approach to social media.</p>
+                    <h3>🎯 4-Command Simplicity</h3>
+                    <p>Pure Terraform workflow: init → plan → apply → destroy. No complex sub-commands or confusing options.</p>
                 </div>
 
                 <div class="feature-card">
-                    <h3>📋 Preview Before Deploy</h3>
-                    <p>See exactly what will be posted with comprehensive preview functionality.</p>
+                    <h3>🔍 Smart Auto-Detection</h3>
+                    <p>Pre-existing campaign.yaml? AetherPost detects it instantly and skips interactive setup. Perfect for automation.</p>
                 </div>
 
                 <div class="feature-card">
-                    <h3>⚡ Developer-Friendly</h3>
-                    <p>CLI-first design with YAML configuration, environment variables, and robust error handling.</p>
+                    <h3>♾️ Complete Automation</h3>
+                    <p>One setup, full automation. Profile generation, content creation, posting schedules - fully automated after init.</p>
                 </div>
 
                 <div class="feature-card">
