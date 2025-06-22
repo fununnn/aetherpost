@@ -357,8 +357,7 @@ def show_validation_results(results: Dict[str, Dict[str, str]]):
     console.print(table)
 
 
-@init_app.command()
-def main(
+def init_main(
     name: Optional[str] = typer.Argument(None, help="Project name"),
     quick: bool = typer.Option(False, "--quick/--interactive", "-q", help="Interactive setup with prompts (default: True)"),
     template: str = typer.Option("starter", "--template", "-t", 
@@ -367,6 +366,7 @@ def main(
     backend: str = typer.Option("local", "--backend", "-b", 
                                help="Backend type (local, aws, cloud)"),
     upgrade: bool = typer.Option(False, "--upgrade", help="Upgrade existing configuration"),
+    generate_profiles: bool = typer.Option(True, "--generate-profiles/--no-profiles", help="Generate social media profiles during init"),
 ):
     """Initialize AetherPost workspace - Interactive setup by default."""
     
@@ -593,6 +593,41 @@ def main(
     
     # Create workspace with API keys and notification settings
     create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language, concept, use_free_tier, content_style, api_keys, enable_notifications, auto_apply)
+    
+    # Generate profiles if requested
+    if generate_profiles:
+        console.print(f"\n[bold]🎭 Generating optimized social media profiles...[/bold]")
+        try:
+            from ...core.profile_manager import ProfileManager
+            
+            profile_manager = ProfileManager()
+            campaign_data = {
+                "name": name,
+                "description": concept,
+                "urls": {
+                    "main": f"https://{name.lower().replace(' ', '')}.com",
+                    "github": f"https://github.com/user/{name.lower().replace(' ', '')}",
+                }
+            }
+            
+            generated_profiles = {}
+            for platform in selected_platforms:
+                if platform in ['twitter', 'bluesky', 'instagram', 'linkedin', 'github', 'youtube']:
+                    profile = profile_manager.generate_profile(platform, campaign_data, style=content_style)
+                    generated_profiles[platform] = profile
+                    console.print(f"  ✅ Generated {platform.title()} profile")
+            
+            # Save profiles to workspace
+            profiles_file = autopromo_dir / "generated_profiles.json"
+            with open(profiles_file, "w") as f:
+                import json
+                json.dump(generated_profiles, f, indent=2)
+            
+            console.print(f"[green]✅ Profiles saved to: {profiles_file}[/green]")
+            
+        except Exception as e:
+            console.print(f"[yellow]⚠️ Profile generation failed: {e}[/yellow]")
+            console.print("[dim]You can generate profiles later with: aetherpost profile generate[/dim]")
     
     # Next steps
     show_next_steps(name, selected_platforms, bool(api_keys))

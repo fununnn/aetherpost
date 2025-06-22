@@ -9,7 +9,7 @@ from ..core.exceptions import AetherPostError, ErrorCode, create_user_friendly_e
 from ..core.logging.logger import logger, audit
 from ..core.config.unified import config_manager
 
-from .commands.init import init_app
+from .commands.init import init_main
 from .commands.plan import plan_app, main as plan_main
 from .commands.apply import apply_app, main as apply_main
 from .commands.destroy import destroy_app, main as destroy_main
@@ -25,7 +25,7 @@ app = typer.Typer(
 )
 
 # Core commands - Terraform-style simplicity
-app.add_typer(init_app, name="init", help="Initialize campaign configuration")
+app.command(name="init", help="Initialize campaign configuration")(init_main)
 app.command(name="plan", help="Preview campaign content")(plan_main)
 app.command(name="apply", help="Execute campaign")(apply_main)
 app.command(name="destroy", help="Delete posted content and clean up")(destroy_main)

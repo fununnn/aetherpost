@@ -472,8 +472,8 @@
                     <div class="step-number">2</div>
                     <h3>Initialize Project</h3>
                     <div class="code-block">
-                        <button class="copy-btn" onclick="copyToClipboard('aetherpost init main')">Copy</button>
-<pre>aetherpost init main</pre>
+                        <button class="copy-btn" onclick="copyToClipboard('aetherpost init')">Copy</button>
+<pre>aetherpost init</pre>
                     </div>
                     <p>Interactive setup with automatic profile generation</p>
                 </div>
@@ -500,72 +500,377 @@ aetherpost apply</pre>
                 </div>
             </div>
 
-            <div style="background: rgba(16, 185, 129, 0.1); padding: 2rem; border-radius: 1rem; border-left: 4px solid var(--accent-color); margin-top: 3rem;">
-                <h3>💡 Profile Generation Example</h3>
-                <div class="code-block">
-<pre># campaign.yaml
-name: "MyAwesomeApp"
-description: "Revolutionary productivity tool"
+            <!-- Claude Code & AI Tools Setup -->
+            <div style="background: linear-gradient(135deg, #e0f2fe 0%, #f3e5f5 100%); padding: 3rem; border-radius: 1rem; margin-top: 3rem;">
+                <h3>🤖 For Claude Code & AI Tools</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem;"><strong>Two setup approaches available:</strong> Interactive (guided) or Automated (pre-configured files)</p>
+                
+                <!-- Setup Method Tabs -->
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <button onclick="showSetupMethod('interactive')" id="interactive-tab" style="background: #2563eb; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; font-weight: 600;">📋 Interactive Setup</button>
+                    <button onclick="showSetupMethod('automated')" id="automated-tab" style="background: #6b7280; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 0.5rem; cursor: pointer; font-weight: 600;">🚀 Automated Setup</button>
+                </div>
+
+                <!-- Interactive Setup -->
+                <div id="interactive-setup" class="setup-method">
+                    <div style="background: rgba(37, 99, 235, 0.1); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid #2563eb;">
+                        <h4>📋 Interactive Setup (Recommended for first-time users)</h4>
+                        <div class="code-block">
+<pre>pip install aetherpost
+aetherpost init
+
+# AetherPost will guide you through:
+# 1. Project name and description input
+# 2. Platform selection (Twitter, Bluesky, Instagram, etc.)
+# 3. API key collection with direct links
+# 4. Automatic profile generation
+# 5. Campaign.yaml creation</pre>
+                        </div>
+                        <p><strong>✅ No files needed upfront</strong> - AetherPost creates everything for you<br>
+                        <strong>✅ Beginner-friendly</strong> - Step-by-step guidance<br>
+                        <strong>✅ API key validation</strong> - Tests connections immediately</p>
+                    </div>
+                </div>
+
+                <!-- Automated Setup -->
+                <div id="automated-setup" class="setup-method" style="display: none;">
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 2rem; border-radius: 0.75rem; border-left: 4px solid #10b981;">
+                        <h4>🚀 Automated Setup (Perfect for Claude Code)</h4>
+                        <p>Pre-create files to skip all interactive prompts:</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                            <!-- Required Files -->
+                            <div>
+                                <h5 style="color: #dc2626; margin-bottom: 1rem;">🔴 Required Files</h5>
+                                <div style="background: rgba(220, 38, 38, 0.1); padding: 1.5rem; border-radius: 0.5rem; border-left: 3px solid #dc2626;">
+                                    <p><strong>campaign.yaml</strong> - Project configuration</p>
+                                    <div class="code-block" style="font-size: 0.8rem;">
+<pre>name: "MyAwesomeApp"
+concept: "Revolutionary productivity tool for developers"
+description: "Transform your workflow with intelligent automation"
 urls:
   main: "https://myapp.com"
   github: "https://github.com/user/myapp"
   docs: "https://docs.myapp.com"
+platforms:
+  - twitter
+  - bluesky
+content:
+  style: friendly
+  action: "Try it now!"
+  language: en</pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h5 style="color: #dc2626; margin-bottom: 1rem;">🔴 Required for API Access</h5>
+                                <div style="background: rgba(220, 38, 38, 0.1); padding: 1.5rem; border-radius: 0.5rem; border-left: 3px solid #dc2626;">
+                                    <p><strong>.env.aetherpost</strong> - API credentials</p>
+                                    <div class="code-block" style="font-size: 0.8rem;">
+<pre># ===== AI PROVIDERS (Choose one) =====
+# OpenAI (Required for content generation)
+OPENAI_API_KEY=sk-proj-your-openai-key-here                    # REQUIRED
+
+# Alternative AI Providers (Optional)
+ANTHROPIC_API_KEY=your-anthropic-key                           # OPTIONAL
+COHERE_API_KEY=your-cohere-key                                 # OPTIONAL
+
+# ===== SOCIAL MEDIA PLATFORMS =====
+# Twitter (Requires $100/month Basic plan)
+TWITTER_API_KEY=your-twitter-api-key                           # REQUIRED for Twitter
+TWITTER_API_SECRET=your-twitter-api-secret                     # REQUIRED for Twitter
+TWITTER_ACCESS_TOKEN=your-twitter-access-token                 # REQUIRED for Twitter
+TWITTER_ACCESS_TOKEN_SECRET=your-twitter-access-token-secret   # REQUIRED for Twitter
+TWITTER_BEARER_TOKEN=your-bearer-token                         # OPTIONAL (v2 API)
+
+# Bluesky (Completely Free)
+BLUESKY_HANDLE=username.bsky.social                            # REQUIRED for Bluesky
+BLUESKY_PASSWORD=your-app-password                             # REQUIRED for Bluesky
+
+# Instagram (Free with Business Account)
+INSTAGRAM_ACCESS_TOKEN=your-instagram-access-token             # REQUIRED for Instagram
+INSTAGRAM_BUSINESS_ACCOUNT_ID=your-business-account-id         # REQUIRED for Instagram
+
+# YouTube (Free with OAuth)
+YOUTUBE_CLIENT_ID=your-youtube-client-id                       # REQUIRED for YouTube
+YOUTUBE_CLIENT_SECRET=your-youtube-client-secret               # REQUIRED for YouTube
+YOUTUBE_REFRESH_TOKEN=your-refresh-token                       # OPTIONAL (auto-generated)
+
+# Mastodon (Free - Open Source)
+MASTODON_ACCESS_TOKEN=your-mastodon-token                      # REQUIRED for Mastodon
+MASTODON_BASE_URL=https://mastodon.social                      # REQUIRED for Mastodon
+
+# LinkedIn (Profile generation only - No API needed)
+# GitHub (Profile generation only - No API needed)
+
+# ===== AETHERPOST CONFIGURATION =====
+AETHERPOST_LOG_LEVEL=INFO                                      # OPTIONAL (DEBUG, INFO, WARNING, ERROR)
+AETHERPOST_CACHE_DIR=.aetherpost/cache                         # OPTIONAL (default: .aetherpost/cache)
+AETHERPOST_MAX_RETRIES=3                                       # OPTIONAL (default: 3)
+AETHERPOST_TIMEOUT=30                                          # OPTIONAL (default: 30 seconds)
+AETHERPOST_SAFE_MODE=false                                     # OPTIONAL (default: false)
+
+# ===== CONTENT GENERATION =====
+CONTENT_STYLE=friendly                                         # OPTIONAL (friendly, professional, creative)
+CONTENT_LANGUAGE=en                                            # OPTIONAL (en, ja, es, fr, de, etc.)
+CONTENT_MAX_LENGTH=280                                         # OPTIONAL (platform-specific defaults)
+
+# ===== SCHEDULING (Future Feature) =====
+SCHEDULE_TIMEZONE=UTC                                          # OPTIONAL (default: UTC)
+SCHEDULE_ENABLED=false                                         # OPTIONAL (default: false)</pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Optional Files -->
+                        <div style="margin-top: 2rem;">
+                            <h5 style="color: #059669; margin-bottom: 1rem;">🟢 Optional Files (Auto-created if missing)</h5>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div style="background: rgba(5, 150, 105, 0.1); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid #059669;">
+                                    <p><strong>README.md</strong> - Project documentation</p>
+                                    <small>Auto-generated if not present</small>
+                                </div>
+                                <div style="background: rgba(5, 150, 105, 0.1); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid #059669;">
+                                    <p><strong>.gitignore</strong> - Git ignore patterns</p>
+                                    <small>Auto-created with .env.aetherpost included</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Automated Command -->
+                        <div style="background: white; padding: 1.5rem; border-radius: 0.5rem; margin-top: 2rem;">
+                            <h5>🎯 Automated Execution</h5>
+                            <div class="code-block">
+<pre># With files prepared, zero prompts:
+pip install aetherpost
+aetherpost init  # Auto-detects files, skips prompts
+aetherpost profile generate  # Creates profiles for all platforms
+aetherpost plan  # Preview content
+aetherpost apply  # Deploy to platforms</pre>
+                            </div>
+                            <p><strong>✅ Zero interactive prompts</strong><br>
+                            <strong>✅ Perfect for automation</strong><br>
+                            <strong>✅ CI/CD friendly</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- File Priority Matrix -->
+                <div style="background: white; padding: 2rem; border-radius: 0.75rem; margin-top: 2rem;">
+                    <h4>📊 File Requirements Matrix</h4>
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 1rem;">
+                        <thead>
+                            <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                                <th style="padding: 0.75rem; text-align: left;">File</th>
+                                <th style="padding: 0.75rem; text-align: left;">Interactive Setup</th>
+                                <th style="padding: 0.75rem; text-align: left;">Automated Setup</th>
+                                <th style="padding: 0.75rem; text-align: left;">Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.75rem;"><strong>campaign.yaml</strong></td>
+                                <td style="padding: 0.75rem;">🔄 Created during setup</td>
+                                <td style="padding: 0.75rem;">🔴 Required upfront</td>
+                                <td style="padding: 0.75rem;">Project config, platforms, URLs</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.75rem;"><strong>.env.aetherpost</strong></td>
+                                <td style="padding: 0.75rem;">🔄 Created during setup</td>
+                                <td style="padding: 0.75rem;">🔴 Required upfront</td>
+                                <td style="padding: 0.75rem;">API keys and credentials</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 0.75rem;"><strong>README.md</strong></td>
+                                <td style="padding: 0.75rem;">🟢 Auto-generated</td>
+                                <td style="padding: 0.75rem;">🟢 Auto-generated if missing</td>
+                                <td style="padding: 0.75rem;">Project documentation</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 0.75rem;"><strong>.gitignore</strong></td>
+                                <td style="padding: 0.75rem;">🟢 Auto-generated</td>
+                                <td style="padding: 0.75rem;">🟢 Auto-generated if missing</td>
+                                <td style="padding: 0.75rem;">Git ignore patterns</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Profile Generation Example -->
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 2rem; border-radius: 0.75rem; margin-top: 2rem; border-left: 4px solid #10b981;">
+                    <h4>🎭 Profile Generation Result</h4>
+                    <div class="code-block">
+<pre># From your campaign.yaml:
+name: "MyAwesomeApp"
+urls:
+  main: "https://myapp.com"
+  github: "https://github.com/user/myapp"
 
 # Generated Twitter Profile:
 Display Name: MyAwesomeApp 🚀
 Bio: 👋 Building MyAwesomeApp! Revolutionary productivity tool for developers. Join me!
 Website: https://myapp.com
 Characters: 98/160</pre>
+                    </div>
+                    <p><strong>✅ Your app name, ✅ Your URLs, ✅ Your content, ❌ No AetherPost branding</strong></p>
                 </div>
-                <p><strong>✅ Your app name, ✅ Your URLs, ✅ Your content, ❌ No AetherPost branding</strong></p>
             </div>
+
+            <script>
+                function showSetupMethod(method) {
+                    // Hide all setup methods
+                    document.querySelectorAll('.setup-method').forEach(el => el.style.display = 'none');
+                    
+                    // Show selected method
+                    document.getElementById(method + '-setup').style.display = 'block';
+                    
+                    // Update tab styling
+                    document.querySelectorAll('[id$="-tab"]').forEach(tab => {
+                        tab.style.background = '#6b7280';
+                    });
+                    document.getElementById(method + '-tab').style.background = '#2563eb';
+                }
+                
+                // Show interactive by default
+                showSetupMethod('interactive');
+            </script>
         </div>
     </section>
 
     <section id="platforms" class="platforms">
         <div class="container">
-            <h2>🌐 Platform Support</h2>
+            <h2>🌐 Platform Support & API Requirements</h2>
+            <p style="text-align: center; font-size: 1.1rem; margin-bottom: 3rem; color: var(--text-light);">
+                Choose any combination of platforms. Start small and expand as needed.
+            </p>
+            
             <div class="platform-grid">
-                <div class="platform-card">
+                <div class="platform-card" style="border-left: 4px solid #1d9bf0;">
                     <div class="platform-icon">🐦</div>
                     <h3>Twitter</h3>
                     <p>160-character optimized tweets with engagement features</p>
-                    <small>Requires paid API plan ($100/month)</small>
+                    <div style="background: rgba(255, 193, 7, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                        <strong>API Requirements:</strong><br>
+                        <code>TWITTER_API_KEY</code><br>
+                        <code>TWITTER_API_SECRET</code><br>
+                        <code>TWITTER_ACCESS_TOKEN</code><br>
+                        <code>TWITTER_ACCESS_TOKEN_SECRET</code>
+                    </div>
+                    <div style="background: rgba(255, 87, 51, 0.1); padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.85rem;">
+                        <strong>Current Status (2025):</strong><br>
+                        • Free tier: Read-only access only<br>
+                        • Basic ($100/month): 10K tweets read, 1.5K writes<br>
+                        • Pro ($5,000/month): 1M tweets read, 300K writes<br>
+                        • Enterprise: Custom pricing
+                    </div>
+                    <small style="color: #f59e0b; font-weight: 600;">💰 Requires paid Basic plan ($100/month minimum)</small>
                 </div>
 
-                <div class="platform-card">
+                <div class="platform-card" style="border-left: 4px solid #00bcd4;">
                     <div class="platform-icon">🦋</div>
                     <h3>Bluesky</h3>
                     <p>Decentralized social media with 256-character limit</p>
-                    <small>✅ Free API access</small>
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                        <strong>API Requirements:</strong><br>
+                        <code>BLUESKY_HANDLE</code> (username.bsky.social)<br>
+                        <code>BLUESKY_PASSWORD</code> (app password)
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.15); padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.85rem;">
+                        <strong>Current Status (2025):</strong><br>
+                        • Completely free API access<br>
+                        • No rate limits on posting<br>
+                        • Open-source AT Protocol<br>
+                        • Growing user base (15M+ users)
+                    </div>
+                    <small style="color: #10b981; font-weight: 600;">✅ Free API access - Recommended</small>
                 </div>
 
-                <div class="platform-card">
+                <div class="platform-card" style="border-left: 4px solid #e4405f;">
                     <div class="platform-icon">📸</div>
                     <h3>Instagram</h3>
                     <p>Visual content optimization and profile management</p>
-                    <small>Business account required</small>
+                    <div style="background: rgba(228, 64, 95, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                        <strong>API Requirements:</strong><br>
+                        <code>INSTAGRAM_ACCESS_TOKEN</code><br>
+                        <code>INSTAGRAM_BUSINESS_ACCOUNT_ID</code>
+                    </div>
+                    <div style="background: rgba(251, 191, 36, 0.1); padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.85rem;">
+                        <strong>Current Status (2025):</strong><br>
+                        • Basic Display API: Free (profile only)<br>
+                        • Graph API: Free for basic features<br>
+                        • Requires Facebook Page connection<br>
+                        • Business account verification needed
+                    </div>
+                    <small style="color: #6b7280;">⚠️ Business account + Facebook Page required</small>
                 </div>
 
-                <div class="platform-card">
+                <div class="platform-card" style="border-left: 4px solid #24292e;">
                     <div class="platform-icon">👩‍💻</div>
                     <h3>GitHub</h3>
                     <p>Developer-focused profile and README generation</p>
-                    <small>✅ Free API access</small>
+                    <div style="background: rgba(36, 41, 46, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                        <strong>Profile Generation Only:</strong><br>
+                        No API keys needed for profile generation
+                    </div>
+                    <small style="color: #10b981; font-weight: 600;">✅ Free - Profile generation only</small>
                 </div>
 
-                <div class="platform-card">
+                <div class="platform-card" style="border-left: 4px solid #0077b5;">
                     <div class="platform-icon">💼</div>
                     <h3>LinkedIn</h3>
                     <p>Professional networking profile optimization</p>
-                    <small>Business API access</small>
+                    <div style="background: rgba(0, 119, 181, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                        <strong>Profile Generation Only:</strong><br>
+                        No API keys needed for profile generation
+                    </div>
+                    <small style="color: #6b7280;">📋 Profile generation only</small>
                 </div>
 
-                <div class="platform-card">
+                <div class="platform-card" style="border-left: 4px solid #ff0000;">
                     <div class="platform-icon">📺</div>
                     <h3>YouTube</h3>
                     <p>Channel optimization and content strategy</p>
-                    <small>✅ Free quota available</small>
+                    <div style="background: rgba(255, 0, 0, 0.1); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                        <strong>API Requirements:</strong><br>
+                        <code>YOUTUBE_CLIENT_ID</code><br>
+                        <code>YOUTUBE_CLIENT_SECRET</code><br>
+                        <code>YOUTUBE_REFRESH_TOKEN</code> (optional)
+                    </div>
+                    <div style="background: rgba(16, 185, 129, 0.1); padding: 0.75rem; border-radius: 0.5rem; margin-top: 0.5rem; font-size: 0.85rem;">
+                        <strong>Current Status (2025):</strong><br>
+                        • Free quota: 10,000 units/day<br>
+                        • Read operations: 1 unit each<br>
+                        • Write operations: 50-1600 units<br>
+                        • OAuth 2.0 authentication required
+                    </div>
+                    <small style="color: #10b981; font-weight: 600;">✅ Free quota (10,000 units/day)</small>
+                </div>
+            </div>
+
+            <!-- Cost Summary -->
+            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%); padding: 2rem; border-radius: 1rem; margin-top: 3rem;">
+                <h3 style="text-align: center; margin-bottom: 2rem;">💰 Cost Breakdown</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #10b981;">
+                        <h4 style="color: #10b981; margin-bottom: 1rem;">🆓 Free Tier</h4>
+                        <p><strong>Bluesky + GitHub + LinkedIn</strong></p>
+                        <p>Cost: <strong>$0/month</strong></p>
+                        <p>Perfect for: Profile generation testing</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #3b82f6;">
+                        <h4 style="color: #3b82f6; margin-bottom: 1rem;">💫 Starter</h4>
+                        <p><strong>OpenAI + Bluesky + YouTube</strong></p>
+                        <p>Cost: <strong>$5-15/month</strong></p>
+                        <p>Perfect for: Small projects, OSS releases</p>
+                    </div>
+                    <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #f59e0b;">
+                        <h4 style="color: #f59e0b; margin-bottom: 1rem;">🚀 Professional</h4>
+                        <p><strong>All platforms including Twitter</strong></p>
+                        <p>Cost: <strong>$105-120/month</strong></p>
+                        <p>Perfect for: Professional campaigns, startups</p>
+                    </div>
                 </div>
             </div>
         </div>
