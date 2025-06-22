@@ -1,0 +1,2 @@
+[console_scripts]
+aetherpost = aetherpost_source.cli.main:app
