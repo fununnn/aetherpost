@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S3 Hosting - AetherPost Documentation</title>
-    <meta name="description" content="Deploy documentation on AWS S3 free tier">
+    <title>AetherPost v1.7.1 - Social Media Automation for Developers</title>
+    <meta name="description" content="Terraform-style social media automation with profile generation, multi-platform support, and AI content creation. Perfect for developers promoting their apps.">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 </head>
@@ -17,9 +17,9 @@
             </div>
             <ul class="nav-links">
                 <li><a href="../index.html">Home</a></li>
-                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="getting-started.html">Get Started</a></li>
+                <li><a href="profile-management.html">Profile Generation</a></li>
                 <li><a href="api-reference.html">API Reference</a></li>
-                <li><a href="contributing.html">Contributing</a></li>
             </ul>
         </nav>
     </header>
@@ -27,116 +27,167 @@
     <main class="main">
         <div class="container">
             <div class="doc-page">
-                <h1>AetherPost Documentation</h1>
+                <h1>AetherPost v1.7.1 Documentation</h1>
                 
 <h2>What is AetherPost?</h2>
-<p>AetherPost is a <strong>Terraform-style</strong> automation tool that brings Infrastructure as Code principles to social media promotion. Perfect for developers who want to systematically promote their projects without manual social media management.</p>
+<p>AetherPost is a <strong>Terraform-style</strong> social media automation tool that brings Infrastructure as Code principles to app promotion. Perfect for developers who want to systematically promote their projects without manual social media management.</p>
+
+<div style="background: rgba(0,255,0,0.1); padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #00aa00;">
+<h3>🆕 New in v1.7.1</h3>
+<ul>
+<li><strong>🎭 Profile Generation</strong> - Generate optimized social media profiles for your apps</li>
+<li><strong>🌐 Bluesky Support</strong> - Full integration with Bluesky social platform</li>
+<li><strong>📸 Instagram Support</strong> - Professional Instagram profile optimization</li>
+<li><strong>🔗 Natural URL Integration</strong> - Your campaign URLs included naturally in profiles</li>
+<li><strong>⚡ Enhanced CLI</strong> - Improved user experience with Typer framework</li>
+</ul>
+</div>
 
 <h2>Core Workflow</h2>
-<p>AetherPost follows a simple 3-step process:</p>
+<p>AetherPost follows a simple process:</p>
 <ol>
-<li><strong>Init</strong> - Set up your project and configure platforms</li>
-<li><strong>Plan</strong> - Preview AI-generated content before posting</li>
-<li><strong>Apply</strong> - Deploy your promotion campaign to multiple platforms</li>
+<li><strong>Init</strong> - Set up your project with <code>aetherpost init main</code></li>
+<li><strong>Profile</strong> - Generate optimized social media profiles with <code>aetherpost profile generate</code></li>
+<li><strong>Plan</strong> - Preview AI-generated content with <code>aetherpost plan</code></li>
+<li><strong>Apply</strong> - Deploy your promotion campaign with <code>aetherpost apply</code></li>
 </ol>
 
 <h2>Supported Platforms</h2>
 <ul>
 <li><strong>Twitter</strong> - Automated tweets with engagement optimization</li>
-<li><strong>Reddit</strong> - Strategic subreddit posting with community guidelines</li>
-<li><strong>YouTube</strong> - Video content and community posts</li>
+<li><strong>Bluesky</strong> - Native support for decentralized social media</li>
+<li><strong>Instagram</strong> - Visual content and profile optimization</li>
+<li><strong>GitHub</strong> - Developer-focused profile generation</li>
+<li><strong>LinkedIn</strong> - Professional networking profiles</li>
+<li><strong>YouTube</strong> - Channel optimization and content strategy</li>
 </ul>
 
 <h2>Key Features</h2>
 <ul>
+<li>🎭 <strong>Profile Generation</strong> - Create optimized profiles for each platform</li>
 <li>🤖 <strong>AI Content Generation</strong> - Contextual posts tailored to each platform</li>
-<li>🌍 <strong>Multi-Language Support</strong> - Generate content in 20+ languages (Japanese, Spanish, French, German, Korean, Chinese, etc.)</li>
+
+<li>🔗 <strong>Your URLs Only</strong> - Only your campaign URLs are included, no AetherPost branding</li>
 <li>📋 <strong>Preview Before Deploy</strong> - See exactly what will be posted</li>
 <li>🎯 <strong>Configuration as Code</strong> - YAML-based campaign definitions</li>
-<li>🔄 <strong>Terraform Workflow</strong> - Familiar init, plan, apply, destroy commands</li>
-<li>⚡ <strong>One-Command Setup</strong> - Automatic dependency installation with language selection</li>
+<li>⚡ <strong>Developer-Friendly CLI</strong> - Familiar workflow with enhanced UX</li>
 </ul>
 
 ## 🚀 Quick Start
 
 ```bash
+# Install latest version
 pip install aetherpost
-aetherpost init
+
+# Initialize your project
+aetherpost init main
+
+# Generate social media profiles
+aetherpost profile generate --campaign-config campaign.yaml
+
+# Preview and deploy campaigns
 aetherpost plan
 aetherpost apply
 ```
 
-<h2>Getting Started</h2>
-
-<h3>Multi-Language Campaign Examples</h3>
-<pre><code># Japanese Campaign
-name: "ai-app-jp"
+<h2>Profile Generation Workflow</h2>
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 15px 0;">
+<p><strong>1. Create your campaign.yaml:</strong></p>
+<pre><code>name: "MyAwesomeApp"
+description: "Revolutionary productivity tool for developers"
+urls:
+  main: "https://myapp.com"
+  github: "https://github.com/user/myapp"
+  docs: "https://docs.myapp.com"
+platforms:
+  - twitter
+  - bluesky
 content:
-  language: ja
-  style: casual
-  action: "今すぐ試してみてください！"
-  hashtags: ["#AI", "#生産性", "#ツール"]
+  style: friendly
+  action: "Check it out!"</code></pre>
 
-# Spanish Campaign  
-name: "ai-app-es"
-content:
-  language: es
-  style: professional
-  action: "Pruébalo ahora"
-  hashtags: ["#IA", "#Productividad"]</code></pre>
+<p><strong>2. Generate optimized profiles:</strong></p>
+<pre><code># Generate for specific platform
+aetherpost profile generate --platform twitter --campaign-config campaign.yaml
 
-<h3>Basic Usage</h3>
-<pre><code># Preview your campaign (in selected language)
-aetherpost plan
+# Generate for all platforms with different styles
+aetherpost profile generate --style professional
+aetherpost profile generate --style creative</code></pre>
+</div>
 
-# Deploy to platforms
-aetherpost apply
+<h2>Generated Profile Examples</h2>
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 15px 0;">
+<p><strong>🐦 Twitter Profile (Friendly Style):</strong></p>
+<ul>
+<li><strong>Display Name:</strong> MyAwesomeApp 🚀</li>
+<li><strong>Bio:</strong> 👋 Building MyAwesomeApp! Revolutionary productivity tool for developers. Join me on this journey! | Come say hi! 🤝</li>
+<li><strong>Website:</strong> https://myapp.com</li>
+<li><strong>Characters:</strong> 114/160</li>
+</ul>
 
-# Clean up posts if needed
-aetherpost destroy</code></pre>
-
-<h2>Documentation Access</h2>
-<p>This documentation is available at: <strong>https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com</strong></p>
-
-<h2>Supported Languages</h2>
-<div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; margin: 20px 0;">
-<p><strong>🌍 20+ Languages Supported:</strong></p>
-<ul style="columns: 2; column-gap: 30px;">
-<li><strong>en</strong> - English</li>
-<li><strong>ja</strong> - Japanese (日本語)</li>
-<li><strong>es</strong> - Spanish (Español)</li>
-<li><strong>fr</strong> - French (Français)</li>
-<li><strong>de</strong> - German (Deutsch)</li>
-<li><strong>ko</strong> - Korean (한국어)</li>
-<li><strong>zh</strong> - Chinese (中文)</li>
-<li><strong>pt</strong> - Portuguese (Português)</li>
-<li><strong>ru</strong> - Russian (Русский)</li>
-<li><strong>ar</strong> - Arabic (العربية)</li>
-<li><strong>hi</strong> - Hindi (हिन्दी)</li>
-<li><strong>th</strong> - Thai (ไทย)</li>
-<li><strong>vi</strong> - Vietnamese (Tiếng Việt)</li>
-<li><strong>tr</strong> - Turkish (Türkçe)</li>
-<li><strong>nl</strong> - Dutch (Nederlands)</li>
-<li><strong>sv</strong> - Swedish (Svenska)</li>
-<li><strong>da</strong> - Danish (Dansk)</li>
-<li><strong>no</strong> - Norwegian (Norsk)</li>
-<li><strong>fi</strong> - Finnish (Suomi)</li>
-<li><strong>it</strong> - Italian (Italiano)</li>
+<p><strong>🦋 Bluesky Profile (Professional Style):</strong></p>
+<ul>
+<li><strong>Display Name:</strong> MyAwesomeApp</li>
+<li><strong>Bio:</strong> Building MyAwesomeApp - Revolutionary productivity tool for developers. Always excited to share progress and connect with others. #innovation</li>
+<li><strong>Website:</strong> https://myapp.com</li>
+<li><strong>Characters:</strong> 145/256</li>
 </ul>
 </div>
 
-<h2>Next Steps</h2>
+<div style="background: rgba(0,100,255,0.1); padding: 15px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #0066ff;">
+<h3>💡 Important Note</h3>
+<p><strong>Each user gets their own personalized profiles:</strong></p>
 <ul>
-<li><a href="getting-started.html">📚 Getting Started Guide</a> - Complete setup instructions</li>
-<li><a href="api-reference.html">🔧 API Reference</a> - Detailed command documentation</li>
-<li><a href="configuration.html">⚙️ Configuration</a> - Customize your campaigns</li>
-<li><strong>🌍 Multi-Language Examples</strong> - Check <code>examples/multilang-campaign.yaml</code></li>
+<li>✅ <strong>Your app name</strong> is used as the display name</li>
+<li>✅ <strong>Your URLs</strong> from campaign.yaml are included</li>
+<li>✅ <strong>Your product description</strong> creates the bio content</li>
+<li>❌ <strong>No AetherPost branding</strong> is forced into your profiles</li>
 </ul>
+<p>Every generated profile is 100% focused on promoting <em>your</em> product, not AetherPost.</p>
+</div>
+
+<h2>Documentation Access</h2>
+<p>This documentation is hosted on AWS S3 and available at:</p>
+<ul>
+<li><strong>Primary:</strong> <a href="https://aether-post.com">https://aether-post.com</a></li>
+<li><strong>S3 Direct:</strong> <a href="https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com">https://aetherpost-docs.s3-website-ap-northeast-1.amazonaws.com</a></li>
+</ul>
+
+<h2>Available Commands</h2>
+<div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px; margin: 15px 0;">
+<pre><code># Core workflow
+aetherpost init main           # Initialize project
+aetherpost plan               # Preview content
+aetherpost apply              # Deploy campaign
+
+# Profile management  
+aetherpost profile generate   # Generate profiles
+aetherpost profile platforms  # List supported platforms
+aetherpost profile demo       # Show demo examples
+
+# Authentication
+aetherpost auth setup         # Configure API keys
+aetherpost auth test          # Test connections
+aetherpost auth list          # Show auth status
+
+# Utilities
+aetherpost doctor             # Check configuration
+aetherpost --help             # Get help</code></pre>
+</div>
+
+<h2>Installation & Updates</h2>
+<ul>
+<li><strong>Latest Release:</strong> v1.7.1 with profile generation and Bluesky support</li>
+<li><strong>Install:</strong> <code>pip install aetherpost</code></li>
+<li><strong>Upgrade:</strong> <code>pip install --upgrade aetherpost</code></li>
+<li><strong>Requirements:</strong> Python 3.8+ recommended</li>
+</ul>
+
 <h2>Community & Support</h2>
 <ul>
 <li><strong>GitHub</strong>: <a href="https://github.com/fununnn/aetherpost">View source code and report issues</a></li>
+<li><strong>Documentation</strong>: <a href="https://aether-post.com">Complete guides and examples</a></li>
 <li><strong>Issues</strong>: <a href="https://github.com/fununnn/aetherpost/issues">Bug reports and feature requests</a></li>
-<li><strong>Discussions</strong>: <a href="https://github.com/fununnn/aetherpost/discussions">Community Q&A</a></li>
 </ul>
             </div>
         </div>
@@ -146,24 +197,24 @@ aetherpost destroy</code></pre>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
-                    <h3>AetherPost</h3>
-                    <p>Making social media automation accessible to developers.</p>
+                    <h3>AetherPost v1.7.1</h3>
+                    <p>Social media automation for developers. Promotion as Code.</p>
                 </div>
                 <div class="footer-links">
                     <div class="footer-section">
-                        <h4>Documentation</h4>
+                        <h4>Features</h4>
                         <ul>
-                            <li><a href="getting-started.html">Getting Started</a></li>
-                            <li><a href="api-reference.html">API Reference</a></li>
-                            <li><a href="configuration.html">Configuration</a></li>
+                            <li><a href="#profile-generation">Profile Generation</a></li>
+                            <li><a href="#platform-support">Multi-Platform</a></li>
+                            <li><a href="#ai-content">AI Content</a></li>
                         </ul>
                     </div>
                     <div class="footer-section">
                         <h4>Community</h4>
                         <ul>
-                            <li><a href="contributing.html">Contributing</a></li>
                             <li><a href="https://github.com/fununnn/aetherpost">GitHub</a></li>
                             <li><a href="https://github.com/fununnn/aetherpost/issues">Issues</a></li>
+                            <li><a href="https://aether-post.com">Documentation</a></li>
                         </ul>
                     </div>
                 </div>
