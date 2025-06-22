@@ -1,0 +1,14 @@
+# AetherPost
+.aetherpost/.env
+.aetherpost/state/
+.aetherpost/logs/
+*.log
+
+# API Keys
+.env.aetherpost
+credentials.json
+
+# Cache
+__pycache__/
+*.pyc
+.cache/

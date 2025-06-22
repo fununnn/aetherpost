@@ -1,0 +1,18 @@
+name: AetherPost
+concept: Terraform-style social media automation for developers
+url: https://aether-post.com
+platforms:
+  - bluesky
+content:
+  style: friendly
+  action: Check it out!
+  language: en
+  hashtags:
+    - '#OpenSource'
+    - '#DevTools'
+limits:
+  free_tier: true
+  max_posts_per_day: 50
+notifications:
+  enabled: true
+  auto_apply: false
