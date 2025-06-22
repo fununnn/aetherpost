@@ -1,10 +1,10 @@
 [tool.poetry]
 name = "aetherpost"
-version = "1.5.0"
+version = "1.9.1"
 description = "Promotion as Code - Automate your app promotion across social media platforms"
 authors = ["AetherPost Team <team@aetherpost.dev>"]
 readme = "README.md"
-packages = [{include = "aetherpost"}]
+packages = [{include = "aetherpost_source"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
