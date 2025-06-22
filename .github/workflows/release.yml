@@ -1,0 +1,92 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+        if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+    
+    - name: Test with pytest
+      run: |
+        pip install pytest pytest-asyncio pytest-cov
+        pytest tests/ --cov=aetherpost
+
+  build-and-publish:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.11"
+    
+    - name: Install build dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+    
+    - name: Build package
+      run: python -m build
+    
+    - name: Check package
+      run: twine check dist/*
+    
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/*
+        generate_release_notes: true
+        body: |
+          ## 🚀 What's New
+          
+          This release includes new features and improvements. See the changelog below for full details.
+          
+          ## 📦 Installation
+          
+          ```bash
+          pip install aetherpost
+          ```
+          
+          ## 🔄 Upgrade
+          
+          ```bash
+          pip install --upgrade aetherpost
+          ```
+          
+          ## 📚 Documentation
+          
+          Visit our [documentation site](https://d3b75mcubdhimz.cloudfront.net/) for setup guides and API reference.
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

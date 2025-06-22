@@ -192,6 +192,22 @@ class ProfileGenerator:
                 professional_tone=False,
                 required_elements=["personality"],
                 optional_elements=["gaming_interests", "current_status"]
+            ),
+            
+            "bluesky": ProfileTemplate(
+                platform="bluesky",
+                bio_max_length=256,
+                name_max_length=64,
+                supports_links=True,
+                supports_location=False,
+                supports_website=True,
+                supports_pinned_post=True,
+                emoji_friendly=True,
+                hashtag_friendly=True,
+                link_in_bio_culture=False,
+                professional_tone=False,
+                required_elements=["description", "call_to_action"],
+                optional_elements=["interests", "website", "contact"]
             )
         }
     
@@ -320,10 +336,13 @@ class ProfileGenerator:
         
         style_config = self.style_variations.get(style, self.style_variations["friendly"])
         
-        # Merge custom elements
+        # Merge custom elements and AetherPost promotion info
         context = project_info.copy()
         if custom_elements:
             context.update(custom_elements)
+        
+        # Always include campaign URLs for promotion
+        context = self._add_campaign_urls(context)
         
         # Generate platform-specific content
         if platform == "twitter":
@@ -342,8 +361,38 @@ class ProfileGenerator:
             return self._generate_reddit_profile(config, context, style_config)
         elif platform == "discord":
             return self._generate_discord_profile(config, context, style_config)
+        elif platform == "bluesky":
+            return self._generate_bluesky_profile(config, context, style_config)
         else:
             return self._generate_generic_profile(config, context, style_config)
+    
+    def _add_campaign_urls(self, context: Dict[str, Any]) -> Dict[str, Any]:
+        """Add campaign URLs to context for user's product promotion."""
+        
+        # Use campaign URLs for user's product promotion
+        urls = context.get("urls", {})
+        
+        # Add all available URLs as promotion links
+        if "additional_promotion_links" not in context:
+            context["additional_promotion_links"] = []
+        
+        # Add each URL from campaign.yaml
+        for url_type, url_value in urls.items():
+            if url_value:
+                title = {
+                    "main": "Website",
+                    "github": "GitHub",
+                    "docs": "Documentation",
+                    "demo": "Demo",
+                    "download": "Download"
+                }.get(url_type, url_type.title())
+                
+                context["additional_promotion_links"].append({
+                    "title": title,
+                    "url": url_value
+                })
+        
+        return context
     
     def _generate_twitter_profile(self, config: ProfileTemplate, context: Dict[str, Any], style: Dict[str, Any]) -> ProfileContent:
         """Generate Twitter profile."""
@@ -352,18 +401,18 @@ class ProfileGenerator:
         
         # Generate bio variations based on style
         if style["tone"] == "professional":
-            bio = f"Building {app_name} - {description}. Helping developers automate their social media presence."
+            bio = f"Building {app_name} - {description}. Helping users achieve their goals."
         elif style["tone"] == "creative":
             emoji_prefix = "🚀 " if style["emoji_usage"] != "minimal" else ""
-            bio = f"{emoji_prefix}Creator of {app_name} | {description} | Making social media effortless for devs"
+            bio = f"{emoji_prefix}Creator of {app_name} | {description} | Making it happen!"
         else:  # friendly
-            bio = f"👋 Building {app_name}! {description}. Join me on this journey to simplify social media for developers."
+            bio = f"👋 Building {app_name}! {description}. Join me on this journey!"
         
         # Add call to action based on style
         if style["call_to_action"] == "professional":
-            bio += f" | Learn more ⬇️"
+            bio += f" | Links ⬇️"
         elif style["call_to_action"] == "engaging":
-            bio += f" | Try it out! 👇"
+            bio += f" | Check it out! 👇"
         else:  # welcoming
             bio += f" | Come say hi! 🤝"
         
@@ -371,15 +420,25 @@ class ProfileGenerator:
         if len(bio) > config.bio_max_length:
             bio = bio[:config.bio_max_length-3] + "..."
         
+        # Create additional links from campaign URLs
+        additional_links = []
+        if context.get("additional_promotion_links"):
+            additional_links.extend(context["additional_promotion_links"])
+        
+        # Use main website URL or first available URL
+        urls = context.get("urls", {})
+        website_url = urls.get("main") or urls.get("github") or context.get("website_url")
+        
         return ProfileContent(
             platform="twitter",
             display_name=f"{app_name} 🚀" if style["emoji_usage"] != "minimal" else app_name,
             bio=bio,
-            website_url=context.get("website_url") or context.get("github_url"),
+            website_url=website_url,
             location=context.get("location"),
-            pinned_post=f"🎉 Introducing {app_name}! The social media automation tool every developer needs. Thread 🧵",
+            pinned_post=f"🎉 Introducing {app_name}! {description}. Thread 🧵",
             profile_image_suggestion="Logo with clean background, high contrast",
             cover_image_suggestion=f"Branded header showcasing {app_name} features",
+            additional_links=additional_links,
             character_count=len(bio),
             character_limit=config.bio_max_length
         )
@@ -394,21 +453,24 @@ class ProfileGenerator:
         
         # Add emoji opener
         if style["emoji_usage"] != "minimal":
-            bio_lines.append("🚀 Developer Tools")
-            bio_lines.append("🤖 Social Media Automation")
+            # Use first words of description for category
+            desc_words = description.split()[:2]
+            bio_lines.append(f"🚀 {' '.join(desc_words).title()}")
+            if len(desc_words) > 1:
+                bio_lines.append(f"✨ {app_name}")
         else:
             bio_lines.append(f"{app_name}")
             bio_lines.append(description.title())
         
         # Add features
-        features = context.get("features", ["automation", "multi-platform", "AI-powered"])[:3]
+        features = context.get("features", ["innovative", "powerful", "user-friendly"])[:3]
         for feature in features:
             emoji = "✨" if style["emoji_usage"] != "minimal" else "•"
             bio_lines.append(f"{emoji} {feature.replace('-', ' ').title()}")
         
         # Add call to action
         if config.link_in_bio_culture:
-            bio_lines.append("👇 Try it out")
+            bio_lines.append("👇 Links below")
         
         bio = "\n".join(bio_lines)
         
@@ -419,19 +481,25 @@ class ProfileGenerator:
                 bio_lines.pop(-2)  # Remove feature lines
                 bio = "\n".join(bio_lines)
         
+        # Create additional links from campaign URLs
+        additional_links = []
+        if context.get("additional_promotion_links"):
+            additional_links.extend(context["additional_promotion_links"])
+        
+        # Use main website URL or first available URL
+        urls = context.get("urls", {})
+        website_url = urls.get("main") or urls.get("website") or context.get("website_url")
+        
         return ProfileContent(
             platform="instagram",
             display_name=app_name,
             bio=bio,
-            website_url=context.get("website_url") or context.get("github_url"),
+            website_url=website_url,
             location=None,
-            pinned_post="Story highlight: 'Getting Started with AetherPost'",
+            pinned_post=f"Story highlight: 'Getting Started with {app_name}'",
             profile_image_suggestion="Square logo, vibrant colors, minimal text",
             cover_image_suggestion="Not applicable for Instagram",
-            additional_links=[
-                {"title": "GitHub", "url": context.get("github_url", "#")},
-                {"title": "Documentation", "url": f"{context.get('website_url', '#')}/docs"}
-            ],
+            additional_links=additional_links,
             character_count=len(bio),
             character_limit=config.bio_max_length
         )
@@ -483,28 +551,35 @@ Always excited to connect with fellow developers and discuss the intersection of
         bio = f"Building {app_name} | {language} Developer | Open Source Enthusiast"
         
         # README.md content suggestion
+        urls = context.get("urls", {})
         readme_content = f"""# Hi there 👋
 
-I'm building **{app_name}** - social media automation for developers.
+I'm building **{app_name}** - {context.get('description', 'an awesome project')}.
 
 ## 🔭 Current Projects
-- [{app_name}]({context.get('github_url', '#')}) - {context.get('description', 'Social media automation')}
+- [{app_name}]({urls.get('github', context.get('github_url', '#'))}) - {context.get('description', 'My latest project')}
 
 ## 🌱 Tech Stack
 {', '.join(context.get('tech_stack', [language])[:8])}
 
 ## 📫 How to reach me
-- Website: {context.get('website_url', 'Coming soon')}
-- Twitter: [@{app_name.lower()}](https://twitter.com/{app_name.lower()})
+- Website: {urls.get('main', context.get('website_url', 'Coming soon'))}
+- Twitter: [@{app_name.lower()}](https://twitter.com/{app_name.lower()})"""
+
+        # Add docs link if available
+        if urls.get('docs'):
+            readme_content += f"\n- Documentation: [{urls.get('docs')}]({urls.get('docs')})"
+        
+        readme_content += f"""
 
 ## ⚡ Fun fact
-I believe developers should spend time coding, not crafting social media posts!"""
+Always excited to connect with fellow developers and share cool projects!"""
         
         return ProfileContent(
             platform="github",
             display_name=app_name,
             bio=bio,
-            website_url=context.get("website_url"),
+            website_url=urls.get('main') or context.get('website_url'),
             location=context.get("location"),
             pinned_post=readme_content,
             profile_image_suggestion="Professional avatar or logo, GitHub-friendly",
@@ -590,8 +665,9 @@ Subscribe for developer-focused content that saves you time! 🔔"""
     def _generate_discord_profile(self, config: ProfileTemplate, context: Dict[str, Any], style: Dict[str, Any]) -> ProfileContent:
         """Generate Discord profile."""
         app_name = context.get("name", "AetherPost")
+        powered_by = context.get("powered_by_text", "Built with AetherPost")
         
-        bio = f"🛠️ Building {app_name} | 💻 Python Developer | 🤖 Automation Enthusiast | Always happy to chat about dev tools!"
+        bio = f"🛠️ Building {app_name} | 💻 Python Developer | 🤖 {powered_by} | Always happy to chat about dev tools!"
         
         return ProfileContent(
             platform="discord",
@@ -599,9 +675,50 @@ Subscribe for developer-focused content that saves you time! 🔔"""
             bio=bio,
             website_url=None,
             location=None,
-            pinned_post="Custom status: 'Working on social media automation'",
+            pinned_post=f"Custom status: 'Working on {app_name} with AetherPost'",
             profile_image_suggestion="Animated avatar or branded logo",
             cover_image_suggestion="Not applicable for Discord",
+            character_count=len(bio),
+            character_limit=config.bio_max_length
+        )
+    
+    def _generate_bluesky_profile(self, config: ProfileTemplate, context: Dict[str, Any], style: Dict[str, Any]) -> ProfileContent:
+        """Generate Bluesky profile."""
+        app_name = context.get("name", "AetherPost")
+        description = context.get("description", "Social media automation for developers")
+        
+        # Generate bio variations based on style
+        if style["tone"] == "professional":
+            bio = f"Building {app_name} - {description}. Always excited to share progress and connect with others. #innovation"
+        elif style["tone"] == "creative":
+            emoji_prefix = "🚀 " if style["emoji_usage"] != "minimal" else ""
+            bio = f"{emoji_prefix}Creator of {app_name} | {description} | Making magic happen! ✨ #create #build"
+        else:  # friendly
+            bio = f"👋 Building {app_name}! {description}. Love connecting with fellow builders! #community #opentoconnect"
+        
+        # Ensure bio fits within limit
+        if len(bio) > config.bio_max_length:
+            bio = bio[:config.bio_max_length-3] + "..."
+        
+        # Create additional links from campaign URLs
+        additional_links = []
+        if context.get("additional_promotion_links"):
+            additional_links.extend(context["additional_promotion_links"])
+            
+        # Use main website URL or first available URL
+        urls = context.get("urls", {})
+        website_url = urls.get("main") or urls.get("github") or context.get("website_url")
+        
+        return ProfileContent(
+            platform="bluesky",
+            display_name=f"{app_name} 🌐" if style["emoji_usage"] != "minimal" else app_name,
+            bio=bio,
+            website_url=website_url,
+            location=None,
+            pinned_post=f"🎉 Just launched {app_name}! {description}. Excited to share this with everyone!",
+            profile_image_suggestion="Clean logo with blue sky theme",
+            cover_image_suggestion="Not applicable for Bluesky",
+            additional_links=additional_links,
             character_count=len(bio),
             character_limit=config.bio_max_length
         )

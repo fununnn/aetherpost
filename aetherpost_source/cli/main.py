@@ -14,6 +14,7 @@ from .commands.plan import plan_app, main as plan_main
 from .commands.apply import apply_app, main as apply_main
 from .commands.destroy import destroy_app, main as destroy_main
 from .commands.auth import auth_app
+from .commands.profile import profile_app
 
 # Create main CLI app
 app = typer.Typer(
@@ -29,6 +30,7 @@ app.command(name="plan", help="Preview campaign content")(plan_main)
 app.command(name="apply", help="Execute campaign")(apply_main)
 app.command(name="destroy", help="Delete posted content and clean up")(destroy_main)
 app.add_typer(auth_app, name="auth", help="Manage authentication")
+app.add_typer(profile_app, name="profile", help="Generate and manage social media profiles")
 
 # Doctor command for troubleshooting
 from .commands.doctor import doctor_app

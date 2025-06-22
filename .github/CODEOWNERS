@@ -1,0 +1,34 @@
+# AetherPost Code Owners
+# This file defines who automatically gets assigned to review PRs for specific files/directories
+
+# Global ownership (default reviewers for all files)
+* @fununnn
+
+# Python source code
+*.py @fununnn
+aetherpost/ @fununnn
+
+# Configuration files
+*.yaml @fununnn
+*.yml @fununnn
+*.json @fununnn
+*.toml @fununnn
+setup.py @fununnn
+pyproject.toml @fununnn
+
+# Documentation
+README.md @fununnn
+docs/ @fununnn
+*.md @fununnn
+
+# GitHub specific files
+.github/ @fununnn
+
+# CI/CD and automation
+.github/workflows/ @fununnn
+scripts/ @fununnn
+
+# Security sensitive files
+requirements*.txt @fununnn
+Dockerfile @fununnn
+docker-compose*.yml @fununnn
