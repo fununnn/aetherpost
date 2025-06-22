@@ -3,6 +3,7 @@ concept: Terraform-style social media automation for developers
 url: https://aether-post.com
 platforms:
   - bluesky
+  - twitter
 content:
   style: friendly
   action: Check it out!

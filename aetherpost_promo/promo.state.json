@@ -2,8 +2,78 @@
   "version": "1.0",
   "campaign_id": "campaign-66531191",
   "created_at": "2025-06-22 10:38:31.634697",
-  "updated_at": "2025-06-22 10:38:31.634803",
-  "posts": [],
+  "updated_at": "2025-06-22 11:54:18.534990",
+  "posts": [
+    {
+      "id": "post-8889c223",
+      "platform": "twitter",
+      "post_id": "1936754614508109996",
+      "url": "https://twitter.com/user/status/1936754614508109996",
+      "created_at": "2025-06-22 11:54:18.534941",
+      "content": {
+        "text": "\ud83d\ude80 New Update Available\n\nWe've made improvements to AetherPost\n\nCheck it out!",
+        "hashtags": [
+          "#AetherPost",
+          "#DevTools",
+          "#Launch"
+        ],
+        "media_requirements": {
+          "required": false,
+          "type": "optional",
+          "style": "logo_with_text"
+        },
+        "metadata": {
+          "tone": "excited_professional",
+          "optimal_time": "09:00,13:00,18:00",
+          "schedule_recommendation": null,
+          "context": {
+            "campaign_config": {
+              "name": "AetherPost",
+              "concept": "Terraform-style social media automation for developers",
+              "url": "https://aether-post.com",
+              "platforms": [
+                "bluesky",
+                "twitter"
+              ],
+              "content": {
+                "style": "friendly",
+                "action": "Check it out!",
+                "max_length": 280,
+                "hashtags": [
+                  "#OpenSource",
+                  "#DevTools"
+                ],
+                "ai_prompt": null,
+                "language": "en"
+              },
+              "schedule": {
+                "type": "immediate",
+                "datetime": null,
+                "timezone": "UTC",
+                "frequency": null,
+                "exclude_weekends": false
+              },
+              "image": null,
+              "experiments": null,
+              "story": null,
+              "analytics": true
+            },
+            "concept": "Terraform-style social media automation for developers",
+            "style": "friendly",
+            "hashtags": [
+              "#OpenSource",
+              "#DevTools"
+            ],
+            "url": "https://aether-post.com",
+            "image": null
+          }
+        }
+      },
+      "metrics": {},
+      "status": "published",
+      "variant_id": null
+    }
+  ],
   "media": [],
   "analytics": {
     "total_reach": 0,
