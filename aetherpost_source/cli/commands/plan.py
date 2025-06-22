@@ -15,8 +15,7 @@ console = Console()
 plan_app = typer.Typer()
 
 
-@plan_app.command()
-def main(
+def plan_main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
 ):
     """Preview campaign content before posting."""

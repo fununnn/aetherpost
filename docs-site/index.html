@@ -50,6 +50,19 @@
             padding: 1rem 0;
         }
 
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem !important;
+                text-align: center;
+            }
+        }
+
         .nav-brand h1 {
             margin: 0;
             color: var(--primary-color);
@@ -95,6 +108,26 @@
             font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .hero-buttons .btn {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         .hero .subtitle {
@@ -177,6 +210,20 @@
             gap: 2rem;
         }
 
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
         .feature-card {
             background: white;
             padding: 2rem;
@@ -225,6 +272,20 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin-bottom: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .install-steps {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .install-steps {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
         }
 
         .step-card {
@@ -292,6 +353,20 @@
             gap: 1.5rem;
         }
 
+        @media (max-width: 768px) {
+            .platform-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .platform-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
         .platform-card {
             background: var(--background-light);
             padding: 1.5rem;
@@ -323,6 +398,21 @@
             margin-bottom: 2rem;
         }
 
+        @media (max-width: 768px) {
+            .footer-content {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
         .footer-section h4 {
             margin-bottom: 1rem;
             color: white;
@@ -352,6 +442,43 @@
             padding-top: 2rem;
             border-top: 1px solid #374151;
             color: #94a3b8;
+        }
+
+        /* Responsive Grid Classes */
+        @media (max-width: 768px) {
+            .responsive-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1.5rem !important;
+            }
+            
+            .responsive-grid-2 {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+            
+            .cost-grid {
+                grid-template-columns: 1fr !important;
+                gap: 1rem !important;
+            }
+        }
+
+        /* Additional mobile optimizations */
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .step-card, .feature-card, .platform-card {
+                padding: 1.5rem;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .code-block {
+                font-size: 0.75rem;
+            }
         }
 
         /* Responsive */
@@ -538,7 +665,7 @@ aetherpost init
                         <h4>🚀 Automated Setup (Perfect for Claude Code)</h4>
                         <p>Pre-create files to skip all interactive prompts:</p>
                         
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                        <div class="responsive-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
                             <!-- Required Files -->
                             <div>
                                 <h5 style="color: #dc2626; margin-bottom: 1rem;">🔴 Required Files</h5>
@@ -627,7 +754,7 @@ SCHEDULE_ENABLED=false                                         # OPTIONAL (defau
                         <!-- Optional Files -->
                         <div style="margin-top: 2rem;">
                             <h5 style="color: #059669; margin-bottom: 1rem;">🟢 Optional Files (Auto-created if missing)</h5>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="responsive-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
                                 <div style="background: rgba(5, 150, 105, 0.1); padding: 1rem; border-radius: 0.5rem; border-left: 3px solid #059669;">
                                     <p><strong>README.md</strong> - Project documentation</p>
                                     <small>Auto-generated if not present</small>
@@ -852,7 +979,7 @@ Characters: 98/160</pre>
             <!-- Cost Summary -->
             <div style="background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%); padding: 2rem; border-radius: 1rem; margin-top: 3rem;">
                 <h3 style="text-align: center; margin-bottom: 2rem;">💰 Cost Breakdown</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                <div class="cost-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
                     <div style="background: white; padding: 1.5rem; border-radius: 0.75rem; border-left: 4px solid #10b981;">
                         <h4 style="color: #10b981; margin-bottom: 1rem;">🆓 Free Tier</h4>
                         <p><strong>Bluesky + GitHub + LinkedIn</strong></p>

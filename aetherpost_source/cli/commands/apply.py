@@ -52,12 +52,8 @@ Terraform-style CLI tool that automates social media promotion using AI-generate
     #     pass
 
 
-@apply_app.command()
-def main(
+def apply_main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
-    yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation"),
-    notify: bool = typer.Option(True, "--notify/--no-notify", help="Send preview notifications (default: True)"),
-    preview: bool = typer.Option(True, "--preview/--no-preview", help="Require preview confirmation (default: True)"),
 ):
     """Execute the campaign and post to social media platforms."""
     
@@ -332,58 +328,9 @@ def show_execution_results(results: list):
         console.print(f"\n😞 No posts were successful. Check your credentials and try again.")
 
 
-@apply_app.command("retry")
-def retry_failed(
-    config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
-):
-    """Retry failed posts from the last campaign."""
-    
-    console.print(Panel(
-        "[bold yellow]🔄 Retry Failed Posts[/bold yellow]",
-        border_style="yellow"
-    ))
-    
-    # Load state to find failed posts
-    state_manager = StateManager()
-    state = state_manager.load_state()
-    
-    if not state:
-        console.print("❌ [red]No campaign state found[/red]")
-        return
-    
-    # Find failed posts (platforms that should have been posted to but weren't)
-    config_loader = ConfigLoader()
-    config = config_loader.load_campaign_config(config_file)
-    
-    posted_platforms = set(post.platform for post in state.posts if post.status == "published")
-    failed_platforms = set(config.platforms) - posted_platforms
-    
-    if not failed_platforms:
-        console.print("✅ [green]No failed posts to retry[/green]")
-        return
-    
-    console.print(f"Found {len(failed_platforms)} failed platforms: {', '.join(failed_platforms)}")
-    
-    # Retry failed platforms
-    if Confirm.ask("Retry failed posts?"):
-        credentials = config_loader.load_credentials()
-        asyncio.run(execute_campaign(config, list(failed_platforms), credentials, False, True, False))
+# Removed retry sub-command to maintain simplicity
+# Apply command should handle retry logic automatically
 
 
-@apply_app.command("schedule")
-def schedule_campaign(
-    config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
-    when: str = typer.Option(None, "--when", help="When to post (e.g., 'tomorrow 10am', 'every monday')"),
-):
-    """Schedule campaign for later execution."""
-    
-    console.print(Panel(
-        "[bold purple]⏰ Schedule Campaign[/bold purple]",
-        border_style="purple"
-    ))
-    
-    # This would integrate with a scheduler like cron or a task queue
-    console.print("⚠️  [yellow]Scheduling feature coming soon![/yellow]")
-    console.print("For now, you can use:")
-    console.print("• System cron: [cyan]crontab -e[/cyan]")
-    console.print("• Add: [dim]0 10 * * 1 cd /path/to/project && aetherpost apply[/dim]")
+# Removed schedule sub-command to maintain simplicity  
+# Scheduling should be handled by external tools (cron, systemd)

@@ -15,11 +15,8 @@ console = Console()
 destroy_app = typer.Typer()
 
 
-@destroy_app.command()
-def main(
+def destroy_main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
-    yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation"),
-    platform: str = typer.Option(None, "--platform", help="Destroy posts on specific platform only"),
 ):
     """Delete posted content and clean up campaign resources."""
     
