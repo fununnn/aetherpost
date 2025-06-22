@@ -3,1065 +3,606 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AetherPost - AI-Powered Social Media Automation</title>
-    <link href="css/style.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>AetherPost v1.7.1 - Social Media Automation for Developers</title>
+    <meta name="description" content="Terraform-style social media automation with profile generation, multi-platform support, and AI content creation. Perfect for developers promoting their apps.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        /* Enhanced modern styling */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1d4ed8;
+            --accent-color: #10b981;
+            --background-light: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .nav-brand h1 {
+            margin: 0;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .nav-brand .tagline {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .version-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* New Features Section */
+        .new-features {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+        }
+
+        .new-features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .feature-card h3 {
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .new-badge {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Quick Start Section */
+        .quick-start {
+            padding: 4rem 0;
+            background: var(--background-light);
+        }
+
+        .quick-start h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .install-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .step-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-family: 'Fira Code', monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        /* Platform Support */
+        .platforms {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .platforms h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .platform-card {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .platform-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #374151;
+            color: #94a3b8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
+    <header class="header">
+        <nav class="nav container">
             <div class="nav-brand">
-                <h1><i class="fas fa-rocket"></i> AetherPost</h1>
-                <span class="beta-badge">v1.6.0</span>
+                <h1>🚀 AetherPost</h1>
+                <div class="tagline">Promotion as Code</div>
             </div>
-            <div class="nav-links">
-                <a href="#quick-start">Quick Start</a>
-                <a href="#features">Features</a>
-                <a href="profile-management.html">
-                    <i class="fas fa-user-cog"></i> Profiles
-                </a>
-                <a href="#demo">Live Demo</a>
-                <a href="guides/">Guides</a>
-                <a href="api/">API</a>
-                <a href="https://github.com/fununnn/aetherpost" target="_blank">
-                    <i class="fas fa-globe"></i> Docs
-                </a>
-            </div>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <div class="hero-content">
-            <h1>AI-Powered Social Media Automation</h1>
-            <p class="hero-subtitle">
-                <strong>5-platform social media automation</strong> with integrated profile management. 
-                Deploy to Twitter, Reddit, YouTube, Bluesky, and Instagram with intelligent content optimization and AI-generated profiles. One command setup, complete automation.
-            </p>
-            
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">5</span>
-                    <span class="stat-label">Platforms</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">AI-Powered</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">100%</span>
-                    <span class="stat-label">Free & OSS</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">95%</span>
-                    <span class="stat-label">Type Safe</span>
-                </div>
-            </div>
-
-            <div class="hero-actions">
-                <button class="btn btn-primary" onclick="copyInstallCommand()">
-                    <i class="fas fa-download"></i> Quick Install
-                </button>
-                <a href="#demo" class="btn btn-secondary">
-                    <i class="fas fa-play"></i> Watch Demo
-                </a>
-                <a href="#features" class="btn btn-secondary">
-                    <i class="fas fa-star"></i> See Features
-                </a>
-            </div>
-
-            <div class="hero-badge">
-                <i class="fas fa-check-circle"></i>
-                <span>100% Tested & Production Ready</span>
-            </div>
-        </div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#quickstart">Quick Start</a></li>
+                <li><a href="#platforms">Platforms</a></li>
+                <li><a href="profile-management.html">Profile Generation</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section id="quick-start" class="quick-start">
+    <section class="hero">
         <div class="container">
-            <h2><i class="fas fa-zap"></i> Get Started in 15 Seconds</h2>
-            
-            <div class="install-tabs">
-                <div class="tab-headers">
-                    <button class="tab-header active" data-tab="auto">Auto Setup (Claude Code)</button>
-                    <button class="tab-header" data-tab="interactive">Interactive Setup</button>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="auto">
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode('auto-install')">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <pre><code id="auto-install"># 1. Install AetherPost
-pip install aetherpost
-
-# 2. Create campaign.yaml (pre-configure settings)
-# 3. Create .env.aetherpost (add API keys)
-
-# 4. Auto-initialize with profile generation
-aetherpost init
-
-# 5. Preview and deploy
-aetherpost plan
-aetherpost apply</code></pre>
-                        </div>
-                        <div style="background: #f0f8ff; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
-                            <p><strong>💡 For Claude Code & AI Tools:</strong> Pre-create campaign.yaml and .env.aetherpost files. AetherPost will auto-detect, skip prompts, and auto-generate profiles.</p>
-                            <p><strong>🎯 Platform Flexibility:</strong> Choose any combination of platforms - you don't need all 5. Start with 1-2 platforms and expand as needed.</p>
-                            <p><strong>📱 New in v1.6.0:</strong> Automatic profile generation and application during init. Multi-URL support for better content optimization.</p>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="interactive">
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode('interactive-install')">
-                                <i class="fas fa-copy"></i>
-                            </button>
-                            <pre><code id="interactive-install"># 1. Install AetherPost
-pip install aetherpost
-
-# 2. Interactive setup with profile generation
-aetherpost init
-
-# 3. Preview and deploy
-aetherpost plan
-aetherpost apply</code></pre>
-                        </div>
-                        <div style="background: #f8f9fa; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
-                            <p><strong>📝 For Manual Setup:</strong> AetherPost will guide you through project setup, API collection, platform configuration, and automatic profile generation.</p>
-                            <p><strong>🎯 Platform Choice:</strong> Select only the platforms you want to use. Start small with Bluesky + Reddit, then add YouTube, Instagram, or Twitter later.</p>
-                            <p><strong>📱 Profile Integration:</strong> Profiles are automatically generated and applied during setup - no separate commands needed.</p>
-                            <p><strong>⚠️ Twitter/X Note:</strong> Twitter now requires a paid API plan ($100/month minimum). We recommend starting with Bluesky (free) for social media automation.</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="quick-example">
-                <h3>AI-Generated Campaign Example</h3>
-                <div class="example-grid">
-                    <div class="example-step">
-                        <div class="step-number">1</div>
-                        <h4>Define Your Campaign</h4>
-                        <div class="code-block small">
-                            <pre><code class="language-yaml">name: "AI Product Launch"
-concept: "Revolutionary AI productivity app"
-urls:
-  main: https://myapp.com
-  github: https://github.com/user/myapp
-  docs: https://myapp.com/docs
-platforms: [bluesky, reddit]  # Start with 2 platforms
-content:
-  style: professional
-  ai_enhanced: true
-  hashtags: ["AI", "productivity"]</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="example-step">
-                        <div class="step-number">2</div>
-                        <h4>AI Generates Content</h4>
-                        <div class="code-block small">
-                            <pre><code class="language-bash">$ aetherpost plan
-📋 Campaign Preview
-✅ Bluesky: "🚀 Introducing revolutionary AI productivity app..."
-✅ Reddit: "Deep dive: How AI transforms productivity workflows..."
-💡 Run 'aetherpost apply' to execute this campaign</code></pre>
-                        </div>
-                    </div>
-
-                    <div class="example-step">
-                        <div class="step-number">3</div>
-                        <h4>Deploy Across Platforms</h4>
-                        <div class="code-block small">
-                            <pre><code class="language-bash">$ aetherpost apply
-🚀 Campaign Execution
-✅ Posted to Bluesky: https://bsky.app/...
-✅ Posted to Reddit: r/programming
-🎉 Successfully posted to 2/2 platforms!</code></pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Interactive Demo Section -->
-    <section id="demo" class="demo-section" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); padding: 60px 0;">
-        <div class="container">
-            <h2 style="color: white; text-align: center; font-size: 2.5rem; margin-bottom: 20px;">
-                <i class="fas fa-play-circle"></i> Interactive Demo
-            </h2>
-            <p class="section-subtitle" style="color: rgba(255,255,255,0.9); text-align: center; font-size: 1.2rem; margin-bottom: 40px;">
-                Watch the complete workflow in action - from init to deployment
+            <div class="version-badge">✨ NEW: v1.7.1 with Profile Generation</div>
+            <h1>Social Media Automation<br>for Developers</h1>
+            <p class="subtitle">
+                Terraform-style automation with AI-powered profile generation. 
+                Deploy to Twitter, Bluesky, Instagram, GitHub, and more with intelligent content optimization.
             </p>
+            <div class="hero-buttons">
+                <a href="#quickstart" class="btn btn-primary">
+                    ⚡ Get Started
+                </a>
+                <a href="profile-management.html" class="btn btn-secondary">
+                    🎭 Generate Profiles
+                </a>
+                <a href="https://github.com/fununnn/aetherpost" class="btn btn-secondary" target="_blank">
+                    📚 GitHub
+                </a>
+            </div>
         </div>
-        
-        <!-- Quick Start Commands -->
-        <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 16px; margin: 30px auto; max-width: 600px;">
-            <pre style="background: #1e1e1e; color: #00ff00; padding: 20px; border-radius: 8px; margin: 0; font-family: 'Courier New', monospace;">
-<span style="color: #666;">$</span> pip install aetherpost
-<span style="color: #666;">$</span> aetherpost init
-<span style="color: #666;">$</span> aetherpost plan
-<span style="color: #666;">$</span> aetherpost apply
-<span style="color: #00ff00;">✅ Posted to 5 platforms successfully!</span>
-            </pre>
-        </div>
-        
-        <div class="container" style="margin-top: 40px;">
-            <div class="demo-controls">
-                <h3 style="color: white; text-align: center; margin-bottom: 30px;">Terraform-Style Commands</h3>
-                <div class="command-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
-                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🎯</div>
-                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost init</code>
-                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Initialize project with auto-dependency installation</p>
+    </section>
+
+    <section class="new-features">
+        <div class="container">
+            <h2>🆕 What's New in v1.7.1</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="new-badge">NEW</div>
+                    <h3>🎭 Smart Profile Generation</h3>
+                    <p>Generate optimized social media profiles for your apps across all platforms. Each profile is tailored to platform requirements and includes your campaign URLs naturally.</p>
+                    <div class="code-block" style="font-size: 0.85rem;">
+<pre>aetherpost profile generate --campaign-config campaign.yaml
+✅ Twitter Profile: MyApp 🚀
+✅ Bluesky Profile: MyApp 🌐  
+✅ Instagram Profile: MyApp</pre>
                     </div>
-                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
-                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">📋</div>
-                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost plan</code>
-                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Preview AI-generated content for all platforms</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="new-badge">NEW</div>
+                    <h3>🌐 Bluesky Integration</h3>
+                    <p>Full native support for Bluesky social platform. Decentralized social media with free posting and no API restrictions.</p>
+                    <div class="code-block" style="font-size: 0.85rem;">
+<pre>platforms:
+  - bluesky  # Free, decentralized
+  - twitter  # Requires paid plan</pre>
                     </div>
-                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
-                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🚀</div>
-                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost apply</code>
-                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Execute campaign across Bluesky, Reddit, YouTube, Instagram, Twitter*</p>
-                    </div>
-                    <div class="command-item" style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px; text-align: center;">
-                        <div class="command-icon" style="font-size: 2rem; margin-bottom: 10px;">🗑️</div>
-                        <code style="color: #64b5f6; font-size: 1.1rem;">aetherpost destroy</code>
-                        <p style="color: rgba(255,255,255,0.8); margin-top: 10px;">Clean up and remove posted content</p>
-                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="new-badge">ENHANCED</div>
+                    <h3>📸 Instagram Support</h3>
+                    <p>Professional Instagram profile optimization with visual content suggestions and character limit optimization.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="new-badge">ENHANCED</div>
+                    <h3>🔗 Your URLs Only</h3>
+                    <p>Profile generation includes only YOUR campaign URLs from campaign.yaml. No forced AetherPost branding - every profile promotes your product.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="features" class="features">
+    <section id="quickstart" class="quick-start">
         <div class="container">
-            <h2>Why AetherPost is Production Ready</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
+            <h2>⚡ Quick Start</h2>
+            <div class="install-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Install AetherPost</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard('pip install aetherpost')">Copy</button>
+<pre>pip install aetherpost</pre>
                     </div>
-                    <h3>OpenAI Integration</h3>
-                    <p>GPT-3.5-turbo powered content generation with platform-specific optimization and intelligent hashtag selection.</p>
-                    <a href="guides/ai-integration.html" class="feature-link">AI Setup Guide →</a>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-share-alt"></i>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Initialize Project</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard('aetherpost init main')">Copy</button>
+<pre>aetherpost init main</pre>
                     </div>
-                    <h3>5 Platforms. Your Choice.</h3>
-                    <p><strong>Most comprehensive platform support:</strong> Bluesky, Reddit, YouTube, Instagram, Twitter*. Mix and match any combination. Start with 1, scale to all 5. Each platform intelligently optimized.</p>
-                    <div style="margin-top: 0.5rem; font-size: 0.9rem; color: #666;">
-                        ✅ Bluesky (decentralized, free) ✅ Reddit (subreddit targeting) ✅ YouTube (video concepts)<br>
-                        ✅ Instagram (visual content) ✅ Twitter* (280 char - requires $100/mo paid plan)
-                    </div>
-                    <a href="guides/platforms.html" class="feature-link">Platform Guide →</a>
+                    <p>Interactive setup with automatic profile generation</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-magic"></i>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Generate Profiles</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard('aetherpost profile generate')">Copy</button>
+<pre>aetherpost profile generate</pre>
                     </div>
-                    <h3>Interactive Setup</h3>
-                    <p>Guided prompts for project concept, platforms, language, and style selection.</p>
-                    <a href="#demo" class="feature-link">See Setup →</a>
+                    <p>Create optimized profiles for all your platforms</p>
                 </div>
 
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Preview & Deploy</h3>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard('aetherpost plan\naetherpost apply')">Copy</button>
+<pre>aetherpost plan
+aetherpost apply</pre>
                     </div>
-                    <h3>100% Type Safe</h3>
-                    <p>95% type coverage with comprehensive type hints, dataclasses, and robust error handling.</p>
-                    <a href="guides/development.html" class="feature-link">Dev Guide →</a>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-cogs"></i>
-                    </div>
-                    <h3>Quick & Automation Modes</h3>
-                    <p>Interactive setup by default, with --quick flag for CI/CD, cron jobs, and automated workflows.</p>
-                    <a href="guides/automation.html" class="feature-link">Automation →</a>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-check-double"></i>
-                    </div>
-                    <h3>100% Tested</h3>
-                    <p>Comprehensive test suite with real API validation, ensuring production reliability.</p>
-                    <a href="guides/testing.html" class="feature-link">Test Report →</a>
-                </div>
-
-                <div class="feature-card" style="border: 2px solid #10b981; background: linear-gradient(135deg, #f0fdf4, #ecfdf5);">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-cog" style="color: #10b981;"></i>
-                    </div>
-                    <h3 style="color: #065f46;">Universal Profile Management</h3>
-                    <p><strong>✨ New in v1.5.0!</strong> Sync your project's profile across all platforms automatically. One YAML config updates Twitter, Bluesky, Mastodon, Instagram & Discord profiles with platform-optimized content.</p>
-                    <a href="profile-management.html" class="feature-link" style="color: #10b981;">Profile Guide →</a>
+                    <p>Preview AI-generated content and deploy across platforms</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="technical-details">
-        <div class="container">
-            <h2>Technical Excellence</h2>
-            
-            <div class="tech-grid">
-                <div class="tech-card">
-                    <h3><i class="fas fa-code"></i> Refactored Architecture</h3>
-                    <ul>
-                        <li>Separated concerns with dedicated managers</li>
-                        <li>PlatformConnectorManager for platform handling</li>
-                        <li>PromotionCampaignManager for campaign logic</li>
-                        <li>SelfPromotionCLI for user interface</li>
-                    </ul>
-                </div>
-                <div class="tech-card">
-                    <h3><i class="fas fa-database"></i> Data Structures</h3>
-                    <ul>
-                        <li>Typed dataclasses: PromotionContent, PostResult</li>
-                        <li>Enum classes: CampaignType for type safety</li>
-                        <li>Comprehensive error handling with structured responses</li>
-                        <li>Optional types for graceful degradation</li>
-                    </ul>
-                </div>
-                <div class="tech-card">
-                    <h3><i class="fas fa-cog"></i> API Integrations</h3>
-                    <ul>
-                        <li>OpenAI GPT-3.5-turbo with AsyncOpenAI client</li>
-                        <li>Twitter API v2 with OAuth 1.0a authentication</li>
-                        <li>YouTube Data API v3 with OAuth2 flow</li>
-                        <li>Reddit PRAW library integration</li>
-                    </ul>
-                </div>
-                <div class="tech-card">
-                    <h3><i class="fas fa-shield-alt"></i> Production Ready</h3>
-                    <ul>
-                        <li>100% test coverage on core functionality</li>
-                        <li>Non-interactive mode for automation</li>
-                        <li>Robust error handling and logging</li>
-                        <li>CI/CD compatible with exit codes</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="claude-code-setup" class="technical-details" style="background: linear-gradient(135deg, #e8f5e8 0%, #f0fff0 100%);">
-        <div class="container">
-            <h2>🤖 Claude Code & AI Tools Setup Guide</h2>
-            
-            <div class="tech-grid">
-                <div class="tech-card" style="border-left: 4px solid #10b981;">
-                    <h3><i class="fas fa-rocket"></i> Quick Auto Setup</h3>
-                    <p><strong>For automated project initialization</strong></p>
-                    <ol style="margin: 1rem 0; padding-left: 1.5rem;">
-                        <li>Create <code>campaign.yaml</code> with project configuration</li>
-                        <li>Create <code>.env.aetherpost</code> with API keys</li>
-                        <li>Run <code>aetherpost init</code> (auto-detects files)</li>
-                        <li>Execute <code>aetherpost plan && aetherpost apply</code></li>
-                    </ol>
-                    <p><strong>Result:</strong> Zero interactive prompts, instant setup</p>
-                </div>
-                
-                <div class="tech-card" style="border-left: 4px solid #6366f1;">
-                    <h3><i class="fas fa-file-code"></i> Required Files</h3>
-                    <p><strong>Minimum files for auto-setup</strong></p>
-                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                        <li><code>campaign.yaml</code> - Project settings & platforms</li>
-                        <li><code>.env.aetherpost</code> - API credentials</li>
-                    </ul>
-                    <p><strong>Optional:</strong></p>
-                    <ul style="margin: 1rem 0; padding-left: 1.5rem;">
-                        <li><code>README.md</code> - Project documentation</li>
-                        <li><code>.gitignore</code> - Git ignore patterns</li>
-                    </ul>
-                </div>
-                
-                <div class="tech-card" style="border-left: 4px solid #f59e0b;">
-                    <h3><i class="fas fa-cog"></i> Configuration Templates</h3>
-                    <div class="code-block small" style="margin: 1rem 0;">
-                        <pre><code># campaign.yaml
-name: "my-project"
-concept: "Project description"
-platforms: ["twitter", "reddit"]
-content:
-  style: professional
-  language: en
-notifications:
-  enabled: true
-  auto_apply: false</code></pre>
-                    </div>
-                </div>
-                
-                <div class="tech-card" style="border-left: 4px solid #ef4444;">
-                    <h3><i class="fas fa-key"></i> API Keys (Start Small)</h3>
-                    <div class="code-block small" style="margin: 1rem 0;">
-                        <pre><code># .env.aetherpost (Starter - $5/month)
-OPENAI_API_KEY=sk-proj-xxx
-TWITTER_API_KEY=xxx
-TWITTER_API_SECRET=xxx
-TWITTER_ACCESS_TOKEN=xxx
-TWITTER_ACCESS_TOKEN_SECRET=xxx
-
-# Add more platforms when ready:
-# REDDIT_CLIENT_ID=xxx
-# REDDIT_CLIENT_SECRET=xxx
-# REDDIT_USERNAME=xxx
-# REDDIT_PASSWORD=xxx
-
-# YOUTUBE_CLIENT_ID=xxx
-# YOUTUBE_CLIENT_SECRET=xxx
-
-# BLUESKY_HANDLE=your_handle.bsky.social
-# BLUESKY_PASSWORD=your_app_password
-
-# INSTAGRAM_ACCESS_TOKEN=xxx
-# INSTAGRAM_BUSINESS_ACCOUNT_ID=xxx
-
-# SLACK_WEBHOOK_URL=https://hooks.slack.com/...</code></pre>
-                    </div>
-                    <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
-                        <strong>💡 Tip:</strong> Start with OpenAI + Bluesky (free), then uncomment and fill in other platforms as needed. Note: Twitter requires a paid API plan ($100/month).
-                    </p>
-                </div>
-            </div>
-            
-            <div style="background: white; padding: 2rem; border-radius: 1rem; margin-top: 2rem; border-left: 4px solid #10b981;">
-                <h3>🎯 Implementation Example for Claude Code</h3>
+            <div style="background: rgba(16, 185, 129, 0.1); padding: 2rem; border-radius: 1rem; border-left: 4px solid var(--accent-color); margin-top: 3rem;">
+                <h3>💡 Profile Generation Example</h3>
                 <div class="code-block">
-                    <pre><code>// 1. Create campaign.yaml based on project analysis
-const campaignConfig = {
-  name: projectName,
-  concept: projectDescription,
-  platforms: determinePlatforms(projectType),
-  content: {
-    style: 'professional',
-    language: 'en'
-  },
-  notifications: {
-    enabled: true,
-    auto_apply: false  // Set to true for full automation
-  }
-};
+<pre># campaign.yaml
+name: "MyAwesomeApp"
+description: "Revolutionary productivity tool"
+urls:
+  main: "https://myapp.com"
+  github: "https://github.com/user/myapp"
+  docs: "https://docs.myapp.com"
 
-// 2. Create .env.aetherpost template
-const envTemplate = `OPENAI_API_KEY=\${OPENAI_API_KEY}
-TWITTER_API_KEY=\${TWITTER_API_KEY}
-TWITTER_API_SECRET=\${TWITTER_API_SECRET}
-// ... other required keys`;
+# Generated Twitter Profile:
+Display Name: MyAwesomeApp 🚀
+Bio: 👋 Building MyAwesomeApp! Revolutionary productivity tool for developers. Join me!
+Website: https://myapp.com
+Characters: 98/160</pre>
+                </div>
+                <p><strong>✅ Your app name, ✅ Your URLs, ✅ Your content, ❌ No AetherPost branding</strong></p>
+            </div>
+        </div>
+    </section>
 
-// 3. User adds API keys to .env.aetherpost
+    <section id="platforms" class="platforms">
+        <div class="container">
+            <h2>🌐 Platform Support</h2>
+            <div class="platform-grid">
+                <div class="platform-card">
+                    <div class="platform-icon">🐦</div>
+                    <h3>Twitter</h3>
+                    <p>160-character optimized tweets with engagement features</p>
+                    <small>Requires paid API plan ($100/month)</small>
+                </div>
 
-// 4. Auto-initialize
-exec('aetherpost init');  // No prompts, instant setup
+                <div class="platform-card">
+                    <div class="platform-icon">🦋</div>
+                    <h3>Bluesky</h3>
+                    <p>Decentralized social media with 256-character limit</p>
+                    <small>✅ Free API access</small>
+                </div>
 
-// 5. Execute campaign
-exec('aetherpost plan && aetherpost apply');</code></pre>
+                <div class="platform-card">
+                    <div class="platform-icon">📸</div>
+                    <h3>Instagram</h3>
+                    <p>Visual content optimization and profile management</p>
+                    <small>Business account required</small>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">👩‍💻</div>
+                    <h3>GitHub</h3>
+                    <p>Developer-focused profile and README generation</p>
+                    <small>✅ Free API access</small>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">💼</div>
+                    <h3>LinkedIn</h3>
+                    <p>Professional networking profile optimization</p>
+                    <small>Business API access</small>
+                </div>
+
+                <div class="platform-card">
+                    <div class="platform-icon">📺</div>
+                    <h3>YouTube</h3>
+                    <p>Channel optimization and content strategy</p>
+                    <small>✅ Free quota available</small>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="api-requirements">
+    <section id="features" style="padding: 4rem 0; background: var(--background-light);">
         <div class="container">
-            <h2>🔑 API Requirements & Setup Levels</h2>
-            
-            <p class="section-subtitle">
-                <strong>Choose your own adventure!</strong> AetherPost supports any combination of platforms. 
-                Start with just Bluesky (free), add Reddit for developer communities, then expand to YouTube, Instagram, or Twitter (paid) when ready. 
-                The interactive <code>aetherpost init</code> will guide you through the process.
-            </p>
-            
-            <div class="setup-levels">
-                <div class="level-card starter">
-                    <div class="level-header">
-                        <h3>🚀 Starter Level</h3>
-                        <span class="level-badge">Recommended for beginners</span>
-                    </div>
-                    <div class="level-content">
-                        <h4>Required APIs:</h4>
-                        <ul>
-                            <li><strong>OpenAI API</strong> - AI content generation ($0.002-0.06/1K tokens)</li>
-                            <li><strong>Twitter API v2</strong> - Tweet posting (Free tier + $100/month high volume)</li>
-                        </ul>
-                        <h4>Setup Time:</h4>
-                        <p>~10 minutes</p>
-                        <h4>Perfect for:</h4>
-                        <p>Personal projects, quick announcements, basic automation</p>
-                    </div>
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 3rem;">🚀 Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>🤖 AI-Powered Content</h3>
+                    <p>GPT-powered content generation with platform-specific optimization and intelligent hashtag selection.</p>
                 </div>
 
-                <div class="level-card recommended">
-                    <div class="level-header">
-                        <h3>⭐ Recommended Level</h3>
-                        <span class="level-badge">Best value</span>
-                    </div>
-                    <div class="level-content">
-                        <h4>Required APIs:</h4>
-                        <ul>
-                            <li><strong>OpenAI API</strong> - AI content generation</li>
-                            <li><strong>Twitter API v2</strong> - Tweet posting</li>
-                            <li><strong>Reddit API</strong> - Subreddit posting (Free, 60 req/min)</li>
-                        </ul>
-                        <h4>Optional:</h4>
-                        <ul>
-                            <li><strong>Slack Webhook</strong> - Preview notifications (Free)</li>
-                        </ul>
-                        <h4>Setup Time:</h4>
-                        <p>~20 minutes</p>
-                        <h4>Perfect for:</h4>
-                        <p>OSS projects, developer tools, startup launches. <strong>Most popular choice</strong> - covers the largest developer audience with minimal cost.</p>
-                    </div>
+                <div class="feature-card">
+                    <h3>🎯 Terraform Workflow</h3>
+                    <p>Familiar init, plan, apply, destroy commands for infrastructure-as-code approach to social media.</p>
                 </div>
 
-                <div class="level-card advanced">
-                    <div class="level-header">
-                        <h3>🎯 Advanced Level</h3>
-                        <span class="level-badge">Multi-platform</span>
-                    </div>
-                    <div class="level-content">
-                        <h4>Required APIs:</h4>
-                        <ul>
-                            <li><strong>OpenAI API</strong> - AI content generation</li>
-                            <li><strong>Twitter API v2</strong> - Tweet posting</li>
-                            <li><strong>Reddit API</strong> - Subreddit posting</li>
-                            <li><strong>YouTube Data API v3</strong> - Video management (Free quota)</li>
-                        </ul>
-                        <h4>Optional:</h4>
-                        <ul>
-                            <li><strong>Slack/LINE</strong> - Preview notifications</li>
-                        </ul>
-                        <h4>Setup Time:</h4>
-                        <p>~30 minutes</p>
-                        <h4>Perfect for:</h4>
-                        <p>Content creators, comprehensive campaigns, brand building</p>
-                    </div>
+                <div class="feature-card">
+                    <h3>📋 Preview Before Deploy</h3>
+                    <p>See exactly what will be posted with comprehensive preview functionality.</p>
                 </div>
 
-                <div class="level-card complete">
-                    <div class="level-header">
-                        <h3>🌟 Complete Level</h3>
-                        <span class="level-badge">Full power</span>
-                    </div>
-                    <div class="level-content">
-                        <h4>Required APIs:</h4>
-                        <ul>
-                            <li><strong>All previous APIs</strong> +</li>
-                            <li><strong>Bluesky API</strong> - Decentralized social posting (Free)</li>
-                            <li><strong>Instagram Graph API</strong> - Business account photo/reel/carousel posting (Free, rate limited)</li>
-                        </ul>
-                        <h4>Optional:</h4>
-                        <ul>
-                            <li><strong>All notification services</strong></li>
-                            <li><strong>Advanced analytics</strong></li>
-                        </ul>
-                        <h4>Setup Time:</h4>
-                        <p>~45 minutes</p>
-                        <h4>Perfect for:</h4>
-                        <p>Enterprise use, maximum reach, professional campaigns</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="setup-help">
-                <h3>🛠️ Interactive Setup</h3>
-                <p>Don't worry about setting everything up manually! Run <code>aetherpost init</code> and it will:</p>
-                <ul class="setup-benefits">
-                    <li>✅ Guide you through API key collection step-by-step</li>
-                    <li>✅ Recommend the best setup level for your needs</li>
-                    <li>✅ Provide direct links to API setup pages</li>
-                    <li>✅ Validate your API keys automatically</li>
-                    <li>✅ Save everything securely to <code>.env.aetherpost</code></li>
-                    <li>✅ Allow you to start simple and expand later</li>
-                </ul>
-                
-                <div class="cost-summary">
-                    <h4>💰 Typical Monthly Costs</h4>
-                    <div class="cost-breakdown">
-                        <span class="cost-item"><strong>Starter:</strong> $5-15/month (OpenAI + Bluesky)</span>
-                        <span class="cost-item"><strong>Recommended:</strong> $5-15/month (Reddit is free!)</span>
-                        <span class="cost-item"><strong>Advanced:</strong> $10-25/month (+ YouTube quota)</span>
-                        <span class="cost-item"><strong>Complete:</strong> $10-25/month (Bluesky & Instagram are free!)</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="api-setup-guide" style="background: #f8f9fa; padding: 60px 0;">
-        <div class="container">
-            <h2>🔧 Detailed API Setup Guide</h2>
-            <p class="section-subtitle">
-                Step-by-step instructions for setting up each platform. Bookmark this section for reference during setup.
-            </p>
-            
-            <div class="api-guide-grid">
-                <div class="api-guide-card">
-                    <div class="api-guide-header">
-                        <h3><i class="fas fa-robot"></i> OpenAI API (Required)</h3>
-                        <span class="difficulty easy">Easy • 5 minutes</span>
-                    </div>
-                    <div class="api-guide-content">
-                        <h4>What you need:</h4>
-                        <ul>
-                            <li><strong>OPENAI_API_KEY</strong> - Your OpenAI API key</li>
-                        </ul>
-                        <h4>Setup steps:</h4>
-                        <ol>
-                            <li>Visit <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI API Keys</a></li>
-                            <li>Sign up or log in to your OpenAI account</li>
-                            <li>Click "Create new secret key"</li>
-                            <li>Copy the key (starts with <code>sk-proj-</code>)</li>
-                            <li>Add to .env.aetherpost: <code>OPENAI_API_KEY=sk-proj-your-key</code></li>
-                        </ol>
-                        <div class="cost-note">💰 <strong>Cost:</strong> $0.002-0.06 per 1K tokens (~$5-15/month typical usage)</div>
-                    </div>
+                <div class="feature-card">
+                    <h3>⚡ Developer-Friendly</h3>
+                    <p>CLI-first design with YAML configuration, environment variables, and robust error handling.</p>
                 </div>
 
-                <div class="api-guide-card">
-                    <div class="api-guide-header">
-                        <h3><i class="fab fa-twitter"></i> Twitter API v2</h3>
-                        <span class="difficulty medium">Medium • 15 minutes</span>
-                    </div>
-                    <div class="api-guide-content">
-                        <h4>What you need:</h4>
-                        <ul>
-                            <li><strong>TWITTER_API_KEY</strong> - Consumer API Key</li>
-                            <li><strong>TWITTER_API_SECRET</strong> - Consumer API Secret</li>
-                            <li><strong>TWITTER_ACCESS_TOKEN</strong> - Access Token</li>
-                            <li><strong>TWITTER_ACCESS_TOKEN_SECRET</strong> - Access Token Secret</li>
-                        </ul>
-                        <h4>Setup steps:</h4>
-                        <ol>
-                            <li>Visit <a href="https://developer.twitter.com/en/portal" target="_blank">Twitter Developer Portal</a></li>
-                            <li>Apply for Twitter Developer Account</li>
-                            <li>Create a new App in your Developer Portal</li>
-                            <li>Generate API Keys & Tokens</li>
-                            <li>Set App permissions to "Read and Write"</li>
-                            <li>Add all 4 keys to .env.aetherpost</li>
-                        </ol>
-                        <div class="cost-note">💰 <strong>Cost:</strong> Free tier + $100/month for high volume (15,000 tweets/month free)</div>
-                    </div>
+                <div class="feature-card">
+                    <h3>🔒 Type Safe</h3>
+                    <p>95% type coverage with comprehensive type hints and structured error responses.</p>
                 </div>
 
-                <div class="api-guide-card">
-                    <div class="api-guide-header">
-                        <h3><i class="fab fa-reddit"></i> Reddit API</h3>
-                        <span class="difficulty easy">Easy • 10 minutes</span>
-                    </div>
-                    <div class="api-guide-content">
-                        <h4>What you need:</h4>
-                        <ul>
-                            <li><strong>REDDIT_CLIENT_ID</strong> - App ID</li>
-                            <li><strong>REDDIT_CLIENT_SECRET</strong> - App Secret</li>
-                            <li><strong>REDDIT_USERNAME</strong> - Your Reddit username</li>
-                            <li><strong>REDDIT_PASSWORD</strong> - Your Reddit password</li>
-                        </ul>
-                        <h4>Setup steps:</h4>
-                        <ol>
-                            <li>Visit <a href="https://www.reddit.com/prefs/apps" target="_blank">Reddit App Preferences</a></li>
-                            <li>Click "Create App" or "Create Another App"</li>
-                            <li>Choose "script" type</li>
-                            <li>Fill in name, description, redirect URI (can be http://localhost)</li>
-                            <li>Note the Client ID (under app name) and Secret</li>
-                            <li>Add credentials to .env.aetherpost</li>
-                        </ol>
-                        <div class="cost-note">💰 <strong>Cost:</strong> Free! (60 requests per minute limit)</div>
-                    </div>
-                </div>
-
-                <div class="api-guide-card">
-                    <div class="api-guide-header">
-                        <h3><i class="fab fa-youtube"></i> YouTube Data API v3</h3>
-                        <span class="difficulty hard">Advanced • 20 minutes</span>
-                    </div>
-                    <div class="api-guide-content">
-                        <h4>What you need:</h4>
-                        <ul>
-                            <li><strong>YOUTUBE_CLIENT_ID</strong> - OAuth2 Client ID</li>
-                            <li><strong>YOUTUBE_CLIENT_SECRET</strong> - OAuth2 Client Secret</li>
-                        </ul>
-                        <h4>Setup steps:</h4>
-                        <ol>
-                            <li>Visit <a href="https://console.cloud.google.com/apis" target="_blank">Google Cloud Console</a></li>
-                            <li>Create a new project or select existing</li>
-                            <li>Enable YouTube Data API v3</li>
-                            <li>Go to Credentials → Create Credentials → OAuth 2.0 Client ID</li>
-                            <li>Configure OAuth consent screen (external)</li>
-                            <li>Download credentials JSON file</li>
-                            <li>Extract client_id and client_secret from JSON</li>
-                        </ol>
-                        <div class="cost-note">💰 <strong>Cost:</strong> Free quota (10,000 units/day) + $0.002 per 100 units after</div>
-                    </div>
-                </div>
-
-                <div class="api-guide-card">
-                    <div class="api-guide-header">
-                        <h3><i class="fas fa-cloud"></i> Bluesky AT Protocol</h3>
-                        <span class="difficulty easy">Easy • 5 minutes</span>
-                    </div>
-                    <div class="api-guide-content">
-                        <h4>What you need:</h4>
-                        <ul>
-                            <li><strong>BLUESKY_HANDLE</strong> - Your handle (e.g., username.bsky.social)</li>
-                            <li><strong>BLUESKY_PASSWORD</strong> - App password (not main password)</li>
-                        </ul>
-                        <h4>Setup steps:</h4>
-                        <ol>
-                            <li>Sign up at <a href="https://bsky.app" target="_blank">Bluesky</a> if you haven't</li>
-                            <li>Go to Settings → Privacy and Security</li>
-                            <li>Scroll to "App Passwords"</li>
-                            <li>Click "Add App Password"</li>
-                            <li>Give it a name (e.g., "AetherPost")</li>
-                            <li>Copy the generated password</li>
-                            <li>Use your full handle (username.bsky.social) and app password</li>
-                        </ol>
-                        <div class="cost-note">💰 <strong>Cost:</strong> Free! Decentralized social network</div>
-                    </div>
-                </div>
-
-                <div class="api-guide-card">
-                    <div class="api-guide-header">
-                        <h3><i class="fab fa-instagram"></i> Instagram Graph API</h3>
-                        <span class="difficulty hard">Advanced • 30 minutes</span>
-                    </div>
-                    <div class="api-guide-content">
-                        <h4>What you need:</h4>
-                        <ul>
-                            <li><strong>INSTAGRAM_ACCESS_TOKEN</strong> - Long-lived access token</li>
-                            <li><strong>INSTAGRAM_BUSINESS_ACCOUNT_ID</strong> - Business account ID</li>
-                        </ul>
-                        <h4>Setup steps:</h4>
-                        <ol>
-                            <li>Convert your Instagram account to Business/Creator</li>
-                            <li>Connect to a Facebook Page</li>
-                            <li>Visit <a href="https://developers.facebook.com" target="_blank">Facebook for Developers</a></li>
-                            <li>Create a Meta App</li>
-                            <li>Add Instagram Graph API product</li>
-                            <li>Get Page Access Token</li>
-                            <li>Exchange for long-lived token</li>
-                            <li>Get Instagram Business Account ID</li>
-                        </ol>
-                        <div class="cost-note">💰 <strong>Cost:</strong> Free (rate limited, business account required)</div>
-                        <div class="warning-note">⚠️ <strong>Note:</strong> Requires Instagram Business/Creator account and Facebook Page connection</div>
-                    </div>
-                </div>
-
-                <div class="api-guide-card">
-                    <div class="api-guide-header">
-                        <h3><i class="fas fa-bell"></i> Notifications (Optional)</h3>
-                        <span class="difficulty easy">Easy • 5 minutes each</span>
-                    </div>
-                    <div class="api-guide-content">
-                        <h4>Slack Webhook:</h4>
-                        <ol>
-                            <li>Go to your Slack workspace settings</li>
-                            <li>Create a new Slack App</li>
-                            <li>Enable Incoming Webhooks</li>
-                            <li>Create a webhook for your channel</li>
-                            <li>Copy the webhook URL</li>
-                        </ol>
-                        <h4>LINE Notify:</h4>
-                        <ol>
-                            <li>Visit <a href="https://notify-bot.line.me" target="_blank">LINE Notify</a></li>
-                            <li>Log in with your LINE account</li>
-                            <li>Generate a token for your target chat/group</li>
-                            <li>Copy the token</li>
-                        </ol>
-                        <div class="cost-note">💰 <strong>Cost:</strong> Both free!</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="setup-tips">
-                <h3>🎯 Setup Tips</h3>
-                <div class="tips-grid">
-                    <div class="tip-card">
-                        <h4>Start Small</h4>
-                        <p>Begin with OpenAI + Twitter. Get comfortable with the workflow, then add Reddit, then expand to other platforms.</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4>Test Each Platform</h4>
-                        <p>After adding API keys, use <code>aetherpost plan</code> to verify each platform is working before going live.</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4>Secure Your Keys</h4>
-                        <p>Never commit .env.aetherpost to Git. Add it to .gitignore immediately. Treat API keys like passwords.</p>
-                    </div>
-                    <div class="tip-card">
-                        <h4>Rate Limits</h4>
-                        <p>Each platform has rate limits. AetherPost handles this automatically, but be aware for high-volume usage.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="examples-showcase">
-        <div class="container">
-            <h2>Real-World Examples</h2>
-            
-            <div class="example-tabs">
-                <div class="tab-headers">
-                    <button class="tab-header active" data-tab="self-promo">Simple Start</button>
-                    <button class="tab-header" data-tab="full-power">5-Platform Power</button>
-                    <button class="tab-header" data-tab="startup">Startup Launch</button>
-                    <button class="tab-header" data-tab="oss">OSS Release</button>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="self-promo">
-                        <div class="example-showcase">
-                            <div class="example-code">
-                                <h4>simple-start.yaml</h4>
-                                <div class="code-block">
-                                    <pre><code class="language-yaml">name: "simple-start"
-concept: "Developer-friendly social media automation platform"
-platforms: [twitter, reddit]  # Perfect starter combo
-
-content:
-  style: casual
-  action: "Try it free!"
-  hashtags: ["#OpenSource", "#SocialMediaAutomation", "#Developer"]
-
-promotion_themes:
-  - "🚀 Open source social media automation for developers"
-  - "🤖 AI-powered content generation with OpenAI integration"
-  - "📱 Multi-platform posting: Twitter, Reddit, YouTube, Bluesky, Instagram"
-  - "⚡ Simple CLI interface - no complex dashboards needed"
-
-reddit_strategy:
-  target_subreddits: ["programming", "Python", "opensource", "DevTools"]
-  content_approach: "Focus on technical implementation details"</code></pre>
-                                </div>
-                            </div>
-                            <div class="example-result">
-                                <h4>AI-Generated Results</h4>
-                                <div class="social-preview twitter">
-                                    <div class="social-header">
-                                        <i class="fab fa-twitter"></i> Twitter
-                                    </div>
-                                    <p>🚀 Starting simple with Twitter and Reddit! Perfect combo for developer tools - quick reach + community engagement. #OpenSource #SocialMediaAutomation</p>
-                                </div>
-                                <div class="social-preview reddit">
-                                    <div class="social-header">
-                                        <i class="fab fa-reddit"></i> Reddit
-                                    </div>
-                                    <p><strong>r/programming:</strong> Excited to announce our new feature that allows you to easily share your content across multiple platforms with just one click! Technical deep-dive in comments.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="full-power">
-                        <div class="example-showcase">
-                            <div class="example-code">
-                                <h4>full-platform-power.yaml</h4>
-                                <div class="code-block">
-                                    <pre><code class="language-yaml">name: "Maximum Reach Campaign"
-concept: "AI-powered productivity suite for modern teams"
-platforms: [twitter, reddit, youtube, bluesky, instagram]  # All 5!
-
-content:
-  style: professional
-  action: "Experience the future of work!"
-  hashtags: ["#AI", "#Productivity", "#TeamWork", "#Innovation"]
-
-platform_optimization:
-  twitter: "Quick announcements & updates"
-  reddit: "Technical discussions & community building" 
-  youtube: "Product demos & tutorials"
-  bluesky: "Decentralized community engagement"
-  instagram: "Visual brand storytelling"</code></pre>
-                                </div>
-                            </div>
-                            <div class="example-result">
-                                <h4>5-Platform Synchronized Launch</h4>
-                                <div class="social-preview twitter">
-                                    <div class="social-header">
-                                        <i class="fab fa-twitter"></i> Twitter
-                                    </div>
-                                    <p>🚀 Introducing the future of team productivity! Our AI suite revolutionizes how teams collaborate. Experience seamless workflow automation. #AI #Productivity</p>
-                                </div>
-                                <div class="social-preview reddit">
-                                    <div class="social-header">
-                                        <i class="fab fa-reddit"></i> Reddit
-                                    </div>
-                                    <p><strong>r/MachineLearning:</strong> Deep dive into our AI productivity architecture. Built with modern ML pipelines, real-time collaboration features, and enterprise security. Technical details and benchmarks in comments.</p>
-                                </div>
-                                <div class="social-preview" style="border-left: 4px solid #1da1f2; background: #f8f9ff;">
-                                    <div class="social-header">
-                                        <i class="fab fa-youtube"></i> YouTube
-                                    </div>
-                                    <p><strong>Video:</strong> "AI Productivity Suite Demo - 10X Your Team's Output" with automated captions, SEO optimization, and chapter markers.</p>
-                                </div>
-                                <div class="social-preview" style="border-left: 4px solid #00d4aa; background: #f0fff8;">
-                                    <div class="social-header">
-                                        <i class="fas fa-cloud"></i> Bluesky
-                                    </div>
-                                    <p>🌟 Building the future of decentralized productivity tools! Our AI suite empowers teams without vendor lock-in. Open standards, open future.</p>
-                                </div>
-                                <div class="social-preview" style="border-left: 4px solid #e4405f; background: #fff5f7;">
-                                    <div class="social-header">
-                                        <i class="fab fa-instagram"></i> Instagram
-                                    </div>
-                                    <p><strong>Visual Story:</strong> Behind-the-scenes carousel showing team productivity transformation, with professional graphics and engaging captions.</p>
-                                </div>
-                                <div style="background: #10b981; color: white; padding: 1rem; border-radius: 0.5rem; margin-top: 1rem; text-align: center;">
-                                    <strong>💡 Result: 5X wider reach across all major platforms simultaneously!</strong>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="startup">
-                        <div class="example-showcase">
-                            <div class="example-code">
-                                <h4>startup-launch.yaml</h4>
-                                <div class="code-block">
-                                    <pre><code class="language-yaml">name: "TechStartup Launch"
-concept: "Revolutionary AI productivity platform"
-platforms: [twitter, youtube, reddit, bluesky, instagram]
-
-content:
-  style: professional
-  action: "Join the beta!"
-  ai_enhanced: true
-  hashtags: ["startup", "ai", "productivity"]
-
-schedule:
-  type: recurring
-  frequency: "daily"
-  times: ["09:00", "13:00", "18:00"]
-
-analytics: true</code></pre>
-                                </div>
-                            </div>
-                            <div class="example-result">
-                                <h4>Generated Content</h4>
-                                <div class="social-preview twitter">
-                                    <div class="social-header">
-                                        <i class="fab fa-twitter"></i> Twitter
-                                    </div>
-                                    <p>🚀 Introducing TechStartup: Revolutionary AI productivity platform that transforms how teams work. Join the beta! #startup #ai #productivity</p>
-                                </div>
-                                <div class="social-preview youtube">
-                                    <div class="social-header">
-                                        <i class="fab fa-youtube"></i> YouTube
-                                    </div>
-                                    <p><strong>Video Concept:</strong> "Revolutionary AI Productivity Platform Demo - Transform Your Workflow" with automated description and tags</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="tab-pane" id="oss">
-                        <div class="example-showcase">
-                            <div class="example-code">
-                                <h4>oss-release.yaml</h4>
-                                <div class="code-block">
-                                    <pre><code class="language-yaml">name: "MyLibrary v2.0"
-concept: "Open source library for developers"
-platforms: [twitter, reddit, youtube, bluesky, instagram]
-
-content:
-  style: technical
-  action: "Check it out on GitHub!"
-  hashtags: ["opensource", "developer", "library"]
-
-github:
-  repository: "myuser/mylibrary"
-  release_tag: "v2.0.0"
-
-template: "oss-release"</code></pre>
-                                </div>
-                            </div>
-                            <div class="example-result">
-                                <h4>Generated Content</h4>
-                                <div class="social-preview reddit">
-                                    <div class="social-header">
-                                        <i class="fab fa-reddit"></i> Reddit
-                                    </div>
-                                    <p><strong>r/opensource:</strong> Released MyLibrary v2.0 with significant improvements for developers. Open source library now supports advanced features. Contributions welcome!</p>
-                                </div>
-                                <div class="social-preview youtube">
-                                    <div class="social-header">
-                                        <i class="fab fa-youtube"></i> YouTube
-                                    </div>
-                                    <p><strong>Video Concept:</strong> "MyLibrary v2.0 Release Demo - Advanced Features & Performance Improvements" with automated description and tags</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="getting-involved">
-        <div class="container">
-            <h2>Join the Community</h2>
-            
-            <div class="community-grid">
-                <div class="community-card">
-                    <div class="community-icon">
-                        <i class="fab fa-github"></i>
-                    </div>
-                    <h3>Contribute Code</h3>
-                    <p>Help build the future of AI-powered social media automation. All skill levels welcome!</p>
-                    <div class="community-links">
-                        <a href="https://github.com/fununnn/aetherpost/issues/labels/good%20first%20issue">Good First Issues</a>
-                        <a href="guides/contributing.html">Contributing Guide</a>
-                    </div>
-                </div>
-
-                <div class="community-card">
-                    <div class="community-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>AI Integration</h3>
-                    <p>Enhance AI capabilities, improve content generation, or integrate new AI providers.</p>
-                    <div class="community-links">
-                        <a href="guides/ai-development.html">AI Development</a>
-                        <a href="api/ai-api.html">AI API</a>
-                    </div>
-                </div>
-
-                <div class="community-card">
-                    <div class="community-icon">
-                        <i class="fas fa-share-alt"></i>
-                    </div>
-                    <h3>Platform Connectors</h3>
-                    <p>Add support for new social media platforms or improve existing integrations.</p>
-                    <div class="community-links">
-                        <a href="guides/platform-development.html">Platform Tutorial</a>
-                        <a href="api/connector-api.html">Connector API</a>
-                    </div>
-                </div>
-
-                <div class="community-card">
-                    <div class="community-icon">
-                        <i class="fas fa-magic"></i>
-                    </div>
-                    <h3>Try Live Demo</h3>
-                    <p>Test the interactive features and share your experience with the community!</p>
-                    <div class="community-links">
-                        <a href="#demo">Live Demo</a>
-                        <a href="https://github.com/fununnn/aetherpost/discussions">Share Results</a>
-                    </div>
+                <div class="feature-card">
+                    <h3>🧪 100% Tested</h3>
+                    <p>Comprehensive test suite with real API validation ensuring production reliability.</p>
                 </div>
             </div>
         </div>
@@ -1073,51 +614,68 @@ template: "oss-release"</code></pre>
                 <div class="footer-section">
                     <h4>Documentation</h4>
                     <ul>
-                        <li><a href="installation.html">Installation</a></li>
+                        <li><a href="getting-started.html">Getting Started</a></li>
+                        <li><a href="profile-management.html">Profile Generation</a></li>
+                        <li><a href="api-reference.html">API Reference</a></li>
                         <li><a href="configuration.html">Configuration</a></li>
-                        <li><a href="guides/ai-integration.html">AI Integration</a></li>
-                        <li><a href="api/">API Documentation</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Features</h4>
                     <ul>
-                        <li><a href="guides/platforms.html">Platform Setup</a></li>
-                        <li><a href="#demo">Live Demo</a></li>
-                        <li><a href="guides/automation.html">Automation</a></li>
-                        <li><a href="guides/testing.html">Testing</a></li>
+                        <li><a href="#platforms">Platform Support</a></li>
+                        <li><a href="#quickstart">Quick Start</a></li>
+                        <li><a href="installation.html">Installation</a></li>
+                        <li><a href="developer-onboarding.html">Development</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Community</h4>
                     <ul>
                         <li><a href="https://github.com/fununnn/aetherpost">GitHub</a></li>
-                        <li><a href="https://github.com/fununnn/aetherpost/discussions">Discussions</a></li>
+                        <li><a href="https://github.com/fununnn/aetherpost/issues">Issues</a></li>
                         <li><a href="contributing.html">Contributing</a></li>
-                        <li><a href="https://github.com/fununnn/aetherpost/issues">Report Issues</a></li>
+                        <li><a href="https://github.com/fununnn/aetherpost/discussions">Discussions</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>About</h4>
                     <ul>
-                        <li><a href="https://github.com/fununnn/aetherpost/blob/main/LICENSE">License (MIT)</a></li>
-                        <li><a href="FINAL_FUNCTIONALITY_REPORT.html">Test Report</a></li>
-                        <li><a href="REFACTORING_SUMMARY.html">Refactoring</a></li>
-                        <li><a href="guides/security.html">Security</a></li>
+                        <li><a href="https://github.com/fununnn/aetherpost/blob/main/LICENSE">MIT License</a></li>
+                        <li><a href="#quickstart">Latest: v1.7.1</a></li>
+                        <li><a href="https://pypi.org/project/aetherpost/">PyPI Package</a></li>
+                        <li><a href="https://aether-post.com">Documentation</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 AetherPost v1.4.0. Released under the MIT License.</p>
-                <p>Built with ❤️ by the open source community. Powered by OpenAI.</p>
-                <p><strong>Meta Achievement:</strong> This documentation site is promoted using AetherPost itself! 🎭</p>
+                <p>&copy; 2025 AetherPost v1.7.1. Released under the MIT License.</p>
+                <p>Social media automation for developers. Built with ❤️ by the open source community.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-    <script src="js/main.js"></script>
+    <script>
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(function() {
+                // Could add visual feedback here
+                console.log('Copied to clipboard: ' + text);
+            });
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
