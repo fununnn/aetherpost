@@ -1,0 +1,32 @@
+# AetherPost Live Test Campaign
+name: "AetherPost"
+concept: "AI-Powered Social Media Automation for Developers"
+description: "The ultimate social media automation tool for developers. Transform your app promotion with intelligent content generation and multi-platform posting."
+
+urls:
+  main: "https://aether-post.com"
+  github: "https://github.com/fununnn/aetherpost"
+  docs: "https://aether-post.com/docs"
+
+target_audience: "Developers, Tech Entrepreneurs, Open Source Contributors"
+key_features:
+  - "Multi-platform posting (Twitter, Bluesky, Instagram)"
+  - "AI-powered content generation"
+  - "Profile optimization"
+  - "Campaign automation"
+  - "Natural language integration"
+
+goals:
+  - "Increase developer adoption"
+  - "Build community around automation tools"
+  - "Showcase natural profile generation"
+  - "Demonstrate real-world usage"
+
+platforms:
+  - twitter
+  - bluesky
+
+content:
+  style: friendly
+  action: Check it out!
+  language: en

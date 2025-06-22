@@ -27,7 +27,7 @@ core_requirements = [req for req in requirements if not any(
 
 setup(
     name="aetherpost",
-    version="1.6.0",
+    version="1.7.1",
     description="Promotion as Code - Automate your app promotion across social media platforms",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -53,7 +53,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "aetherpost=aetherpost.cli.main:app",
+            "aetherpost=aetherpost_source.cli.main:app",
         ],
     },
     classifiers=[
