@@ -1,0 +1,19 @@
+{
+  "session_id": "review_20250622_211024",
+  "campaign_name": "AetherPost",
+  "created_at": "2025-06-22T21:10:24.804775",
+  "auto_approve": true,
+  "reviewer_notes": "",
+  "items": [
+    {
+      "platform": "bluesky",
+      "content_type": "promotional",
+      "text": "[ERROR] Failed to generate content: 'title'",
+      "hashtags": [],
+      "media_requirements": {
+        "required": false
+      },
+      "metadata": {
+        "error": "'title'",
+        "context": {
+          "campaign_config": 

@@ -1,0 +1,27 @@
+{
+  "session_id": "review_20250623_045605",
+  "campaign_name": "AetherPost",
+  "created_at": "2025-06-23T04:56:05.199941",
+  "auto_approve": false,
+  "reviewer_notes": "",
+  "items": [
+    {
+      "platform": "bluesky",
+      "content_type": "promotional",
+      "text": "🚀 New Update Available\n\nWe've made improvements to AetherPost\n\nCheck it out!",
+      "hashtags": [
+        "#AetherPost",
+        "#DevTools",
+        "#Launch"
+      ],
+      "media_requirements": {
+        "required": false,
+        "type": "optional",
+        "style": "generic_branded"
+      },
+      "metadata": {
+        "tone": "excited_professional",
+        "optimal_time": "09:00,13:00,18:00",
+        "schedule_recommendation": null,
+        "context": {
+          "campaign_config": 

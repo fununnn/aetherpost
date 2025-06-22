@@ -21,5 +21,5 @@ limits:
   free_tier: true
   max_posts_per_day: 50
 notifications:
-  enabled: true
+  enabled: false
   auto_apply: false
