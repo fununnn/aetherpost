@@ -7,6 +7,184 @@
     <meta name="description" content="Quick start guide for AetherPost">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+    <style>
+        /* Mobile-First Responsive Design for Getting Started */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem !important;
+            }
+            
+            .doc-page {
+                padding: 0 !important;
+                overflow-x: hidden;
+            }
+            
+            h1, h2, h3, h4 {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            h1 {
+                font-size: 1.75rem !important;
+                line-height: 1.2 !important;
+            }
+            
+            h2 {
+                font-size: 1.4rem !important;
+                margin: 1.5rem 0 1rem 0 !important;
+            }
+            
+            h3 {
+                font-size: 1.2rem !important;
+                margin: 1rem 0 0.75rem 0 !important;
+            }
+            
+            h4 {
+                font-size: 1.1rem !important;
+                margin: 0.75rem 0 0.5rem 0 !important;
+            }
+            
+            /* Code blocks critical fix */
+            pre {
+                font-size: 0.7rem !important;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                white-space: pre;
+                word-wrap: normal;
+                max-width: calc(100vw - 2rem);
+                margin: 0.5rem -1rem !important;
+                padding: 0.75rem 1rem !important;
+                border-radius: 0 !important;
+            }
+            
+            code {
+                font-size: 0.75rem !important;
+                word-break: break-all;
+                overflow-wrap: break-word;
+                white-space: pre-wrap;
+            }
+            
+            /* Table responsiveness */
+            table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                white-space: nowrap;
+                font-size: 0.8rem !important;
+                margin: 0.5rem -1rem !important;
+                width: calc(100vw - 1rem);
+            }
+            
+            th, td {
+                padding: 0.4rem !important;
+                font-size: 0.75rem !important;
+                white-space: nowrap;
+            }
+            
+            /* List optimization */
+            ul, ol {
+                padding-left: 1.2rem !important;
+            }
+            
+            li {
+                font-size: 0.9rem !important;
+                line-height: 1.4 !important;
+                margin-bottom: 0.4rem !important;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            /* Paragraph optimization */
+            p {
+                font-size: 0.9rem !important;
+                line-height: 1.5 !important;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                margin-bottom: 1rem !important;
+            }
+            
+            /* Badge and link optimization */
+            a {
+                word-break: break-all;
+                overflow-wrap: break-word;
+            }
+            
+            strong, em {
+                word-break: break-word;
+                overflow-wrap: break-word;
+            }
+            
+            /* Background div optimization */
+            div[style*="background:"] {
+                padding: 0.75rem !important;
+                margin: 0.75rem -1rem !important;
+                border-radius: 0.5rem !important;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem !important;
+            }
+            
+            h1 {
+                font-size: 1.5rem !important;
+            }
+            
+            h2 {
+                font-size: 1.25rem !important;
+            }
+            
+            h3 {
+                font-size: 1.1rem !important;
+            }
+            
+            h4 {
+                font-size: 1rem !important;
+            }
+            
+            pre {
+                font-size: 0.6rem !important;
+                margin: 0.5rem -0.5rem !important;
+                padding: 0.5rem !important;
+                max-width: calc(100vw - 1rem);
+            }
+            
+            code {
+                font-size: 0.65rem !important;
+            }
+            
+            table {
+                font-size: 0.7rem !important;
+                margin: 0.5rem -0.5rem !important;
+                width: calc(100vw - 0.5rem);
+            }
+            
+            th, td {
+                padding: 0.3rem !important;
+                font-size: 0.65rem !important;
+            }
+            
+            li, p {
+                font-size: 0.85rem !important;
+            }
+            
+            div[style*="background:"] {
+                padding: 0.5rem !important;
+                margin: 0.5rem -0.5rem !important;
+                border-radius: 0 !important;
+            }
+            
+            /* Force all text to wrap properly */
+            * {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+                hyphens: auto;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <header class="header">
