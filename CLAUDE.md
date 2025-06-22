@@ -439,12 +439,14 @@ INSTAGRAM_ENABLED=false
 
 ## 🎯 開発優先順位
 
-### v1.x系 (現在)
-- [x] 基本3コマンドワークフロー
-- [x] 5プラットフォーム対応
-- [x] プロフィール自動生成
-- [ ] アイコン自動生成・設定
-- [ ] 継続投稿システム
+### v1.x系 (現在) - 実装完了
+- [x] 基本3コマンドワークフロー (init/plan/apply)
+- [x] 5プラットフォーム対応 (Twitter, Bluesky, Instagram, LinkedIn, YouTube)
+- [x] プロフィール自動生成・更新
+- [x] **AI画像アイコン自動生成・設定** ✨
+- [x] アイコン永続化・再利用機能
+- [x] 継続投稿システム
+- [x] profileコマンドによる個別修正機能
 
 ### v2.x系 (次期)
 - [ ] Web UIダッシュボード
@@ -477,13 +479,147 @@ aetherpost plan
 
 aetherpost apply  
 # └── campaign.yaml 読み込み
-#     └── 実際の投稿・プロフィール更新実行
+#     ├── Step 1: プロフィール・アイコン更新
+#     │   ├── AI画像アイコン生成 (OpenAI DALL-E API)
+#     │   ├── アイコンを avatar.png として保存
+#     │   ├── プロフィール文生成・更新
+#     │   └── 全プラットフォームに適用
+#     └── Step 2: 投稿コンテンツ生成・実行
 ```
 
 ### 設定ファイルの役割
 - **campaign.yaml**: initで生成される中心設定ファイル
 - **.env.aetherpost**: API認証情報（機密情報）
+- **avatar.png**: AI生成アイコン（全プラットフォーム共通）
 - **plan/apply**: 常にcampaign.yamlを参照
+
+## 🎨 AI画像アイコン自動生成機能
+
+### 実装済みワークフロー
+```bash
+# ユーザーが行う作業（3コマンドのみ）
+aetherpost init     # campaign.yaml生成
+aetherpost plan     # 投稿内容プレビュー
+aetherpost apply    # ①アイコン生成→②プロフィール更新→③投稿実行
+```
+
+### アイコン生成・管理機能
+
+#### 1. 自動AI画像生成
+- **OpenAI DALL-E 3 API** を使用した高品質ロゴ生成
+- `campaign.yaml`の name + description からプロンプト自動生成
+- プロフェッショナルなロゴデザインに最適化されたプロンプト
+
+#### 2. アイコン永続化・再利用
+```bash
+avatar.png          # プロジェクトディレクトリに自動保存
+├── 初回生成時: AI画像として生成・保存
+├── 2回目以降: 既存ファイルを自動読み込み・再利用
+└── 全プラットフォーム共通: 同じアイコンをすべてに適用
+```
+
+#### 3. プラットフォーム別アップロード
+- **Twitter**: API v1.1 `update_profile_image`
+- **Bluesky**: AT Protocol blob upload + profile record update
+- **その他**: 各プラットフォームAPI準拠
+
+#### 4. フォールバック機能
+```bash
+OpenAI API Key あり → DALL-E 3で高品質生成
+OpenAI API Key なし → PIL生成の"A"文字プレースホルダー
+```
+
+### プロフィール自動最適化
+
+#### プラットフォーム別最適化
+- **Twitter**: 160文字制限、両URL (website + GitHub) をbio内に埋め込み
+- **Bluesky**: 256文字制限、display_name にサイトURL、bio内にGitHubURL
+- **Instagram**: 150文字制限、ビジュアル重視のEmoji装飾
+- **LinkedIn**: 220文字制限、プロフェッショナルトーン
+- **YouTube**: 1000文字制限、チャンネル説明最適化
+
+#### プロフィール生成ルール
+```yaml
+# campaign.yamlから自動生成
+name: "AetherPost"                    → Display Name
+description: "Social media automation" → Bio生成ベース
+website_url: "https://aether-post.com" → プロフィールURL
+github_url: "https://github.com/..."   → Bio内に埋め込み
+content.style: "friendly"             → トーン調整
+```
+
+### 個別修正機能
+
+#### profileコマンドで細かい調整
+```bash
+# プロフィール生成プレビュー
+aetherpost profile generate --platform twitter
+
+# 手動でプロフィール更新
+aetherpost profile update twitter
+
+# 既存アイコンを手動アップロード
+# （手動機能は削除済み - applyで全自動化）
+```
+
+### 実装技術詳細
+
+#### AI画像生成
+```python
+# OpenAI DALL-E 3 プロンプト最適化
+prompt = f"Professional logo design for {name}: {description}. 
+Clean, minimal, modern style. High contrast, suitable for 
+social media avatar. Square format, simple geometric shapes, 
+tech company aesthetic."
+
+# 1024x1024生成 → 400x400リサイズ → PNG保存
+```
+
+#### アイコン管理
+```python
+# 既存チェック → 新規生成 → 保存 → 全プラットフォーム適用
+if os.path.exists("avatar.png"):
+    return load_existing()
+else:
+    data = await generate_ai_avatar()
+    save_as_png(data)
+    return data
+```
+
+---
+
+## 🧪 実装テスト環境
+
+### aetherpost_promoフォルダでの実装テスト
+
+**目的**: AetherPostの実機能をテスト・デモンストレーション
+
+#### 実装済み機能テスト
+```bash
+cd aetherpost_promo/
+
+# 1. 設定ファイル確認
+cat campaign.yaml           # プロジェクト設定
+cat .env.aetherpost         # API認証情報
+
+# 2. ワークフロー実行
+aetherpost plan             # 投稿プレビュー
+aetherpost apply            # プロフィール更新 + 投稿実行
+
+# 3. 生成ファイル確認
+ls avatar.png              # AI生成アイコン
+cat promo.state.json       # 実行履歴
+```
+
+#### テスト結果の実証
+- **campaign.yaml**: name, description, website_url, github_url 完備
+- **avatar.png**: OpenAI DALL-E生成 (フォールバック時はPIL生成)
+- **プロフィール更新**: Twitter/Bluesky で実際に更新確認済み
+- **両URL表示**: プロフィール内にwebsite + GitHub URL両方表示
+
+#### 各実装が完了したらCLAUDE.mdのこの部分を更新する
+
+**重要**: このaetherpost_promoフォルダは実際のAetherPost機能をテストするためのものです。一般ユーザーと全く同じワークフローを使用しており、特別なコマンドは一切ありません。
 
 ---
 

@@ -1,6 +1,9 @@
 name: AetherPost
 concept: Terraform-style social media automation for developers
 url: https://aether-post.com
+github_url: https://github.com/fununnn/aetherpost
+website_url: https://aether-post.com
+description: Social media automation for developers - like Terraform for social platforms
 platforms:
   - bluesky
   - twitter
@@ -11,6 +14,9 @@ content:
   hashtags:
     - '#OpenSource'
     - '#DevTools'
+    - '#AetherPost'
+    - '#SocialMedia'
+    - '#Automation'
 limits:
   free_tier: true
   max_posts_per_day: 50
