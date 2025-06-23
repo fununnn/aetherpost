@@ -11,4 +11,4 @@ credentials.json
 # Cache
 __pycache__/
 *.pyc
-.cache/
+.cache/.pypirc

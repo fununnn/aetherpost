@@ -1,5 +1,23 @@
 # Changelog
 
+## [1.9.3] - 2025-06-23
+
+### 🔧 Bug Fixes & Security
+- **Security Updates**: Updated all dependencies to latest secure versions
+- **Vulnerability Resolution**: Fixed 4 security vulnerabilities (2 high, 2 moderate)
+- **Dependency Updates**: Updated cryptography, pydantic, openai, and other critical packages
+
+### 🚀 New Features
+- **Version Tracking System**: Implemented automatic version change detection and announcement
+- **Smart Content Generation**: Added project context-aware content generation avoiding repetition
+- **Semantic Versioning**: Full support for major.minor.patch version analysis
+- **CHANGELOG Integration**: Automatic parsing and integration of changelog entries into posts
+
+### ✨ Enhancements  
+- **Content Diversity**: Post history tracking prevents repetitive content
+- **Version-Priority Posts**: Version updates get highest priority in content generation
+- **Enhanced Hashtags**: Automatic version-specific hashtags (#VersionUpdate, #NewRelease)
+
 ## [1.8.0] - 2025-06-22
 
 ### 🚀 Major Features

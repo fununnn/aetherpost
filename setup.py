@@ -27,7 +27,7 @@ core_requirements = [req for req in requirements if not any(
 
 setup(
     name="aetherpost",
-    version="1.9.1",
+    version="1.9.3",
     description="Promotion as Code - Automate your app promotion across social media platforms",
     long_description=long_description,
     long_description_content_type="text/markdown",
