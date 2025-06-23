@@ -1,5 +1,41 @@
 # Changelog
 
+## [1.10.1] - 2025-06-23
+
+### 🐛 Bug Fixes
+- **Version Display**: Fixed version tracking display in console output
+- **Error Handling**: Improved error handling for version parsing edge cases
+- **Logging**: Enhanced debug logging for version detection process
+
+## [1.10.0] - 2025-06-23
+
+### 🚀 Major Features
+- **Project Context System**: Complete implementation of dynamic content generation
+- **Version Tracking**: Automatic version change detection and specialized announcements
+- **Security-First Design**: Comprehensive file access validation and secret scanning
+- **Content Diversity**: Post history tracking prevents repetitive content
+
+### ✨ New Capabilities
+- **Semantic Versioning**: Full major.minor.patch analysis and classification
+- **CHANGELOG Integration**: Automatic parsing of change descriptions
+- **Priority Content**: Version updates get highest priority in generation
+- **Enhanced Hashtags**: Context-aware hashtag generation
+
+### 🎯 Breaking Changes
+- **API Changes**: New project context configuration format
+- **Config Updates**: Enhanced security validation requirements
+
+## [1.9.4] - 2025-06-23
+
+### 🐛 Bug Fix
+- **Version Detection**: Improved version tracking reliability and logging
+- **Security Patterns**: Enhanced secret detection to reduce false positives
+- **Context Reading**: Better handling of project files without blocking legitimate content
+
+### ✨ Minor Enhancements
+- **Debug Logging**: Added detailed version detection logging for troubleshooting
+- **Pattern Matching**: More precise secret detection patterns
+
 ## [1.9.3] - 2025-06-23
 
 ### 🔧 Bug Fixes & Security

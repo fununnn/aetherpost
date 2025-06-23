@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "aetherpost"
-version = "1.9.3"
+version = "1.10.1"
 description = "Promotion as Code - Automate your app promotion across social media platforms"
 authors = ["AetherPost Team <team@aetherpost.dev>"]
 readme = "README.md"
