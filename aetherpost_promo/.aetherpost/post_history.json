@@ -1,0 +1,70 @@
+{
+  "records": [
+    {
+      "date": "2025-06-23",
+      "platform": "bluesky",
+      "focus": "general_announcement",
+      "keywords": [
+        "hey",
+        "everyone",
+        "excited",
+        "share",
+        "game",
+        "changer",
+        "developers",
+        "aetherpost",
+        "automate",
+        "social"
+      ],
+      "content_hash": "53abbd25",
+      "engagement_score": null
+    },
+    {
+      "date": "2025-06-23",
+      "platform": "twitter",
+      "focus": "feature_highlight",
+      "keywords": [
+        "hey",
+        "developers",
+        "introducing",
+        "aetherpost",
+        "terraform",
+        "style",
+        "social",
+        "media",
+        "automation",
+        "check"
+      ],
+      "content_hash": "603c1b7d",
+      "engagement_score": null
+    },
+    {
+      "date": "2025-06-23",
+      "platform": "bluesky",
+      "focus": "general_announcement",
+      "keywords": [],
+      "content_hash": "d41d8cd9",
+      "engagement_score": null
+    },
+    {
+      "date": "2025-06-23",
+      "platform": "twitter",
+      "focus": "feature_highlight",
+      "keywords": [
+        "hey",
+        "there",
+        "developers",
+        "introducing",
+        "aetherpost",
+        "terraform",
+        "style",
+        "social",
+        "media",
+        "automation"
+      ],
+      "content_hash": "af19afd3",
+      "engagement_score": null
+    }
+  ],
+  "last_updated": "2025-06-23T13:00:45.695441"
+}

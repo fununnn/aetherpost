@@ -1,0 +1,19 @@
+{
+  "session_id": "review_20250623_214953",
+  "campaign_name": "AetherPost",
+  "created_at": "2025-06-23T21:49:53.101274",
+  "auto_approve": false,
+  "reviewer_notes": "",
+  "items": [
+    {
+      "platform": "bluesky",
+      "content_type": "promotional",
+      "text": "[ERROR] Failed to generate content: Platform bluesky not supported",
+      "hashtags": [],
+      "media_requirements": {
+        "required": false
+      },
+      "metadata": {
+        "error": "Platform bluesky not supported",
+        "context": {
+          "campaign_config": 

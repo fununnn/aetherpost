@@ -20,6 +20,20 @@ content:
 limits:
   free_tier: true
   max_posts_per_day: 50
+context:
+  enabled: true
+  watch:
+    - "./aetherpost_source"
+    - "./README.md"
+    - "./pyproject.toml"
+    - "./CHANGELOG.md"
+  exclude:
+    - "node_modules"
+    - ".env*"
+    - "*.secret"
+    - "__pycache__"
+    - "*.pyc"
+    - ".git"
 notifications:
   enabled: false
   auto_apply: false
