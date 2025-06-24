@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AetherPost v1.7.1 - Social Media Automation for Developers</title>
+    <title>AetherPost v1.10.1 - Social Media Automation for Developers</title>
     <meta name="description" content="Terraform-style social media automation with profile generation, multi-platform support, and AI content creation. Perfect for developers promoting their apps.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
@@ -68,12 +68,15 @@
             color: var(--primary-color);
             font-size: 1.8rem;
             font-weight: 700;
+            line-height: 1.2;
         }
 
         .nav-brand .tagline {
             font-size: 0.9rem;
             color: var(--text-light);
             font-weight: 400;
+            margin: 0;
+            line-height: 1.2;
         }
 
         .nav-links {
@@ -367,7 +370,7 @@
             }
         }
 
-        .platform-card {
+        .platform-feature-card {
             background: var(--background-light);
             padding: 1.5rem;
             border-radius: 0.75rem;
@@ -375,11 +378,11 @@
             transition: transform 0.2s;
         }
 
-        .platform-card:hover {
+        .platform-feature-card:hover {
             transform: translateY(-4px);
         }
 
-        .platform-icon {
+        .platform-feature-card .platform-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
         }
@@ -444,6 +447,350 @@
             color: #94a3b8;
         }
 
+        /* Hero Animation Styles */
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+        }
+
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .floating-text {
+            position: absolute;
+            color: #64748b;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            opacity: 0;
+            animation: float-down 8s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes float-down {
+            0% {
+                transform: translateY(-100px) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(100vh) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .hero h1 {
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fade-in-up 1s ease-out;
+        }
+
+        .hero .subtitle {
+            color: #e2e8f0;
+            animation: fade-in-up 1s ease-out 0.2s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fade-in-up {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Demo Platform Container */
+        .demo-platform {
+            margin-top: 4rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            animation: fade-in 1s ease-out 1s;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Terminal Window */
+        .terminal-window {
+            background: #0f172a;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #334155;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red { background: #ef4444; }
+        .terminal-dot.yellow { background: #f59e0b; }
+        .terminal-dot.green { background: #10b981; }
+
+        .terminal-body {
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.9rem;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            min-height: 1.5rem;
+        }
+
+        .terminal-prompt {
+            color: #10b981;
+            margin-right: 0.5rem;
+        }
+
+        .terminal-command {
+            color: #e2e8f0;
+        }
+
+        .terminal-output {
+            color: #94a3b8;
+            margin-left: 1rem;
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #10b981;
+            animation: blink 1s infinite;
+            vertical-align: text-bottom;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Social Platform Demo */
+        .social-platforms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .demo-platform .platform-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .demo-platform .platform-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .platform-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .demo-platform .platform-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            font-size: 1.5rem;
+        }
+
+        .platform-name {
+            color: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .profile-section {
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s ease;
+        }
+
+        .profile-section.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .profile-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            opacity: 0;
+            transform: scale(0);
+            animation: pop-in 0.5s ease forwards;
+        }
+
+        @keyframes pop-in {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .profile-bio {
+            color: #cbd5e1;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+            opacity: 0;
+            animation: fade-in-left 0.5s ease forwards 0.3s;
+        }
+
+        @keyframes fade-in-left {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .post-stream {
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+
+        .post-stream::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .post-stream::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 2px;
+        }
+
+        .post-stream::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+        }
+
+        .post-item {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid #3b82f6;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: slide-in-post 0.5s ease forwards;
+        }
+
+        @keyframes slide-in-post {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .post-content {
+            color: #e2e8f0;
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .post-meta {
+            color: #64748b;
+            font-size: 0.75rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            animation: sparkle 2s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                transform: scale(0) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1) rotate(180deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         /* Responsive Grid Classes */
         @media (max-width: 768px) {
             .responsive-grid {
@@ -459,6 +806,19 @@
             .cost-grid {
                 grid-template-columns: 1fr !important;
                 gap: 1rem !important;
+            }
+
+            .social-platforms {
+                grid-template-columns: 1fr !important;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 3rem 0;
+            }
+
+            .demo-platform {
+                padding: 1rem;
             }
         }
 
@@ -535,12 +895,17 @@
                 font-size: 0.8rem !important;
             }
             
-            /* Platform cards */
-            .platform-card {
+            /* Demo platform cards */
+            .demo-platform .platform-card {
                 padding: 1rem !important;
             }
             
-            .platform-card .code-block {
+            /* Feature platform cards */
+            .platform-feature-card {
+                padding: 1rem !important;
+            }
+            
+            .platform-feature-card .code-block {
                 font-size: 0.65rem !important;
                 padding: 0.5rem !important;
             }
@@ -617,8 +982,14 @@
                 margin: 0 -10px !important;
             }
             
-            /* Platform cards */
-            .platform-card {
+            /* Demo platform cards */
+            .demo-platform .platform-card {
+                margin: 0.5rem 0 !important;
+                border-radius: 0.5rem !important;
+            }
+            
+            /* Feature platform cards */
+            .platform-feature-card {
                 margin: 0.5rem 0 !important;
                 border-radius: 0.5rem !important;
             }
@@ -689,9 +1060,12 @@
     </header>
 
     <section class="hero">
-        <div class="container">
-            <div class="version-badge">✨ NEW: v1.7.1 with Profile Generation</div>
-            <h1>Ultimate Social Media Automation<br>for Developers</h1>
+        <!-- Floating Background Elements -->
+        <div class="hero-background" id="floating-container"></div>
+        
+        <div class="container hero-content">
+            <div class="version-badge">🚀 NEW: v1.10.1 with Dynamic Project Context</div>
+            <h1 id="hero-title">Ultimate Social Media Automation<br>for Developers</h1>
             <p class="subtitle">
                 One setup, full automation. Terraform-style workflow with 4 simple commands. 
                 Intelligent profile generation, content creation, and posting across 5 platforms - completely automated.
@@ -707,45 +1081,129 @@
                     📚 GitHub
                 </a>
             </div>
+
+            <!-- Demo Platform -->
+            <div class="demo-platform" id="demo-container">
+                <!-- Terminal Window -->
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="terminal-dot red"></div>
+                            <div class="terminal-dot yellow"></div>
+                            <div class="terminal-dot green"></div>
+                        </div>
+                        <span style="margin-left: 1rem; color: #64748b; font-size: 0.85rem;">aetherpost-demo</span>
+                    </div>
+                    <div class="terminal-body" id="terminal-content">
+                        <div class="terminal-line">
+                            <span class="terminal-prompt">$</span>
+                            <span class="terminal-command" id="cmd1"></span>
+                            <span class="typing-cursor" id="cursor1"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Platforms Grid -->
+                <div class="social-platforms" id="platforms-grid">
+                    <!-- Twitter Card -->
+                    <div class="platform-card" id="twitter-card">
+                        <div class="platform-header">
+                            <div class="platform-icon">🐦</div>
+                            <div class="platform-name">Twitter</div>
+                        </div>
+                        <div class="profile-section" id="twitter-profile">
+                            <div class="profile-avatar" id="twitter-avatar" style="display: none;">🚀</div>
+                            <div class="profile-bio" id="twitter-bio" style="display: none;">
+                                🚀 Terraform-style social media automation for developers. AI-powered content, multi-platform support. Automate your promotion!
+                            </div>
+                        </div>
+                        <div class="post-stream" id="twitter-posts"></div>
+                    </div>
+
+                    <!-- Bluesky Card -->
+                    <div class="platform-card" id="bluesky-card">
+                        <div class="platform-header">
+                            <div class="platform-icon">🦋</div>
+                            <div class="platform-name">Bluesky</div>
+                        </div>
+                        <div class="profile-section" id="bluesky-profile">
+                            <div class="profile-avatar" id="bluesky-avatar" style="display: none;">🌟</div>
+                            <div class="profile-bio" id="bluesky-bio" style="display: none;">
+                                Social media automation made simple. From content creation to posting schedules - everything automated for busy developers!
+                            </div>
+                        </div>
+                        <div class="post-stream" id="bluesky-posts"></div>
+                    </div>
+
+                    <!-- LinkedIn Card -->
+                    <div class="platform-card" id="linkedin-card">
+                        <div class="platform-header">
+                            <div class="platform-icon">💼</div>
+                            <div class="platform-name">LinkedIn</div>
+                        </div>
+                        <div class="profile-section" id="linkedin-profile">
+                            <div class="profile-avatar" id="linkedin-avatar" style="display: none;">💡</div>
+                            <div class="profile-bio" id="linkedin-bio" style="display: none;">
+                                Professional automation tool for developers. Save time on social media marketing while focusing on what matters - building great software.
+                            </div>
+                        </div>
+                        <div class="post-stream" id="linkedin-posts"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="new-features">
         <div class="container">
-            <h2>🆕 What's New in v1.7.1</h2>
+            <h2>🆕 What's New in v1.10.1</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div class="new-badge">SIMPLIFIED</div>
-                    <h3>⚡ 4-Command Workflow</h3>
-                    <p>Terraform-style simplicity. One interactive setup generates campaign.yaml, then plan and apply. Profile generation, content creation, and posting - all automated.</p>
+                    <div class="new-badge">🚀 MAJOR</div>
+                    <h3>📁 Project Context System</h3>
+                    <p>Dynamic content generation that reads your project files, understands your codebase, and creates unique posts every time. Never repeat the same promotional content!</p>
                     <div class="code-block" style="font-size: 0.85rem;">
-<pre>aetherpost init   # Interactive setup → campaign.yaml
-aetherpost plan   # Preview content
-aetherpost apply  # Deploy & automate</pre>
+<pre># AetherPost reads your project:
+./src/features/awesome-feature.js
+./README.md, ./CHANGELOG.md
+→ Generates context-aware posts!</pre>
                     </div>
                 </div>
 
                 <div class="feature-card">
-                    <div class="new-badge">NEW</div>
-                    <h3>🌐 Bluesky Integration</h3>
-                    <p>Full native support for Bluesky social platform. Decentralized social media with free posting and no API restrictions.</p>
+                    <div class="new-badge">✨ NEW</div>
+                    <h3>📈 Version Tracking</h3>
+                    <p>Automatic version change detection! AetherPost watches for updates in package.json, pyproject.toml, and more - creating special announcement posts for new releases.</p>
                     <div class="code-block" style="font-size: 0.85rem;">
-<pre>platforms:
-  - bluesky  # Free, decentralized
-  - twitter  # Requires paid plan</pre>
+<pre># Detects: v1.9.0 → v1.10.0
+"🎉 Major update! TaskMaster Pro v1.10.0"
+"✨ New: Project context awareness"
+"🚀 Try it now: npm install taskmaster"</pre>
                     </div>
                 </div>
 
                 <div class="feature-card">
-                    <div class="new-badge">SMART</div>
-                    <h3>🔍 Auto-Detection</h3>
-                    <p>Pre-created campaign.yaml + .env.aetherpost? AetherPost auto-detects and skips interactive setup. Perfect for Claude Code and AI development workflows.</p>
+                    <div class="new-badge">🔒 SECURITY</div>
+                    <h3>🛡️ Security-First Design</h3>
+                    <p>Advanced file validation, secret scanning, and whitelist-based access control. Your sensitive files stay protected while AetherPost reads only what's needed.</p>
+                    <div class="code-block" style="font-size: 0.85rem;">
+<pre># Built-in protections:
+"🚫 Path traversal blocked"
+"🔍 Secret patterns detected"
+"⚙️ Configurable exclusions"</pre>
+                    </div>
                 </div>
 
                 <div class="feature-card">
-                    <div class="new-badge">COMPLETE</div>
-                    <h3>🎯 Full Automation</h3>
-                    <p>Profile generation, icon creation, content posting, and continuous promotion - all automated. Set it once, promote forever.</p>
+                    <div class="new-badge">🎯 SMART</div>
+                    <h3>📝 Content Diversity</h3>
+                    <p>Post history tracking ensures you never repeat content. Each post is unique, relevant, and tailored to your project's current state and recent changes.</p>
+                    <div class="code-block" style="font-size: 0.85rem;">
+<pre># Different post every time:
+"🔧 Enhanced error handling..."
+"📊 Performance improvements..."
+"🎨 New UI components..."</pre>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1031,7 +1489,7 @@ Open source advocate and coffee enthusiast."</pre>
             </p>
             
             <div class="platform-grid">
-                <div class="platform-card" style="border-left: 4px solid #1d9bf0;">
+                <div class="platform-card platform-feature-card" style="border-left: 4px solid #1d9bf0;">
                     <div class="platform-icon">🐦</div>
                     <h3>Twitter</h3>
                     <p>160-character optimized tweets with engagement features</p>
@@ -1052,7 +1510,7 @@ Open source advocate and coffee enthusiast."</pre>
                     <small style="color: #f59e0b; font-weight: 600;">💰 Requires paid Basic plan ($100/month minimum)</small>
                 </div>
 
-                <div class="platform-card" style="border-left: 4px solid #00bcd4;">
+                <div class="platform-card platform-feature-card" style="border-left: 4px solid #00bcd4;">
                     <div class="platform-icon">🦋</div>
                     <h3>Bluesky</h3>
                     <p>Decentralized social media with 256-character limit</p>
@@ -1071,7 +1529,7 @@ Open source advocate and coffee enthusiast."</pre>
                     <small style="color: #10b981; font-weight: 600;">✅ Free API access - Recommended</small>
                 </div>
 
-                <div class="platform-card" style="border-left: 4px solid #e4405f;">
+                <div class="platform-card platform-feature-card" style="border-left: 4px solid #e4405f;">
                     <div class="platform-icon">📸</div>
                     <h3>Instagram</h3>
                     <p>Visual content optimization and profile management</p>
@@ -1090,7 +1548,7 @@ Open source advocate and coffee enthusiast."</pre>
                     <small style="color: #6b7280;">⚠️ Business account + Facebook Page required</small>
                 </div>
 
-                <div class="platform-card" style="border-left: 4px solid #6364ff;">
+                <div class="platform-card platform-feature-card" style="border-left: 4px solid #6364ff;">
                     <div class="platform-icon">🐘</div>
                     <h3>Mastodon</h3>
                     <p>Decentralized open-source social network with community focus</p>
@@ -1109,7 +1567,7 @@ Open source advocate and coffee enthusiast."</pre>
                     <small style="color: #10b981; font-weight: 600;">✅ Free and open-source</small>
                 </div>
 
-                <div class="platform-card" style="border-left: 4px solid #ff0000;">
+                <div class="platform-card platform-feature-card" style="border-left: 4px solid #ff0000;">
                     <div class="platform-icon">📺</div>
                     <h3>YouTube</h3>
                     <p>Channel optimization and content strategy</p>
@@ -1204,14 +1662,14 @@ Open source advocate and coffee enthusiast."</pre>
                     <h4>About</h4>
                     <ul>
                         <li><a href="https://github.com/fununnn/aetherpost/blob/main/LICENSE">MIT License</a></li>
-                        <li><a href="#quickstart">Latest: v1.7.1</a></li>
+                        <li><a href="#quickstart">Latest: v1.10.1</a></li>
                         <li><a href="https://pypi.org/project/aetherpost/">PyPI Package</a></li>
                         <li><a href="https://aether-post.com">Documentation</a></li>
                     </ul>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 AetherPost v1.7.1. Released under the MIT License.</p>
+                <p>&copy; 2025 AetherPost v1.10.1. Released under the MIT License.</p>
                 <p>Social media automation for developers. Built with ❤️ by the open source community.</p>
             </div>
         </div>
@@ -1237,6 +1695,227 @@ Open source advocate and coffee enthusiast."</pre>
                     });
                 }
             });
+        });
+
+        // Hero Animation System
+        document.addEventListener('DOMContentLoaded', function() {
+            // Floating text animation
+            const floatingTexts = [
+                'aetherpost init',
+                'profile.generate()',
+                'content.optimize()',
+                'post.schedule()',
+                'engagement++',
+                'followers.grow()',
+                'automate.everything()',
+                '{ "likes": 1000+ }',
+                'while(true) promote();'
+            ];
+
+            const container = document.getElementById('floating-container');
+            
+            function createFloatingText() {
+                const text = floatingTexts[Math.floor(Math.random() * floatingTexts.length)];
+                const element = document.createElement('div');
+                element.className = 'floating-text';
+                element.textContent = text;
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDelay = Math.random() * 2 + 's';
+                element.style.animationDuration = (8 + Math.random() * 4) + 's';
+                container.appendChild(element);
+                
+                setTimeout(() => element.remove(), 12000);
+            }
+
+            // Create floating texts periodically
+            setInterval(createFloatingText, 2000);
+            // Initial batch
+            for(let i = 0; i < 5; i++) {
+                setTimeout(createFloatingText, i * 400);
+            }
+
+            // Terminal typing animation
+            const commands = [
+                { cmd: 'aetherpost init', output: '✅ Interactive setup complete\n📁 Generated campaign.yaml\n🔐 Saved credentials to .env.aetherpost' },
+                { cmd: 'aetherpost plan', output: '📋 Analyzing project context...\n🤖 Generating unique content...\n✨ 5 posts ready for deployment' },
+                { cmd: 'aetherpost apply', output: '🚀 Deploying to platforms...\n✅ Profiles updated\n📮 Posts scheduled\n♾️  Automation active!' }
+            ];
+
+            let currentCmd = 0;
+            
+            function typeCommand(command, callback) {
+                const cmdElement = document.getElementById('cmd1');
+                const cursor = document.getElementById('cursor1');
+                let i = 0;
+                
+                cursor.style.display = 'inline-block';
+                
+                function typeChar() {
+                    if (i < command.length) {
+                        cmdElement.textContent += command[i];
+                        i++;
+                        setTimeout(typeChar, 50);
+                    } else {
+                        cursor.style.display = 'none';
+                        callback();
+                    }
+                }
+                
+                typeChar();
+            }
+
+            function showOutput(output) {
+                const terminalBody = document.getElementById('terminal-content');
+                const outputDiv = document.createElement('div');
+                outputDiv.className = 'terminal-output';
+                outputDiv.innerHTML = output.split('\n').map(line => 
+                    `<div style="margin-bottom: 0.25rem;">${line}</div>`
+                ).join('');
+                terminalBody.appendChild(outputDiv);
+            }
+
+            function nextCommand() {
+                if (currentCmd < commands.length) {
+                    const cmd = commands[currentCmd];
+                    
+                    // Clear previous command
+                    if (currentCmd > 0) {
+                        document.getElementById('cmd1').textContent = '';
+                        const newLine = document.createElement('div');
+                        newLine.className = 'terminal-line';
+                        newLine.innerHTML = '<span class="terminal-prompt">$</span><span class="terminal-command" id="cmd1"></span><span class="typing-cursor" id="cursor1"></span>';
+                        document.getElementById('terminal-content').appendChild(newLine);
+                    }
+                    
+                    setTimeout(() => {
+                        typeCommand(cmd.cmd, () => {
+                            setTimeout(() => {
+                                showOutput(cmd.output);
+                                currentCmd++;
+                                
+                                // Trigger platform animations
+                                if (currentCmd === 1) activatePlatforms();
+                                if (currentCmd === 2) showProfiles();
+                                if (currentCmd === 3) startPostStream();
+                                
+                                setTimeout(nextCommand, 2000);
+                            }, 500);
+                        });
+                    }, 1000);
+                }
+            }
+
+            // Platform activation
+            function activatePlatforms() {
+                const cards = ['twitter-card', 'bluesky-card', 'linkedin-card'];
+                cards.forEach((id, index) => {
+                    setTimeout(() => {
+                        document.getElementById(id).classList.add('active');
+                    }, index * 300);
+                });
+            }
+
+            // Profile animation
+            function showProfiles() {
+                const profiles = ['twitter', 'bluesky', 'linkedin'];
+                profiles.forEach((platform, index) => {
+                    setTimeout(() => {
+                        const avatar = document.getElementById(`${platform}-avatar`);
+                        const bio = document.getElementById(`${platform}-bio`);
+                        const profile = document.getElementById(`${platform}-profile`);
+                        
+                        avatar.style.display = 'flex';
+                        bio.style.display = 'block';
+                        profile.classList.add('active');
+                    }, index * 400);
+                });
+            }
+
+            // Post streaming
+            function startPostStream() {
+                const posts = {
+                    twitter: [
+                        { content: "🚀 Just shipped v1.10.1 with dynamic content generation! Every post is now unique and context-aware. #DevTools #Automation", time: "2m ago", likes: "42" },
+                        { content: "💡 Pro tip: AetherPost now reads your project files to create relevant promotional content. No more repetitive posts! 🎯", time: "1h ago", likes: "28" },
+                        { content: "🔧 Working on TaskMaster Pro today. The new AI features are coming along nicely! Check out the progress → taskmaster.app", time: "3h ago", likes: "56" }
+                    ],
+                    bluesky: [
+                        { content: "Building in public is so much easier with automated promotion! AetherPost handles all my social media while I focus on coding 🚀", time: "5m ago", likes: "35" },
+                        { content: "The response to TaskMaster Pro has been incredible! Thanks to everyone who's tried it out. Version 2.0 coming soon with AI task prioritization! 🤖", time: "2h ago", likes: "89" },
+                        { content: "Love the decentralized nature of Bluesky! Perfect platform for developers who value open protocols. 🦋 #OpenSource #Decentralized", time: "4h ago", likes: "67" }
+                    ],
+                    linkedin: [
+                        { content: "Excited to announce that TaskMaster Pro now includes AI-powered project management features. We're revolutionizing how teams collaborate and deliver projects on time. Early access available at taskmaster.app", time: "30m ago", likes: "124" },
+                        { content: "The importance of automation in developer marketing cannot be overstated. Tools like AetherPost let us focus on building great products while maintaining consistent online presence.", time: "3h ago", likes: "203" }
+                    ]
+                };
+
+                Object.keys(posts).forEach(platform => {
+                    const container = document.getElementById(`${platform}-posts`);
+                    posts[platform].forEach((post, index) => {
+                        setTimeout(() => {
+                            const postElement = document.createElement('div');
+                            postElement.className = 'post-item';
+                            postElement.style.animationDelay = `${index * 0.2}s`;
+                            postElement.innerHTML = `
+                                <div class="post-content">${post.content}</div>
+                                <div class="post-meta">
+                                    <span>🕒 ${post.time}</span>
+                                    <span>❤️ ${post.likes}</span>
+                                </div>
+                            `;
+                            container.appendChild(postElement);
+                            
+                            // Auto-scroll
+                            container.scrollTop = container.scrollHeight;
+                        }, 3000 + (index * 1500));
+                    });
+                });
+
+                // Continue adding posts periodically
+                setInterval(() => {
+                    const platforms = Object.keys(posts);
+                    const platform = platforms[Math.floor(Math.random() * platforms.length)];
+                    const container = document.getElementById(`${platform}-posts`);
+                    const postList = posts[platform];
+                    const randomPost = postList[Math.floor(Math.random() * postList.length)];
+                    
+                    const postElement = document.createElement('div');
+                    postElement.className = 'post-item';
+                    postElement.innerHTML = `
+                        <div class="post-content">${randomPost.content}</div>
+                        <div class="post-meta">
+                            <span>🕒 just now</span>
+                            <span>❤️ ${Math.floor(Math.random() * 100)}</span>
+                        </div>
+                    `;
+                    
+                    container.appendChild(postElement);
+                    container.scrollTop = container.scrollHeight;
+                    
+                    // Remove old posts if too many
+                    if (container.children.length > 5) {
+                        container.removeChild(container.firstChild);
+                    }
+                }, 8000);
+            }
+
+            // Add sparkles
+            function createSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                document.querySelector('.hero').appendChild(sparkle);
+                
+                setTimeout(() => sparkle.remove(), 2000);
+            }
+
+            setInterval(createSparkle, 3000);
+
+            // Start the animation sequence
+            setTimeout(nextCommand, 2000);
         });
     </script>
 </body>

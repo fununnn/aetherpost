@@ -1,0 +1,15 @@
+{
+  "version_info": {
+    "version": "1.10.1",
+    "source_file": "pyproject.toml",
+    "timestamp": "2025-06-23T21:05:13.228380",
+    "git_tag": null,
+    "changelog_entry": "### \ud83d\udc1b Bug Fixes\n- **Version Display**: Fixed version tracking display in console output\n- **Error Handling**: Improved error handling for version parsing edge cases\n- **Logging**: Enhanced debug logging for version detection process"
+  },
+  "file_hashes": {
+    "pyproject.toml": "2639e872250a279fecf171f56620b3a5",
+    "setup.py": "22fc0dc808d437cf5fe89f89a2d5a1c9",
+    "CHANGELOG.md": "fc13819b7b6536547f12ed4d5397bda2"
+  },
+  "last_updated": "2025-06-23T21:05:13.229283"
+}
