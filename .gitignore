@@ -12,3 +12,6 @@ credentials.json
 __pycache__/
 *.pyc
 .cache/.pypirc
+
+# Claude Code traces (must never be committed)
+CLAUDE.md

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from abc import ABC, abstractmethod
 import inspect
 
-from aetherpost.core.common.base_models import OperationResult
+from ..common.base_models import OperationResult
 
 
 logger = logging.getLogger(__name__)

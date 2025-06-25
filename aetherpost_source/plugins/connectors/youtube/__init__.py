@@ -1,1 +1,0 @@
-"""YouTube Shorts connector for AetherPost."""

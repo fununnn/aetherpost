@@ -9,7 +9,7 @@ from rich.table import Table
 
 from ...core.config.parser import ConfigLoader
 from ...core.state.manager import StateManager
-from ...plugins.manager import plugin_manager
+from ...platforms.core.platform_factory import platform_factory
 
 console = Console()
 destroy_app = typer.Typer()
@@ -17,11 +17,13 @@ destroy_app = typer.Typer()
 
 def destroy_main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
+    platform: str = typer.Option(None, "--platform", help="Only delete posts from specific platform"),
+    yes: bool = typer.Option(False, "--yes", "-y", help="Skip confirmation prompt"),
 ):
     """Delete posted content and clean up campaign resources."""
     
     console.print(Panel(
-        "[bold red]🗑️ Campaign Destruction[/bold red]",
+        "[bold red]🗑️ Campaign Destruction (New Platform System)[/bold red]",
         border_style="red"
     ))
     
@@ -73,7 +75,7 @@ def destroy_main(
                 return
         
         # Execute destruction
-        asyncio.run(execute_destruction(posts_to_delete, config, state_manager, platform))
+        asyncio.run(execute_destruction(posts_to_delete, config, state_manager, target_platform=platform))
         
     except FileNotFoundError:
         console.print(f"❌ [red]Configuration file not found: {config_file}[/red]")
@@ -94,18 +96,44 @@ async def execute_destruction(posts_to_delete, config, state_manager, target_pla
     failed_count = 0
     
     for post in posts_to_delete:
+        platform_instance = None
         try:
-            # Load platform connector
-            platform_credentials = getattr(credentials, post.platform, {})
+            # Load platform credentials
+            if isinstance(credentials, dict):
+                platform_credentials = credentials.get(post.platform, {})
+            else:
+                platform_credentials = getattr(credentials, post.platform, {})
+            
+            # Convert to dictionary if needed
+            if hasattr(platform_credentials, '__dict__'):
+                platform_credentials = platform_credentials.__dict__
+            
             if not platform_credentials:
                 console.print(f"⚠️  [yellow]No credentials for {post.platform}, skipping post {post.post_id}[/yellow]")
                 failed_count += 1
                 continue
             
-            connector = plugin_manager.load_connector(post.platform, platform_credentials)
+            # Create platform instance using new factory
+            try:
+                platform_instance = platform_factory.create_platform(
+                    platform_name=post.platform,
+                    credentials=platform_credentials
+                )
+            except Exception as e:
+                console.print(f"❌ [red]Failed to create {post.platform} platform instance: {e}[/red]")
+                failed_count += 1
+                continue
             
-            # Delete the post
-            success = await connector.delete(post.post_id)
+            # Authenticate platform
+            auth_success = await platform_instance.authenticate()
+            if not auth_success:
+                console.print(f"❌ [red]Authentication failed for {post.platform}[/red]")
+                failed_count += 1
+                continue
+            
+            # Delete the post using new platform system
+            result = await platform_instance.delete_post(post.post_id)
+            success = result.success
             
             if success:
                 console.print(f"✅ [green]Deleted {post.platform} post {post.post_id}[/green]")
@@ -114,12 +142,19 @@ async def execute_destruction(posts_to_delete, config, state_manager, target_pla
                 # Remove from state
                 state_manager.remove_post(post.post_id)
             else:
-                console.print(f"❌ [red]Failed to delete {post.platform} post {post.post_id}[/red]")
+                console.print(f"❌ [red]Failed to delete {post.platform} post {post.post_id}: {result.error_message or 'Unknown error'}[/red]")
                 failed_count += 1
                 
         except Exception as e:
             console.print(f"❌ [red]Error deleting {post.platform} post {post.post_id}: {e}[/red]")
             failed_count += 1
+        finally:
+            # Always cleanup platform resources
+            if platform_instance:
+                try:
+                    await platform_instance.cleanup()
+                except Exception as e:
+                    console.print(f"⚠️  [yellow]Warning: cleanup failed for {post.platform}: {e}[/yellow]")
     
     # Summary
     console.print(f"\n[bold]Destruction Summary:[/bold]")

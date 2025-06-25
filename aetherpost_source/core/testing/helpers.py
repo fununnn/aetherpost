@@ -182,15 +182,14 @@ def mock_config_manager(config: Optional[AetherPostConfig] = None):
 
 
 @contextmanager
-def mock_platform_service():
-    """Context manager for mocking platform service."""
-    mock_service = Mock()
-    mock_service.get_authenticated_connector = AsyncMock()
-    mock_service.validate_platform_config.return_value = OperationResult.success_result("Valid")
-    mock_service.get_configured_platforms.return_value = [Platform.TWITTER, Platform.REDDIT]
+def mock_platform_factory():
+    """Context manager for mocking new platform factory."""
+    mock_factory = Mock()
+    mock_factory.create_platform = AsyncMock()
+    mock_factory.get_available_platforms.return_value = ["twitter", "bluesky"]
     
-    with patch('autopromo.core.services.platform_service.PlatformService', return_value=mock_service):
-        yield mock_service
+    with patch('autopromo.platforms.core.platform_factory.platform_factory', mock_factory):
+        yield mock_factory
 
 
 @contextmanager

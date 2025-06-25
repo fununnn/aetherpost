@@ -20,7 +20,7 @@ def wizard():
     """Interactive setup wizard for new users."""
     
     console.print(Panel(
-        "[bold blue]🚀 AetherPost Setup Wizard[/bold blue]\n"
+        "[bold blue]🚀 AetherPost Setup Wizard (New Platform System)[/bold blue]\n"
         "Welcome! Let's get you set up with AetherPost.",
         border_style="blue"
     ))
@@ -172,17 +172,23 @@ async def test_setup():
             
             # Test Twitter if configured
             if hasattr(credentials, 'twitter') and credentials.twitter:
-                from ...plugins.manager import plugin_manager
+                from ...platforms.core.platform_factory import platform_factory
                 
                 try:
-                    connector = plugin_manager.load_connector('twitter', credentials.twitter)
-                    auth_success = await connector.authenticate(credentials.twitter)
+                    platform_instance = platform_factory.create_platform(
+                        platform_name='twitter',
+                        credentials=credentials.twitter.__dict__ if hasattr(credentials.twitter, '__dict__') else credentials.twitter
+                    )
+                    auth_success = await platform_instance.authenticate()
                     
                     if auth_success:
-                        progress.update(task2, description="✅ Twitter authentication successful")
+                        progress.update(task2, description="✅ Twitter authentication successful (New Platform System)")
                     else:
                         progress.update(task2, description="❌ Twitter authentication failed")
                         return
+                    
+                    # Cleanup
+                    await platform_instance.cleanup()
                 except Exception as e:
                     progress.update(task2, description=f"❌ Twitter test failed: {e}")
                     return
@@ -273,7 +279,7 @@ def show_next_steps():
 def check():
     """Check current setup status."""
     console.print(Panel(
-        "[bold blue]🔍 Setup Status Check[/bold blue]",
+        "[bold blue]🔍 Setup Status Check (New Platform System)[/bold blue]",
         border_style="blue"
     ))
     

@@ -10,7 +10,7 @@ from rich.table import Table
 from ...core.config.parser import ConfigLoader
 from ...core.config.models import CredentialsConfig
 from ...core.security.encryption import APIKeyValidator
-from ...plugins.manager import plugin_manager
+from ...platforms.core.platform_factory import platform_factory
 
 console = Console()
 auth_app = typer.Typer()
@@ -23,7 +23,7 @@ def setup_auth(
     """Setup authentication credentials."""
     
     console.print(Panel(
-        "[bold blue]🔐 Authentication Setup[/bold blue]",
+        "[bold blue]🔐 Authentication Setup (New Platform System)[/bold blue]",
         border_style="blue"
     ))
     
@@ -168,7 +168,7 @@ def test_auth(
     """Test authentication for a platform."""
     
     console.print(Panel(
-        f"[bold yellow]🧪 Testing {platform.title()} Authentication[/bold yellow]",
+        f"[bold yellow]🧪 Testing {platform.title()} Authentication (New Platform System)[/bold yellow]",
         border_style="yellow"
     ))
     
@@ -182,7 +182,7 @@ def test_auth(
 
 
 async def test_platform_auth(platform: str, credentials: CredentialsConfig):
-    """Test authentication for a specific platform."""
+    """Test authentication for a specific platform using new platform system."""
     
     platform_creds = getattr(credentials, platform, None)
     if not platform_creds:
@@ -191,18 +191,35 @@ async def test_platform_auth(platform: str, credentials: CredentialsConfig):
         return
     
     try:
-        # Load connector and test authentication
-        connector = plugin_manager.load_connector(platform, platform_creds)
-        
+        # Create platform instance using new factory
         console.print(f"⠋ Testing {platform} authentication...")
         
-        success = await connector.authenticate(platform_creds)
+        platform_instance = platform_factory.create_platform(
+            platform_name=platform,
+            credentials=platform_creds.__dict__ if hasattr(platform_creds, '__dict__') else platform_creds
+        )
+        
+        # Test authentication
+        success = await platform_instance.authenticate()
         
         if success:
-            console.print(f"✅ [green]{platform.title()} authentication successful[/green]")
+            console.print(f"✅ [green]{platform.title()} authentication successful (New Platform System)[/green]")
+            
+            # Show platform capabilities
+            caps = platform_instance.platform_capabilities
+            if caps:
+                cap_names = [cap.value for cap in caps]
+                console.print(f"   📋 Capabilities: {', '.join(cap_names)}")
+            
+            # Show character limit
+            char_limit = platform_instance.character_limit
+            console.print(f"   📏 Character limit: {char_limit}")
         else:
             console.print(f"❌ [red]{platform.title()} authentication failed[/red]")
             console.print("Check your credentials and try again")
+        
+        # Cleanup platform resources
+        await platform_instance.cleanup()
     
     except Exception as e:
         console.print(f"❌ [red]Error testing {platform}: {e}[/red]")
@@ -213,7 +230,7 @@ def list_auth():
     """List configured authentication credentials."""
     
     console.print(Panel(
-        "[bold blue]🔑 Authentication Status[/bold blue]",
+        "[bold blue]🔑 Authentication Status (New Platform System)[/bold blue]",
         border_style="blue"
     ))
     

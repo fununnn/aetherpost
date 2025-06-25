@@ -8,7 +8,6 @@ from typing import Dict, Any, List, Optional
 from pathlib import Path
 
 from ..config.models import CampaignConfig, CredentialsConfig
-from ...plugins.manager import plugin_manager
 
 
 class ContentGenerator:
@@ -22,26 +21,32 @@ class ContentGenerator:
         self._setup_providers()
     
     def _setup_providers(self):
-        """Setup available AI providers."""
+        """Setup available AI providers using direct imports."""
         # Setup [AI Service] if credentials available
         if self.credentials.ai_service and self.credentials.ai_service.get("api_key"):
             try:
-                ai_provider = plugin_manager.load_ai_provider(
-                    "ai_service", 
-                    self.credentials.ai_service
-                )
-                self.ai_providers["[AI Service]"] = ai_provider
+                import anthropic
+                client = anthropic.Anthropic(api_key=self.credentials.ai_service["api_key"])
+                self.ai_providers["anthropic"] = {
+                    "client": client,
+                    "type": "anthropic"
+                }
+            except ImportError:
+                print("Anthropic library not available. Install with: pip install anthropic")
             except Exception as e:
-                print(f"Failed to setup [AI Service] provider: {e}")
+                print(f"Failed to setup Anthropic provider: {e}")
         
         # Setup OpenAI if credentials available  
         if self.credentials.openai and self.credentials.openai.get("api_key"):
             try:
-                openai_provider = plugin_manager.load_ai_provider(
-                    "openai",
-                    self.credentials.openai
-                )
-                self.ai_providers["openai"] = openai_provider
+                import openai
+                client = openai.OpenAI(api_key=self.credentials.openai["api_key"])
+                self.ai_providers["openai"] = {
+                    "client": client,
+                    "type": "openai"
+                }
+            except ImportError:
+                print("OpenAI library not available. Install with: pip install openai")
             except Exception as e:
                 print(f"Failed to setup OpenAI provider: {e}")
     
@@ -305,21 +310,37 @@ Generate only the post text, no explanations or additional commentary."""
         """Generate text content using AI providers."""
         
         # Try providers in order of preference
-        providers_to_try = ["[AI Service]", "openai"]
+        providers_to_try = ["anthropic", "openai"]
         
         for provider_name in providers_to_try:
             if provider_name in self.ai_providers:
                 try:
                     provider = self.ai_providers[provider_name]
+                    client = provider["client"]
+                    provider_type = provider["type"]
                     
-                    # Configure generation parameters for deterministic output (idempotency)
-                    generation_config = {
-                        "max_tokens": min(300, self._get_platform_char_limit(platform) + 50),
-                        "temperature": 0.0,  # Deterministic generation for idempotency
-                        "seed": 42  # Fixed seed for consistent results
-                    }
+                    # Generate text based on provider type
+                    if provider_type == "anthropic":
+                        response = client.messages.create(
+                            model="claude-3-haiku-20240307",
+                            max_tokens=min(300, self._get_platform_char_limit(platform) + 50),
+                            temperature=0.0,
+                            messages=[{"role": "user", "content": prompt}]
+                        )
+                        text = response.content[0].text
                     
-                    text = await provider.generate_text(prompt, generation_config)
+                    elif provider_type == "openai":
+                        response = client.chat.completions.create(
+                            model="gpt-3.5-turbo",
+                            max_tokens=min(300, self._get_platform_char_limit(platform) + 50),
+                            temperature=0.0,
+                            seed=42,
+                            messages=[{"role": "user", "content": prompt}]
+                        )
+                        text = response.choices[0].message.content
+                    
+                    else:
+                        continue
                     
                     # Validate length
                     char_limit = self._get_platform_char_limit(platform)
@@ -396,25 +417,35 @@ Generate only the post text, no explanations or additional commentary."""
         if "openai" in self.ai_providers:
             try:
                 provider = self.ai_providers["openai"]
+                client = provider["client"]
                 
                 # Build image prompt
                 image_prompt = f"Create a promotional image for {config.name}: {config.concept}. Modern, clean design, suitable for social media."
                 
-                # Generate image
-                image_data = await provider.generate_image(image_prompt, {
-                    "size": "1024x1024",
-                    "quality": "standard"
-                })
+                # Generate image using DALL-E
+                response = client.images.generate(
+                    model="dall-e-3",
+                    prompt=image_prompt,
+                    size="1024x1024",
+                    quality="standard",
+                    n=1
+                )
                 
-                # Save image
-                media_dir = Path("media")
-                media_dir.mkdir(exist_ok=True)
+                # Download the image
+                import requests
+                image_url = response.data[0].url
+                image_response = requests.get(image_url)
                 
-                image_path = media_dir / f"{config.name}_{platform}_generated.png"
-                with open(image_path, "wb") as f:
-                    f.write(image_data)
-                
-                return str(image_path)
+                if image_response.status_code == 200:
+                    # Save image
+                    media_dir = Path("media")
+                    media_dir.mkdir(exist_ok=True)
+                    
+                    image_path = media_dir / f"{config.name}_{platform}_generated.png"
+                    with open(image_path, "wb") as f:
+                        f.write(image_response.content)
+                    
+                    return str(image_path)
             
             except Exception as e:
                 print(f"Failed to generate image: {e}")

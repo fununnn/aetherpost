@@ -9,7 +9,8 @@ from rich.text import Text
 
 from ...core.config.parser import ConfigLoader
 from ...core.content.generator import ContentGenerator
-from ...plugins.manager import plugin_manager
+from ...platforms.core.platform_factory import platform_factory
+from ...platforms.core.base_platform import Content, ContentType
 
 console = Console()
 plan_app = typer.Typer()
@@ -21,7 +22,7 @@ def plan_main(
     """Preview campaign content before posting."""
     
     console.print(Panel(
-        "[bold blue]📋 Campaign Preview[/bold blue]",
+        "[bold blue]📋 Campaign Preview (New Platform System)[/bold blue]",
         border_style="blue"
     ))
     
@@ -49,9 +50,9 @@ def plan_main(
 
 
 async def generate_preview(config):
-    """Generate and display content preview."""
+    """Generate and display content preview using new platform system."""
     
-    # Load credentials for AI providers
+    # Load credentials for both AI providers and platforms
     config_loader = ConfigLoader()
     credentials = config_loader.load_credentials()
     
@@ -61,39 +62,85 @@ async def generate_preview(config):
     # Generate content for each platform
     platform_previews = []
     
-    for platform in config.platforms:
+    for platform_name in config.platforms:
         try:
-            console.print(f"⠋ Generating content for {platform}...")
+            console.print(f"⠋ Generating content for {platform_name}...")
             
-            # Generate content
-            content = await content_generator.generate_content(config, platform)
+            # Generate raw content using existing content generator
+            content_data = await content_generator.generate_content(config, platform_name)
+            
+            # Create Content object for new platform system
+            content = Content(
+                text=content_data.get("text", ""),
+                hashtags=content_data.get("hashtags", []),
+                content_type=ContentType.TEXT,  # Default to text
+                platform_data=content_data
+            )
+            
+            # Try to create platform instance for validation
+            platform_instance = None
+            platform_creds = getattr(credentials, platform_name, None)
+            if platform_creds:
+                try:
+                    platform_instance = platform_factory.create_platform(
+                        platform_name=platform_name,
+                        credentials=platform_creds.__dict__ if hasattr(platform_creds, '__dict__') else platform_creds
+                    )
+                    
+                    # Validate content with platform
+                    validation_result = await platform_instance.validate_content(content)
+                    if not validation_result['is_valid']:
+                        warnings = validation_result.get('errors', [])
+                        for warning in warnings:
+                            console.print(f"⚠️  [yellow]{platform_name} validation: {warning}[/yellow]")
+                    
+                except Exception as e:
+                    console.print(f"⚠️  [yellow]Could not validate {platform_name} content: {e}[/yellow]")
+                finally:
+                    if platform_instance:
+                        await platform_instance.cleanup()
             
             # Create preview panel
             preview_text = Text()
-            preview_text.append(content.get("text", ""), style="white")
+            preview_text.append(content.text, style="white")
             
             # Add media info if present
-            if content.get("media"):
-                preview_text.append(f"\n\n📎 Media: {len(content['media'])} item(s)", style="dim")
+            if content.media:
+                preview_text.append(f"\n\n📎 Media: {len(content.media)} item(s)", style="dim")
             
             # Add hashtags if present
-            if content.get("hashtags"):
-                preview_text.append(f"\n🏷️  {' '.join(content['hashtags'])}", style="blue")
+            if content.hashtags:
+                preview_text.append(f"\n🏷️  {' '.join(content.hashtags)}", style="blue")
+            
+            # Show character count for platform
+            char_count = len(content.text)
+            if content.hashtags:
+                char_count += sum(len(f"#{tag} ") for tag in content.hashtags)
+            
+            # Get platform limits (fallback to common limits)
+            char_limit = 280  # Default Twitter limit
+            if platform_instance:
+                char_limit = platform_instance.character_limit
+            
+            char_info = f"📏 {char_count}/{char_limit} characters"
+            if char_count > char_limit:
+                char_info = f"📏 [red]{char_count}/{char_limit} characters (exceeds limit)[/red]"
+            preview_text.append(f"\n{char_info}", style="dim")
             
             platform_panel = Panel(
                 preview_text,
-                title=f"[bold]{platform.title()}[/bold]",
+                title=f"[bold]{platform_name.title()} (New Platform System)[/bold]",
                 border_style="green"
             )
             
             platform_previews.append(platform_panel)
             
-            console.print(f"✓ Generated content for {platform}")
+            console.print(f"✓ Generated content for {platform_name}")
         
         except Exception as e:
             error_panel = Panel(
                 f"[red]Error generating content: {e}[/red]",
-                title=f"[bold]{platform.title()}[/bold]",
+                title=f"[bold]{platform_name.title()}[/bold]",
                 border_style="red"
             )
             platform_previews.append(error_panel)
@@ -144,7 +191,7 @@ def plan_story(
     """Preview story mode content."""
     
     console.print(Panel(
-        "[bold blue]📖 Story Preview[/bold blue]",
+        "[bold blue]📖 Story Preview (New Platform System)[/bold blue]",
         border_style="blue"
     ))
     
@@ -178,7 +225,7 @@ def plan_variants(
     """Preview A/B test variants."""
     
     console.print(Panel(
-        "[bold blue]🧪 A/B Test Variants[/bold blue]",
+        "[bold blue]🧪 A/B Test Variants (New Platform System)[/bold blue]",
         border_style="blue"
     ))
     
