@@ -3,6 +3,7 @@
 import asyncio
 import aiohttp
 import json
+import os
 import re
 import logging
 from typing import Dict, List, Any, Optional
@@ -536,24 +537,43 @@ class BlueskyPlatform(BasePlatform):
     async def _upload_blob(self, file_path: str) -> Optional[Dict[str, Any]]:
         """Upload a blob to Bluesky."""
         try:
-            headers = self._get_authenticated_headers()
+            # Read file content
+            with open(file_path, 'rb') as f:
+                media_data = f.read()
+            
+            # Determine content type
+            if file_path.lower().endswith('.png'):
+                content_type = 'image/png'
+            elif file_path.lower().endswith('.jpg') or file_path.lower().endswith('.jpeg'):
+                content_type = 'image/jpeg'
+            elif file_path.lower().endswith('.gif'):
+                content_type = 'image/gif'
+            else:
+                content_type = 'application/octet-stream'
+            
+            # Set up headers for blob upload (different from JSON API)
+            upload_headers = {
+                'Authorization': f'Bearer {self.session_token}',
+                'Content-Type': content_type,
+                'Content-Length': str(len(media_data))
+            }
             
             session = await self._get_session()
-            with open(file_path, 'rb') as f:
-                data = aiohttp.FormData()
-                data.add_field('file', f, filename=file_path)
-                
-                async with session.post(
-                    f"{self.base_url}/xrpc/com.atproto.repo.uploadBlob",
-                    data=data,
-                    headers=headers
-                ) as response:
-                        if response.status == 200:
-                            upload_data = await response.json()
-                            return upload_data.get("blob")
-                        else:
-                            logger.error(f"Blob upload failed: {response.status}")
-                            return None
+            async with session.post(
+                f"{self.base_url}/xrpc/com.atproto.repo.uploadBlob",
+                data=media_data,
+                headers=upload_headers
+            ) as response:
+                if response.status == 200:
+                    upload_data = await response.json()
+                    blob = upload_data.get("blob")
+                    logger.info(f"Blob uploaded successfully: {blob}")
+                    return blob
+                else:
+                    error_text = await response.text()
+                    logger.error(f"Blob upload failed: {response.status} - {error_text}")
+                    return None
+                    
         except Exception as e:
             logger.error(f"Failed to upload blob: {e}")
             return None
