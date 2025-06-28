@@ -8,13 +8,13 @@ Welcome to AetherPost! This document outlines our coding standards, AI tool usag
 
 AetherPost is an **AI-friendly OSS project**. We encourage and support the use of AI coding assistants:
 
-#### Approved AI Tools
-- **Claude Code** (Anthropic) - ✅ Full support
-- **GitHub Copilot** - ✅ Approved
-- **TabNine** - ✅ Approved
-- **Cursor** - ✅ Approved
-- **Replit AI** - ✅ Approved
-- **ChatGPT Code Interpreter** - ✅ Approved
+#### Approved Development Tools
+- **GitHub Copilot** - ✅ AI coding assistant
+- **TabNine** - ✅ Code completion
+- **Cursor** - ✅ AI-powered editor
+- **Replit AI** - ✅ Cloud development
+- **VS Code Extensions** - ✅ IntelliSense and linting
+- **JetBrains IDEs** - ✅ Professional development tools
 
 #### AI Usage Guidelines
 
@@ -39,19 +39,25 @@ AetherPost is an **AI-friendly OSS project**. We encourage and support the use o
 - Copying proprietary code patterns from AI
 - Including sensitive data in AI prompts
 
-### Co-Authoring with AI
+### Development Transparency
 
-We encourage transparency in AI collaboration:
+We encourage transparency in development practices:
 
 ```bash
-# Preferred commit format
+# Preferred commit format for tool-assisted development
 git commit -m "feat: implement Twitter threading support
 
-Co-authored-by: Claude <claude@anthropic.com>"
-# OR
+- Added thread creation functionality
+- Implemented proper error handling
+- Included comprehensive test coverage"
+
+# For AI-assisted development
 git commit -m "feat: add profile validation
 
-🤖 Generated with Claude Code"
+🤖 Developed with AI assistance
+- Comprehensive input validation
+- Error handling and logging
+- Unit test coverage"
 ```
 
 ## 🎯 Code Standards

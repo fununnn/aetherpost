@@ -83,28 +83,30 @@ For feature requests, please:
 - Provide examples if possible
 - Consider implementation complexity
 
-### 🤖 AI-Assisted Development Welcome!
+### 🛠️ Development Approach
 
-**AetherPost is an AI-friendly OSS project!** We encourage and support AI-assisted development:
+**AetherPost is built with modern development practices:**
 
-### Approved AI Tools
-- ✅ **Claude Code** (Anthropic) - Full support
-- ✅ **GitHub Copilot** - Approved  
-- ✅ **TabNine, Cursor, Replit AI** - Approved
-- ✅ **ChatGPT Code Interpreter** - Approved
+### Approved Development Tools
+- ✅ **GitHub Copilot** - AI coding assistant
+- ✅ **TabNine, Cursor, Replit AI** - Code completion tools
+- ✅ **VS Code Extensions** - IntelliSense and linting
+- ✅ **JetBrains IDEs** - PyCharm, IntelliJ support
 
-### AI Contribution Guidelines
-- **Always review** AI-generated code before submitting
-- **Add proper tests** for AI-generated functionality
-- **Document AI usage** in commit messages:
+### Development Guidelines
+- **Always review** auto-generated code before submitting
+- **Add proper tests** for all functionality
+- **Use descriptive commit messages**:
   ```bash
   git commit -m "feat: add Instagram connector
   
-  Co-authored-by: Claude <claude@anthropic.com>"
+  - Implement OAuth2 authentication
+  - Add post scheduling functionality
+  - Include comprehensive test coverage"
   ```
-- **Follow our style guide** regardless of code origin
+- **Follow our style guide** for consistency
 
-See our [Code Guidelines](CODE_GUIDELINES.md) for detailed AI development policies.
+See our [Code Guidelines](CODE_GUIDELINES.md) for detailed development policies.
 
 ## 🔧 Code Contributions
 
