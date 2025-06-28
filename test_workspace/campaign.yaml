@@ -1,0 +1,26 @@
+name: "AetherPost"
+concept: "Social media automation for developers - making dev marketing effortless"
+url: "https://aether-post.com"
+github_url: "https://github.com/fununnn/aetherpost"
+
+platforms:
+  - twitter
+  - bluesky
+
+content:
+  style: "friendly"
+  action: "Check it out!"
+  hashtags:
+    - "#automation"
+    - "#developers"
+    - "#socialmedia"
+  language: "en"
+  max_length: 280
+
+image: "auto"
+
+# URLs for profile integration
+urls:
+  main: "https://aether-post.com"
+  github: "https://github.com/fununnn/aetherpost"
+  docs: "https://docs.aether-post.com"
