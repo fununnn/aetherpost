@@ -1,5 +1,34 @@
 # Changelog
 
+## [1.11.1] - 2025-06-29
+
+### 🎨 New Features: ASCII Art & Branding
+- **Cool ASCII Art Banners**: Claude-style installation display with beautiful ASCII art
+- **Command-Specific Banners**: Each command (init/plan/apply/destroy) has unique ASCII art
+- **Version Display**: Stylish version information with rich formatting
+- **Terminal Optimization**: Smart terminal detection and fallback for CI environments
+- **Installation Success**: Eye-catching post-install success message
+
+### 🎯 User Experience Improvements
+- **Rich Terminal Output**: Beautiful colored banners and animations
+- **Professional Branding**: Consistent visual identity across all commands
+- **Loading Animations**: Smooth loading indicators for long operations
+- **Terminal Size Adaptation**: Responsive design that adapts to terminal width
+
+### 🛠️ Technical Enhancements
+- **Banner System**: Complete `banner.py` module with multiple display modes
+- **Version Management**: Centralized version information in `version.py`
+- **Installation Hooks**: Post-install messaging system
+- **Terminal Detection**: Smart capability detection for optimal display
+
+### 📋 Simple Usage
+```bash
+aetherpost --version    # Shows cool ASCII banner with version
+aetherpost init         # Shows INIT banner + setup
+aetherpost plan         # Shows PLAN banner + preview
+aetherpost apply        # Shows APPLY banner + execution
+```
+
 ## [1.11.0] - 2025-06-29
 
 ### 🔔 New Features: Smart Notification System
