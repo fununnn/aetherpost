@@ -23,10 +23,9 @@ limits:
 context:
   enabled: true
   watch:
-    - "./aetherpost_source"
-    - "./README.md"
-    - "./pyproject.toml"
-    - "./CHANGELOG.md"
+    - "./campaign.yaml"
+    - "./test_notifications.py"
+    - "./test_plan_context.py"
   exclude:
     - "node_modules"
     - ".env*"
@@ -35,5 +34,18 @@ context:
     - "*.pyc"
     - ".git"
 notifications:
-  enabled: false
+  enabled: true
   auto_apply: false
+  channels:
+    slack:
+      enabled: true
+      channel: "#dev-updates"
+      # webhook_url loaded from SLACK_WEBHOOK_URL env var
+    line:
+      enabled: true
+      # access_token loaded from LINE_NOTIFY_TOKEN env var
+    discord:
+      enabled: false
+      # webhook_url loaded from DISCORD_WEBHOOK_URL env var
+  preview_timeout: 300  # 5 minutes to approve
+  require_approval: true

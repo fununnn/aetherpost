@@ -8,6 +8,7 @@ from typing import Dict, Any, List, Optional
 from pathlib import Path
 
 from ..config.models import CampaignConfig, CredentialsConfig
+from ..context import ProjectContextReader, ProjectDiffDetector
 
 
 class ContentGenerator:
@@ -18,6 +19,11 @@ class ContentGenerator:
         self.ai_providers = {}
         self.cache_dir = Path(".aetherpost/content_cache")
         self.cache_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Initialize project context systems
+        self.context_reader = ProjectContextReader()
+        self.diff_detector = ProjectDiffDetector()
+        
         self._setup_providers()
     
     def _setup_providers(self):
@@ -117,11 +123,20 @@ class ContentGenerator:
         # Language-specific instructions
         language_instructions = self._get_language_instructions(language)
         
-        prompt = f"""Create an engaging social media post for {platform} about the following:
+        # Get project context and diff information
+        project_context_text = self._get_project_context_text()
+        project_diff_text = self._get_project_diff_text()
+        
+        # Build context-aware prompt
+        base_prompt = f"""Create an engaging social media post for {platform} about the following:
 
 App/Service: {config.name}
 Description: {config.concept}
 {f'URL: {config.url}' if config.url else ''}
+
+{project_context_text}
+
+{project_diff_text}
 
 Style Guidelines:
 - Tone: {style}
@@ -138,13 +153,18 @@ Style Guidelines:
 
 Requirements:
 - Write the ENTIRE post in {self._get_language_name(language)}
+- Use the project context and recent changes to make the post specific and relevant
+- If significant changes were detected, focus on those updates
 - Make it engaging and shareable
 - Include the call to action naturally
 - {'Use appropriate hashtags' if platform != 'twitter' else 'Limit hashtags (Twitter style)'}
 - Keep it authentic and not overly promotional
 - Use culturally appropriate expressions for {self._get_language_name(language)} speakers
+- Be specific about features, improvements, or recent developments when available
 
 Generate only the post text, no explanations or additional commentary."""
+        
+        prompt = base_prompt
         
         return prompt
     
@@ -541,3 +561,115 @@ Generate only the post text, no explanations or additional commentary."""
         except IOError:
             # If caching fails, continue without caching
             pass
+    
+    def _get_project_context_text(self) -> str:
+        """
+        Get project context information for AI prompt.
+        
+        Returns:
+            Formatted project context text or empty string
+        """
+        try:
+            # Read project context
+            context = self.context_reader.read_project_context()
+            
+            if not context or not context.files:
+                return ""
+            
+            # Get context summary
+            summary = self.context_reader.get_file_summary(context)
+            
+            # Format context for AI prompt
+            context_text = "Project Context:\n"
+            
+            if "file_contents" in summary:
+                # For small projects, include actual file contents
+                context_text += "Recent project files:\n"
+                for file_path, content in summary["file_contents"].items():
+                    context_text += f"\n{file_path}:\n```\n{content}\n```\n"
+            elif "file_structure" in summary:
+                # For larger projects, include structure
+                context_text += f"Project structure ({summary['total_files']} files):\n"
+                context_text += "\n".join(f"- {path}" for path in summary["file_structure"][:10])
+                if summary['total_files'] > 10:
+                    context_text += f"\n... and {summary['total_files'] - 10} more files"
+            
+            # Add file type information
+            if summary.get("file_types"):
+                context_text += "\n\nProject composition:\n"
+                for ext, count in summary["file_types"].items():
+                    if ext == "no_extension":
+                        context_text += f"- {count} files without extension\n"
+                    else:
+                        context_text += f"- {count} {ext} files\n"
+            
+            return context_text
+            
+        except Exception as e:
+            # If context reading fails, continue without context
+            return ""
+    
+    def _get_project_diff_text(self) -> str:
+        """
+        Get project difference information for AI prompt.
+        
+        Returns:
+            Formatted project diff text or empty string
+        """
+        try:
+            # Detect changes since last run
+            diff = self.diff_detector.detect_changes()
+            
+            if not diff or not diff.has_significant_changes:
+                return ""
+            
+            # Get diff summary
+            summary = self.diff_detector.get_changes_summary(diff)
+            
+            # Format diff information for AI prompt
+            diff_text = "Recent Changes:\n"
+            
+            if summary.get("first_scan"):
+                diff_text += "This is the first scan of the project.\n"
+            else:
+                time_info = summary.get("time_since_last_scan", {})
+                if time_info.get("hours", 0) < 24:
+                    diff_text += f"Changes detected in the last {time_info.get('hours', 0):.1f} hours:\n"
+                else:
+                    diff_text += f"Changes detected in the last {time_info.get('days', 0):.1f} days:\n"
+            
+            # Add change statistics
+            change_types = summary.get("change_types", {})
+            if change_types.get("added", 0) > 0:
+                diff_text += f"- {change_types['added']} new files added\n"
+            if change_types.get("modified", 0) > 0:
+                diff_text += f"- {change_types['modified']} files modified\n"
+            if change_types.get("deleted", 0) > 0:
+                diff_text += f"- {change_types['deleted']} files deleted\n"
+            
+            # Add detailed changes for small changesets
+            if "detailed_changes" in summary:
+                diff_text += "\nSpecific changes:\n"
+                for change in summary["detailed_changes"]:
+                    file_name = change["file"]
+                    change_type = change["type"]
+                    diff_text += f"- {file_name} ({change_type})\n"
+            elif "affected_files" in summary:
+                # For larger changesets, list some affected files
+                affected = summary["affected_files"]
+                if affected.get("added"):
+                    diff_text += f"\nNew files: {', '.join(affected['added'])}"
+                    if affected.get("added_truncated"):
+                        diff_text += f" {affected['added_truncated']}"
+                    diff_text += "\n"
+                if affected.get("modified"):
+                    diff_text += f"Modified files: {', '.join(affected['modified'])}"
+                    if affected.get("modified_truncated"):
+                        diff_text += f" {affected['modified_truncated']}"
+                    diff_text += "\n"
+            
+            return diff_text
+            
+        except Exception as e:
+            # If diff detection fails, continue without diff info
+            return ""

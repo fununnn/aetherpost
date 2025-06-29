@@ -525,7 +525,7 @@ def init_main(
     console.print(f"\n[bold]🔑 API Keys Setup:[/bold]")
     api_keys = collect_api_keys(selected_platforms, template)
     
-    # Notification Settings
+    # Enhanced Notification Settings
     console.print(f"\n[bold]📱 通知設定（Notification Settings）:[/bold]")
     console.print("投稿前に確認通知を受け取りますか？")
     console.print("1) あり - Slack/LINE通知で事前確認（推奨）")
@@ -534,12 +534,56 @@ def init_main(
     notification_choice = Prompt.ask("通知設定を選択 (1-2)", default="1")
     enable_notifications = notification_choice == "1"
     
+    notification_channels = {}
+    
     if enable_notifications:
         console.print("✅ [green]通知ありモード: apply実行時に事前確認通知を送信します[/green]")
         auto_apply = False
+        
+        # Detailed channel configuration
+        console.print(f"\n[bold]📡 通知チャンネル設定:[/bold]")
+        
+        # Slack configuration
+        use_slack = Confirm.ask("Slack通知を使用しますか？", default=True)
+        if use_slack:
+            slack_channel = Prompt.ask("Slackチャンネル名", default="#dev-updates")
+            notification_channels['slack'] = {
+                'enabled': True,
+                'channel': slack_channel
+            }
+            console.print(f"  📌 Slack: {slack_channel} (SLACK_WEBHOOK_URL環境変数が必要)")
+        
+        # LINE configuration
+        use_line = Confirm.ask("LINE Notify通知を使用しますか？", default=True)
+        if use_line:
+            notification_channels['line'] = {
+                'enabled': True
+            }
+            console.print("  📌 LINE Notify (LINE_NOTIFY_TOKEN環境変数が必要)")
+        
+        # Discord configuration
+        use_discord = Confirm.ask("Discord通知を使用しますか？", default=False)
+        if use_discord:
+            notification_channels['discord'] = {
+                'enabled': True
+            }
+            console.print("  📌 Discord (DISCORD_WEBHOOK_URL環境変数が必要)")
+        
+        if not any(ch.get('enabled') for ch in notification_channels.values()):
+            console.print("⚠️ [yellow]通知チャンネルが選択されていません。後で設定してください。[/yellow]")
+        
+        # Timeout configuration
+        console.print(f"\n[bold]⏱️  承認タイムアウト設定:[/bold]")
+        timeout_choice = Prompt.ask("承認待ち時間 (分)", default="5")
+        try:
+            preview_timeout = int(timeout_choice) * 60  # Convert to seconds
+        except ValueError:
+            preview_timeout = 300  # 5 minutes default
+        
     else:
         console.print("⚡ [yellow]自動実行モード: apply実行後に自動的に投稿します[/yellow]")
         auto_apply = True
+        preview_timeout = 0
     
     # AI Services configuration
     console.print(f"\n[bold]🤖 AI Services Configuration:[/bold]")
@@ -592,7 +636,7 @@ def init_main(
             return
     
     # Create workspace with API keys and notification settings
-    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language, concept, use_free_tier, content_style, api_keys, enable_notifications, auto_apply)
+    create_workspace(name, template, selected_platforms, selected_ai, backend, autopromo_dir, content_language, concept, use_free_tier, content_style, api_keys, enable_notifications, auto_apply, notification_channels, preview_timeout)
     
     # Generate profiles if requested
     if generate_profiles:
@@ -683,7 +727,8 @@ def calculate_cost_estimate(template: str, platforms: List[str], ai_services: Li
 def create_workspace(name: str, template: str, platforms: List[str], ai_services: List[str], 
                     backend: str, autopromo_dir: Path, content_language: str = "en", concept: str = "", 
                     use_free_tier: bool = True, content_style: str = "casual", api_keys: Dict[str, str] = None,
-                    enable_notifications: bool = True, auto_apply: bool = False):
+                    enable_notifications: bool = True, auto_apply: bool = False, 
+                    notification_channels: Dict = None, preview_timeout: int = 300):
     """Create AetherPost workspace files."""
     
     # Create directory structure
@@ -786,7 +831,10 @@ __pycache__/
         },
         "notifications": {
             "enabled": enable_notifications,
-            "auto_apply": auto_apply
+            "auto_apply": auto_apply,
+            "channels": notification_channels or {},
+            "preview_timeout": preview_timeout,
+            "require_approval": enable_notifications
         }
     }
     
@@ -1234,7 +1282,9 @@ def auto_setup_from_campaign(campaign_config: dict):
         content_style=content_style,
         api_keys=api_keys,
         enable_notifications=enable_notifications,
-        auto_apply=auto_apply
+        auto_apply=auto_apply,
+        notification_channels={},  # Auto-setup mode uses default
+        preview_timeout=300
     )
     
     console.print(f"\n✅ [bold green]{name}の自動初期化が完了しました！[/bold green]")

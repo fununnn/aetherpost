@@ -11,6 +11,8 @@ from rich.table import Table
 from ...core.config.parser import ConfigLoader
 from ...core.content.generator import ContentGenerator
 from ...core.state.manager import StateManager
+from ...core.preview.notifiers import PreviewNotificationManager, NotificationChannel
+from ...core.preview.generator import ContentPreviewGenerator, PreviewSession
 from ...platforms.core.platform_factory import platform_factory
 from ...platforms.core.base_platform import Content, Profile, ContentType, MediaFile
 import requests
@@ -21,36 +23,103 @@ console = Console()
 apply_app = typer.Typer()
 
 
+async def send_real_preview_notification(config, platforms, content_items=None):
+    """Send real preview notification using the notification system."""
+    import os
+    
+    try:
+        # Create notification manager
+        notification_manager = PreviewNotificationManager()
+        
+        # Load notification channels from environment and config
+        channels = []
+        
+        # Add Slack channel if configured
+        slack_webhook = os.getenv('SLACK_WEBHOOK_URL')
+        if slack_webhook and hasattr(config, 'notifications'):
+            slack_config = config.notifications.get('channels', {}).get('slack', {})
+            if slack_config.get('enabled', False):
+                channels.append(NotificationChannel(
+                    name="slack",
+                    type="slack",
+                    webhook_url=slack_webhook,
+                    channel_id=slack_config.get('channel', '#dev-updates'),
+                    enabled=True
+                ))
+        
+        # Add LINE channel if configured
+        line_token = os.getenv('LINE_NOTIFY_TOKEN')
+        if line_token and hasattr(config, 'notifications'):
+            line_config = config.notifications.get('channels', {}).get('line', {})
+            if line_config.get('enabled', False):
+                channels.append(NotificationChannel(
+                    name="line",
+                    type="line",
+                    webhook_url=line_token,  # For LINE, webhook_url contains access_token
+                    enabled=True
+                ))
+        
+        if not channels:
+            console.print("🔕 [yellow]No notification channels configured. Skipping preview notification.[/yellow]")
+            return {"status": "skipped", "message": "No channels configured"}
+        
+        # Create preview session
+        preview_generator = ContentPreviewGenerator()
+        
+        # If content_items not provided, create mock content for preview
+        if not content_items:
+            content_items = []
+            for platform in platforms:
+                content_items.append({
+                    'platform': platform,
+                    'text': f"Sample {platform} content for {config.name}",
+                    'character_count': 50,
+                    'estimated_reach': 1000
+                })
+        
+        session = preview_generator.create_preview_session(config.name, content_items)
+        
+        # Send notifications to all channels
+        results = {}
+        for channel in channels:
+            notification_manager.channels = [channel]  # Set single channel
+            result = await notification_manager.send_preview_to_channel(session, channel)
+            results[channel.name] = result
+            
+            if result['status'] == 'success':
+                console.print(f"✅ [green]Preview sent to {channel.name}[/green]")
+            else:
+                console.print(f"❌ [red]Failed to send to {channel.name}: {result.get('message', 'Unknown error')}[/red]")
+        
+        return results
+        
+    except Exception as e:
+        console.print(f"❌ [red]Error sending notifications: {e}[/red]")
+        return {"status": "error", "message": str(e)}
+
+
 def send_preview_notification(config, platforms):
-    """Send preview notification to Slack/LINE."""
-    preview_text = f"""
-🚀 AetherPost Campaign Preview
-
-Campaign: {config.name}
-Concept: {getattr(config, 'concept', 'N/A')}
-Platforms: {', '.join(platforms)}
-Time: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-
-📋 Preview Content:
-
-Twitter: 🚀 Introducing AetherPost v1.2.0! AI-powered social media automation for developers. Interactive setup, 5 platforms, 20+ languages. pip install aetherpost && aetherpost init ✨ #OpenSource #DevTools
-
-Reddit: ## AetherPost v1.2.0 - AI-Powered Social Media Automation for Developers
-Terraform-style CLI tool that automates social media promotion using AI-generated content...
-
-✅ Ready to post? Confirm in CLI to proceed.
-    """
-    
-    # Simulate notification sending
-    console.print(f"📩 [green]Notification sent to Slack/LINE:[/green]")
-    console.print(f"[dim]{preview_text.strip()}[/dim]")
-    
-    # In a real implementation, you would send to actual webhook URLs:
-    # try:
-    #     slack_webhook = "https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK"
-    #     requests.post(slack_webhook, json={"text": preview_text})
-    # except:
-    #     pass
+    """Legacy function - now calls real notification system."""
+    try:
+        # Run async function
+        import asyncio
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        result = loop.run_until_complete(send_real_preview_notification(config, platforms))
+        loop.close()
+        
+        # Show summary
+        success_count = sum(1 for r in result.values() if isinstance(r, dict) and r.get('status') == 'success')
+        total_count = len([r for r in result.values() if isinstance(r, dict)])
+        
+        if success_count > 0:
+            console.print(f"📩 [green]Notification sent to {success_count}/{total_count} channels[/green]")
+        else:
+            console.print("📩 [yellow]No notifications sent (check configuration)[/yellow]")
+            
+    except Exception as e:
+        console.print(f"📩 [red]Notification error: {e}[/red]")
+        console.print("📩 [yellow]Continuing without notifications...[/yellow]")
 
 
 def apply_main(

@@ -1,5 +1,42 @@
 # Changelog
 
+## [1.11.0] - 2025-06-29
+
+### 🔔 New Features: Smart Notification System
+- **Slack/LINE Preview Notifications**: Send content previews to Slack/LINE before posting for approval
+- **Real-time Preview Generation**: Rich content previews with platform-specific formatting
+- **Interactive Approval Workflow**: Manual approval required before actual posting to social platforms
+- **Multiple Notification Channels**: Support for Slack webhooks, LINE Notify, and Discord webhooks
+- **Japanese LINE Integration**: Native Japanese message formatting with emoji and character limits
+
+### 📁 Project Context Intelligence 
+- **Smart Project Reading**: Automatically read and analyze project files for content generation
+- **Security-First File Access**: Path traversal prevention, sensitive info filtering, 10KB file limits
+- **Differential Content Generation**: Detect file changes and generate posts based on recent updates
+- **Project Snapshot Management**: Track file changes with MD5 hashing for intelligent difference detection
+- **AI Context Integration**: Include project structure and recent changes in AI content generation prompts
+
+### ⚙️ Enhanced Configuration Management
+- **Advanced Campaign Settings**: Extended `campaign.yaml` with notification and context configurations
+- **Environment-Based Authentication**: Secure token management via `SLACK_WEBHOOK_URL` and `LINE_NOTIFY_TOKEN`
+- **Interactive Setup Improvements**: Detailed notification channel selection in `aetherpost init`
+- **Flexible Context Monitoring**: Configure watched folders, exclude patterns, and security settings
+- **Timeout and Approval Controls**: Configurable approval timeouts and notification requirements
+
+### 🛠️ Technical Improvements
+- **Notification Architecture**: Complete `PreviewNotificationManager` system with channel abstraction
+- **Error Handling Enhancement**: Standardized error codes and recovery mechanisms
+- **Configuration Model Updates**: Pydantic models for `NotificationsConfig` and `NotificationChannelConfig`
+- **Async Notification Support**: Full async/await support for all notification channels
+- **Content Preview Engine**: Rich preview generation with platform-specific block formatting
+
+### 🎯 User Experience
+- **3-Step Workflow Enhancement**: `init` → `plan` → `apply` with integrated notifications
+- **Real-time Feedback**: Live notification sending status with success/failure reporting
+- **Context-Aware Posting**: Posts that reference actual project changes and current development status
+- **Multi-language Support**: Japanese notification messages with proper formatting and emoji usage
+- **Approval Safety**: No accidental posting - explicit approval required for all social media updates
+
 ## [1.10.2] - 2025-06-28
 
 ### 🔧 Platform Integration Fixes

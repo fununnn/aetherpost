@@ -353,6 +353,110 @@ class EmailNotifier:
             logger.error(f"Exception sending email notification: {e}")
             return {"status": "error", "message": str(e)}
 
+class LINENotifier:
+    """LINE Notify notification handler."""
+    
+    def __init__(self, access_token: str):
+        self.access_token = access_token
+        self.api_url = "https://notify-api.line.me/api/notify"
+        self.preview_generator = ContentPreviewGenerator()
+    
+    async def send_preview(self, session: PreviewSession, channel: NotificationChannel) -> Dict[str, Any]:
+        """Send preview to LINE Notify."""
+        try:
+            # Format content for LINE (1000 character limit)
+            message = self._format_line_message(session)
+            
+            # Prepare payload
+            payload = {"message": message}
+            headers = {
+                "Authorization": f"Bearer {self.access_token}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+            
+            async with aiohttp.ClientSession() as session_http:
+                async with session_http.post(
+                    self.api_url,
+                    data=payload,
+                    headers=headers
+                ) as response:
+                    if response.status == 200:
+                        logger.info(f"LINE notification sent successfully to {channel.name}")
+                        return {"status": "success", "message": "LINE notification sent"}
+                    else:
+                        error_text = await response.text()
+                        logger.error(f"LINE notification failed: {response.status} - {error_text}")
+                        return {"status": "error", "message": f"HTTP {response.status}: {error_text}"}
+        
+        except Exception as e:
+            logger.error(f"Exception sending LINE notification: {e}")
+            return {"status": "error", "message": str(e)}
+    
+    def _format_line_message(self, session: PreviewSession) -> str:
+        """Format content preview for LINE Notify (1000 char limit)."""
+        message = f"🚀 AetherPost コンテンツプレビュー\n\n"
+        message += f"📋 キャンペーン: {session.campaign_name}\n"
+        message += f"📱 プラットフォーム: {session.total_platforms}個\n"
+        message += f"📊 推定リーチ: {session.total_estimated_reach:,}\n"
+        message += f"⏰ 生成日時: {session.created_at.strftime('%Y/%m/%d %H:%M')}\n\n"
+        
+        # Add platform previews (shortened for LINE)
+        message += "📝 投稿プレビュー:\n"
+        for i, item in enumerate(session.content_items[:2], 1):  # Limit to 2 items
+            platform_name = item.platform.title()
+            content_preview = item.text[:100] + "..." if len(item.text) > 100 else item.text
+            message += f"\n{i}. {platform_name}:\n{content_preview}\n"
+        
+        if len(session.content_items) > 2:
+            message += f"\n...他 {len(session.content_items) - 2} プラットフォーム\n"
+        
+        message += f"\n✅ 投稿を承認するか確認してください"
+        
+        # Ensure under 1000 characters
+        if len(message) > 1000:
+            message = message[:997] + "..."
+        
+        return message
+    
+    async def send_approval_response(self, session_id: str, action: str, user: str, notes: str = "") -> Dict[str, Any]:
+        """Send approval response via LINE."""
+        try:
+            action_emoji = {
+                "approved": "✅",
+                "rejected": "❌", 
+                "changes_requested": "⚠️"
+            }.get(action, "ℹ️")
+            
+            message = f"{action_emoji} キャンペーン{action.replace('_', ' ')}\n\n"
+            message += f"セッションID: {session_id}\n"
+            message += f"承認者: {user}\n"
+            if notes:
+                message += f"コメント: {notes}\n"
+            message += f"時刻: {datetime.now().strftime('%Y/%m/%d %H:%M')}"
+            
+            payload = {"message": message}
+            headers = {
+                "Authorization": f"Bearer {self.access_token}",
+                "Content-Type": "application/x-www-form-urlencoded"
+            }
+            
+            async with aiohttp.ClientSession() as session_http:
+                async with session_http.post(
+                    self.api_url,
+                    data=payload,
+                    headers=headers
+                ) as response:
+                    if response.status == 200:
+                        return {"status": "success", "message": "LINE approval response sent"}
+                    else:
+                        error_text = await response.text()
+                        return {"status": "error", "message": f"HTTP {response.status}: {error_text}"}
+        
+        except Exception as e:
+            logger.error(f"Exception sending LINE approval response: {e}")
+            return {"status": "error", "message": str(e)}
+
+
 class WebhookNotifier:
     """Generic webhook notification handler."""
     
@@ -470,6 +574,11 @@ class PreviewNotificationManager:
         
         if channel.type == "slack":
             notifier = SlackNotifier(channel.webhook_url)
+            return await notifier.send_preview(session, channel)
+        
+        elif channel.type == "line":
+            # LINE uses access token instead of webhook_url
+            notifier = LINENotifier(channel.webhook_url)  # webhook_url contains access_token for LINE
             return await notifier.send_preview(session, channel)
         
         elif channel.type == "discord":

@@ -58,6 +58,21 @@ class StoryConfig(BaseModel):
     episodes: List[Dict[str, str]] = Field(default_factory=list)
 
 
+class NotificationChannelConfig(BaseModel):
+    """Notification channel configuration."""
+    enabled: bool = True
+    channel: Optional[str] = None
+
+
+class NotificationsConfig(BaseModel):
+    """Notifications configuration."""
+    enabled: bool = False
+    auto_apply: bool = False
+    preview_timeout: int = 300  # seconds
+    require_approval: bool = True
+    channels: Dict[str, NotificationChannelConfig] = Field(default_factory=dict)
+
+
 class CampaignConfig(BaseModel):
     """Main campaign configuration."""
     name: str
@@ -70,6 +85,7 @@ class CampaignConfig(BaseModel):
     experiments: Optional[ExperimentConfig] = None
     story: Optional[StoryConfig] = None
     analytics: bool = True
+    notifications: Optional[NotificationsConfig] = None
 
     @validator('platforms')
     def validate_platforms(cls, v):
