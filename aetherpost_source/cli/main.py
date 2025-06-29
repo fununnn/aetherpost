@@ -13,6 +13,8 @@ from .commands.init import init_main
 from .commands.plan import plan_main
 from .commands.apply import apply_main
 from .commands.destroy import destroy_main
+from .commands.profile import profile_app
+from .commands.scheduler import scheduler_app
 
 # Create main CLI app
 app = typer.Typer(
@@ -22,11 +24,15 @@ app = typer.Typer(
     rich_markup_mode="rich"
 )
 
-# Core commands - Terraform-style simplicity (4 commands only)
+# Core commands - Terraform-style simplicity
 app.command(name="init", help="Initialize campaign configuration")(init_main)
 app.command(name="plan", help="Preview campaign content")(plan_main)
 app.command(name="apply", help="Execute campaign")(apply_main)
 app.command(name="destroy", help="Delete posted content and clean up")(destroy_main)
+
+# Advanced management commands
+app.add_typer(profile_app, name="profile", help="Generate and manage social media profiles")
+app.add_typer(scheduler_app, name="scheduler", help="Manage automated posting schedules")
 
 console = Console()
 

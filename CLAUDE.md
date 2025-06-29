@@ -739,13 +739,17 @@ INSTAGRAM_ENABLED=false
 ## 🎯 開発優先順位
 
 ### v1.x系 (現在) - 実装完了
-- [x] 基本3コマンドワークフロー (init/plan/apply)
+- [x] 基本4コマンドワークフロー (init/plan/apply/destroy)
 - [x] 5プラットフォーム対応 (Twitter, Bluesky, Instagram, LinkedIn, YouTube)
 - [x] プロフィール自動生成・更新
 - [x] **AI画像アイコン自動生成・設定** ✨
 - [x] アイコン永続化・再利用機能
-- [x] 継続投稿システム
-- [x] profileコマンドによる個別修正機能
+- [x] **継続投稿スケジューリングシステム** 🔄
+- [x] **profileコマンド** (generate/update/platforms/demo)
+- [x] **schedulerコマンド** (create/start/stop/status/pause/resume/cleanup/list)
+- [x] **プロジェクトコンテキスト読み取りシステム** 📁
+- [x] **Slack/LINE通知システム** 🔔
+- [x] **バックグラウンドデーモン実行** 🤖
 
 ### v2.x系 (次期)
 - [ ] Web UIダッシュボード

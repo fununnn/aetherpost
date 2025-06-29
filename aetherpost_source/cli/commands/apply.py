@@ -124,6 +124,8 @@ def send_preview_notification(config, platforms):
 
 def apply_main(
     config_file: str = typer.Option("campaign.yaml", "--config", "-c", help="Configuration file"),
+    no_scheduler: bool = typer.Option(False, "--no-scheduler", help="Disable automatic scheduler setup"),
+    scheduler_interval: int = typer.Option(60, "--interval", help="Scheduler check interval in seconds"),
 ):
     """Execute the campaign and post to social media platforms."""
     
@@ -166,11 +168,126 @@ def apply_main(
         # Run execution with notification settings
         asyncio.run(execute_campaign_new(config, platforms, credentials, False, skip_confirm, False, notify, preview))
         
+        # After successful execution, offer scheduler setup
+        _offer_scheduler_setup(config_file, no_scheduler, scheduler_interval, config)
+        
     except FileNotFoundError:
         console.print(f"❌ [red]Configuration file not found: {config_file}[/red]")
         console.print("Run [cyan]aetherpost init[/cyan] to create a configuration file.")
     except Exception as e:
         console.print(f"❌ [red]Error: {e}[/red]")
+
+
+def _offer_scheduler_setup(config_file: str, no_scheduler: bool, scheduler_interval: int, config):
+    """Offer to set up continuous posting scheduler after successful apply."""
+    
+    # Check if user explicitly disabled scheduler
+    if no_scheduler:
+        console.print("⏭️  [yellow]Scheduler setup skipped (--no-scheduler flag used)[/yellow]")
+        return
+    
+    # Check if campaign has scheduling settings
+    content_config = getattr(config, 'content', {})
+    frequency = content_config.get('frequency', 'manual')
+    
+    console.print("\n" + "="*60)
+    console.print(Panel(
+        "[bold blue]🔄 Continuous Posting Setup[/bold blue]",
+        border_style="blue"
+    ))
+    
+    if frequency != 'manual':
+        # Campaign has frequency setting - automatically set up scheduler
+        console.print(f"⚡ [yellow]Campaign configured for {frequency} posting - setting up scheduler automatically...[/yellow]")
+        _setup_scheduler(config_file, scheduler_interval, config)
+    else:
+        # Ask user if they want to set up scheduler
+        console.print("🤔 [blue]Your campaign is set to manual posting mode.[/blue]")
+        console.print("   Would you like to enable continuous automated posting?")
+        
+        if Confirm.ask("Enable continuous posting?"):
+            # Update config to daily posting if user agrees
+            console.print("📝 [blue]Setting posting frequency to 'daily'[/blue]")
+            from .helper import update_campaign_frequency
+            update_campaign_frequency(config_file, 'daily')
+            
+            # Reload config with updated frequency
+            from ...core.config.parser import ConfigLoader
+            config_loader = ConfigLoader()
+            config = config_loader.load_campaign_config(config_file)
+            
+            _setup_scheduler(config_file, scheduler_interval, config)
+        else:
+            console.print("📝 [blue]To enable later:[/blue]")
+            console.print("   1. Edit campaign.yaml: set content.frequency to 'daily'")
+            console.print("   2. Run: [cyan]aetherpost apply[/cyan] (will auto-setup scheduler)")
+            console.print("   Or run manually: [cyan]aetherpost scheduler create && aetherpost scheduler start[/cyan]")
+
+
+def _setup_scheduler(config_file: str, scheduler_interval: int, config):
+    """Set up and start the posting scheduler."""
+    
+    try:
+        from ...core.scheduler.scheduler import PostingScheduler
+        from ...core.scheduler.background import create_scheduler_daemon
+        
+        console.print("📅 [blue]Creating posting schedule...[/blue]")
+        
+        # Create scheduler and schedule
+        scheduler = PostingScheduler()
+        schedule_config = scheduler.create_schedule(config_file)
+        
+        # Get duration from config or default
+        content_config = getattr(config, 'content', {})
+        duration_days = content_config.get('schedule_duration_days', 30)
+        
+        # Generate scheduled posts
+        scheduled_posts = scheduler.generate_scheduled_posts(
+            schedule_config,
+            config_file,
+            config.platforms,
+            duration_days
+        )
+        
+        if not scheduled_posts:
+            console.print("❌ [red]Could not create posting schedule[/red]")
+            return
+        
+        # Save schedule
+        scheduler.save_schedule(scheduled_posts)
+        console.print(f"✅ [green]Created schedule with {len(scheduled_posts)} posts[/green]")
+        
+        # Ask about starting daemon
+        console.print("\n🤖 [blue]Start background posting daemon?[/blue]")
+        console.print(f"   This will check for posts every {scheduler_interval} seconds")
+        
+        if Confirm.ask("Start background daemon?"):
+            success = create_scheduler_daemon(
+                campaign_file=config_file,
+                check_interval=scheduler_interval
+            )
+            
+            if success:
+                console.print("🚀 [green]Background posting daemon started![/green]")
+                console.print("📊 Monitor with: [cyan]aetherpost scheduler status[/cyan]")
+                console.print("🛑 Stop with: [cyan]aetherpost scheduler stop[/cyan]")
+                console.print("📝 Logs: [cyan].aetherpost/scheduler.log[/cyan]")
+            else:
+                console.print("❌ [red]Failed to start daemon[/red]")
+        else:
+            console.print("📝 [blue]To start later, run: [cyan]aetherpost scheduler start --daemon[/cyan][/blue]")
+        
+        # Show schedule summary
+        from datetime import datetime
+        pending_posts = [p for p in scheduled_posts if p.scheduled_time > datetime.utcnow()]
+        if pending_posts:
+            next_post = min(pending_posts, key=lambda p: p.scheduled_time)
+            console.print(f"\n📅 [green]Next post scheduled: {next_post.scheduled_time.strftime('%Y-%m-%d %H:%M')} UTC[/green]")
+            console.print(f"🎯 Platforms: {', '.join(next_post.platforms)}")
+        
+    except Exception as e:
+        console.print(f"❌ [red]Error setting up scheduler: {e}[/red]")
+        console.print("📝 [blue]Try manual setup: [cyan]aetherpost scheduler create[/cyan][/blue]")
 
 
 async def execute_campaign_new(config, platforms, credentials, dry_run: bool, skip_confirm: bool, skip_review: bool = False, notify: bool = True, preview: bool = True):
